@@ -5,6 +5,7 @@ use std::path::PathBuf;
 use clap::{Parser, Subcommand};
 
 mod fetch_cmd;
+mod ingest_cmd;
 
 #[derive(Parser, Debug)]
 #[command(
@@ -21,14 +22,27 @@ struct Cli {
 enum Command {
     /// Fetch pinned upstream data sources into `data/<source>/`.
     Fetch(FetchArgs),
-    /// Ingest fetched data into the canonical schema (Phase 2).
-    Ingest,
+    /// Ingest fetched data into the canonical schema.
+    Ingest(IngestArgs),
     /// Run deterministic verifiers over the DB (Phase 3).
     Verify,
     /// Run the LLM proposer (Phase 4).
     Propose,
     /// Curator CLI: list, diff, accept/reject proposals (Phase 5).
     Curate,
+}
+
+#[derive(clap::Args, Debug)]
+pub struct IngestArgs {
+    /// Root of the data tree containing per-source subdirectories.
+    #[arg(long, default_value = "data")]
+    pub data_root: PathBuf,
+    /// Emit human-diffable TSV tables to this directory.
+    #[arg(long)]
+    pub out_tsv: Option<PathBuf>,
+    /// Emit compact bincode binary to this file.
+    #[arg(long)]
+    pub out_binary: Option<PathBuf>,
 }
 
 #[derive(clap::Args, Debug)]
@@ -80,7 +94,8 @@ async fn main() -> anyhow::Result<()> {
     let cli = Cli::parse();
     match cli.command {
         Command::Fetch(args) => fetch_cmd::run(args).await,
-        Command::Ingest | Command::Verify | Command::Propose | Command::Curate => {
+        Command::Ingest(args) => ingest_cmd::run(args),
+        Command::Verify | Command::Propose | Command::Curate => {
             tracing::warn!("subcommand not yet implemented (see plan.md)");
             Ok(())
         }

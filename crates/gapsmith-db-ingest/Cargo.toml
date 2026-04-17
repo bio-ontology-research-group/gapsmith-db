@@ -29,6 +29,7 @@ tar = { workspace = true }
 rand = { workspace = true }
 tempfile = { workspace = true }
 urlencoding = { workspace = true }
+csv = { workspace = true }
 
 [dev-dependencies]
 tempfile = { workspace = true }

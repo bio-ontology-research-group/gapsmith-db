@@ -11,6 +11,8 @@ pub mod fetch;
 pub mod hash;
 pub mod http;
 pub mod manifest;
+pub mod merge;
+pub mod parse;
 pub mod source;
 pub mod sources;
 
