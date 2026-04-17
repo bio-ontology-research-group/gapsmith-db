@@ -6,6 +6,7 @@ use clap::{Parser, Subcommand};
 
 mod fetch_cmd;
 mod ingest_cmd;
+mod verify_cmd;
 
 #[derive(Parser, Debug)]
 #[command(
@@ -24,8 +25,8 @@ enum Command {
     Fetch(FetchArgs),
     /// Ingest fetched data into the canonical schema.
     Ingest(IngestArgs),
-    /// Run deterministic verifiers over the DB (Phase 3).
-    Verify,
+    /// Run deterministic verifiers over the DB.
+    Verify(VerifyArgs),
     /// Run the LLM proposer (Phase 4).
     Propose,
     /// Curator CLI: list, diff, accept/reject proposals (Phase 5).
@@ -43,6 +44,54 @@ pub struct IngestArgs {
     /// Emit compact bincode binary to this file.
     #[arg(long)]
     pub out_binary: Option<PathBuf>,
+}
+
+#[derive(clap::Args, Debug)]
+#[allow(clippy::struct_excessive_bools)]
+pub struct VerifyArgs {
+    /// Path to the bincode DB produced by `gapsmith-db ingest`.
+    #[arg(long)]
+    pub db: PathBuf,
+    /// Restrict the run to these verifier names (default: all).
+    #[arg(long)]
+    pub only: Vec<String>,
+    /// Write the full JSON report here instead of stdout.
+    #[arg(long)]
+    pub report: Option<PathBuf>,
+    /// Do not exit non-zero on Error-severity diagnostics.
+    #[arg(long)]
+    pub allow_errors: bool,
+
+    /// IntEnz enzyme.dat flat file.
+    #[arg(long)]
+    pub intenz_dat: Option<PathBuf>,
+    /// Swiss-Prot JSON snapshot (from the UniProt fetcher).
+    #[arg(long)]
+    pub uniprot_snapshot: Option<PathBuf>,
+    /// PMID cache file (JSON list or `{pmid: ...}` object).
+    #[arg(long)]
+    pub pmid_cache: Option<PathBuf>,
+    /// Look up missing PMIDs via E-utilities.
+    #[arg(long)]
+    pub pmid_online: bool,
+
+    /// Universal SBML model for FBA verifiers.
+    #[arg(long)]
+    pub universal_model: Option<PathBuf>,
+    /// Medium JSON for PathwayFluxTest.
+    #[arg(long)]
+    pub medium: Option<PathBuf>,
+    /// Tolerance for AtpCycleTest; default 1e-6.
+    #[arg(long)]
+    pub atp_epsilon: Option<f64>,
+
+    /// Write the DL consistency signature to this Turtle-ish file.
+    #[arg(long)]
+    pub dl_signature_out: Option<PathBuf>,
+
+    /// Python bridge project directory (containing pyproject.toml).
+    #[arg(long, default_value = "python")]
+    pub python_project: PathBuf,
 }
 
 #[derive(clap::Args, Debug)]
@@ -95,7 +144,8 @@ async fn main() -> anyhow::Result<()> {
     match cli.command {
         Command::Fetch(args) => fetch_cmd::run(args).await,
         Command::Ingest(args) => ingest_cmd::run(args),
-        Command::Verify | Command::Propose | Command::Curate => {
+        Command::Verify(args) => verify_cmd::run(args),
+        Command::Propose | Command::Curate => {
             tracing::warn!("subcommand not yet implemented (see plan.md)");
             Ok(())
         }

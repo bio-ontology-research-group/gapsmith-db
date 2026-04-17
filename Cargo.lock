@@ -537,10 +537,16 @@ dependencies = [
 name = "gapsmith-db-verify"
 version = "0.0.0"
 dependencies = [
+ "anyhow",
+ "chrono",
  "gapsmith-db-core",
+ "indexmap",
+ "reqwest",
  "serde",
  "serde_json",
+ "tempfile",
  "thiserror",
+ "tokio",
  "tracing",
 ]
 

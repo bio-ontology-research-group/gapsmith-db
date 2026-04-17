@@ -18,9 +18,9 @@ workspace = true
 [dependencies]
 gapsmith-db-core = { workspace = true }
 gapsmith-db-ingest = { workspace = true }
-serde_json = { workspace = true }
 gapsmith-db-verify = { workspace = true }
 gapsmith-db-propose = { workspace = true }
+serde_json = { workspace = true }
 anyhow = { workspace = true }
 clap = { workspace = true }
 tokio = { workspace = true }
