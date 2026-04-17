@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# gapsmith-db pre-commit hook.
+# Install with: just install-hooks  (or ln -sf ../../scripts/pre-commit .git/hooks/pre-commit)
+
+set -euo pipefail
+
+repo_root=$(git rev-parse --show-toplevel)
+cd "$repo_root"
+
+changed_rust=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.rs$' || true)
+changed_py=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '^python/.*\.py$' || true)
+
+if [ -n "$changed_rust" ]; then
+    echo "pre-commit: cargo fmt --check"
+    cargo fmt --all -- --check
+    echo "pre-commit: cargo clippy"
+    cargo clippy --workspace --all-targets -- -D warnings
+fi
+
+if [ -n "$changed_py" ]; then
+    # --with ruff makes the hook usable before `uv sync` is run.
+    echo "pre-commit: ruff check"
+    (cd python && uv run --with ruff --quiet ruff check .)
+    echo "pre-commit: ruff format --check"
+    (cd python && uv run --with ruff --quiet ruff format --check .)
+fi
+
+# Licence-lint: forbid MetaCyc / BioCyc in code, data, or prompt paths.
+# (Documentation discussing the exclusion is permitted.)
+hits=$(git diff --cached -U0 -- \
+         'crates/**/*.rs' \
+         'python/src/**/*.py' \
+         'python/tests/**/*.py' \
+         'data/**/SOURCE.toml' \
+         'data/**/*.tsv' \
+         'data/**/*.json' \
+         'prompts/**' \
+         'corpus/**' \
+       | grep -iE '^\+.*(metacyc|biocyc)' || true)
+if [ -n "$hits" ]; then
+    echo "pre-commit: forbidden references to MetaCyc/BioCyc in code/data/prompts:" >&2
+    echo "$hits" >&2
+    exit 1
+fi
+
+echo "pre-commit: ok"

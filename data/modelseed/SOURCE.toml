@@ -1,0 +1,22 @@
+# Data-source declaration. See PROVENANCE.md for the pinning policy.
+name = "ModelSEEDDatabase"
+upstream_url = "https://github.com/ModelSEED/ModelSEEDDatabase"
+licence = "Creative Commons Attribution 4.0 International (CC-BY-4.0)"
+licence_url = "https://github.com/ModelSEED/ModelSEEDDatabase/blob/master/LICENSE"
+attribution = "Seaver SMD et al., ModelSEEDDatabase, https://github.com/ModelSEED/ModelSEEDDatabase (CC-BY-4.0)"
+
+# Pin policy: Git commit. Fill on first fetch.
+pinned_commit = ""
+pinned_date = ""
+sha256 = ""
+
+artefacts = [
+    "Biochemistry/reactions.tsv",
+    "Biochemistry/compounds.tsv",
+    "Biochemistry/Pathways/ModelSEED_Subsystems.tsv",
+]
+
+notes = """
+Primary source for SEED reactions/compounds and subsystem pathway hints.
+Integrates with ModelSEED IDs already used by the Rust gapseq port.
+"""

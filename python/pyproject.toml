@@ -1,0 +1,42 @@
+[project]
+name = "gapsmith-bridge"
+version = "0.0.0"
+description = "Python bio-ecosystem bridge for gapsmith-db (cobra, equilibrator, PubMed, Europe PMC)."
+requires-python = ">=3.12,<3.13"
+license = { text = "Apache-2.0 OR MIT" }
+authors = [{ name = "Robert Hoehndorf", email = "robert.hoehndorf@kaust.edu.sa" }]
+readme = "README.md"
+
+dependencies = [
+    "cobra>=0.29",
+    "equilibrator-api>=0.6",
+    "requests>=2.32",
+    "pydantic>=2.7",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "pytest-xdist>=3",
+    "ruff>=0.6",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/gapsmith_bridge"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "PL", "RUF"]
+ignore = ["PLR0913"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"

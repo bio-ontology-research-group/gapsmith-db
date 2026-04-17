@@ -1,0 +1,27 @@
+[package]
+name = "gapsmith-db-cli"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+description = "Command-line interface binary for gapsmith-db."
+
+[[bin]]
+name = "gapsmith-db"
+path = "src/main.rs"
+
+[lints]
+workspace = true
+
+[dependencies]
+gapsmith-db-core = { workspace = true }
+gapsmith-db-ingest = { workspace = true }
+gapsmith-db-verify = { workspace = true }
+gapsmith-db-propose = { workspace = true }
+anyhow = { workspace = true }
+clap = { workspace = true }
+tokio = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }

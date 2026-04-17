@@ -1,0 +1,59 @@
+[workspace]
+resolver = "3"
+members = [
+    "crates/gapsmith-db-core",
+    "crates/gapsmith-db-ingest",
+    "crates/gapsmith-db-verify",
+    "crates/gapsmith-db-propose",
+    "crates/gapsmith-db-cli",
+]
+
+[workspace.package]
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.90"
+license = "Apache-2.0 OR MIT"
+repository = "https://github.com/bio-ontology-research-group/gapsmith-db"
+authors = ["Robert Hoehndorf <robert.hoehndorf@kaust.edu.sa>"]
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+all = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+todo = "warn"
+# doc_markdown fights against technical nouns in module docs (LLM, PubMed, OpenRouter, PyO3…).
+doc_markdown = "allow"
+# missing_errors_doc / must_use_candidate are premature for Phase-0 stubs; revisit in Phase 2.
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"
+
+[workspace.dependencies]
+anyhow = "1"
+thiserror = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "0.9"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "fs", "io-util", "net", "time"] }
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json", "gzip", "stream"] }
+sha2 = "0.10"
+hex = "0.4"
+clap = { version = "4", features = ["derive", "env"] }
+rkyv = "0.7"
+bincode = "1"
+proptest = "1"
+
+gapsmith-db-core = { path = "crates/gapsmith-db-core" }
+gapsmith-db-ingest = { path = "crates/gapsmith-db-ingest" }
+gapsmith-db-verify = { path = "crates/gapsmith-db-verify" }
+gapsmith-db-propose = { path = "crates/gapsmith-db-propose" }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1

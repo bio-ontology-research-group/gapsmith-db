@@ -1,0 +1,29 @@
+name = "gapseq"
+upstream_url = "https://github.com/jotech/gapseq"
+licence = "GPL-3.0-or-later"
+licence_url = "https://github.com/jotech/gapseq/blob/master/LICENSE"
+attribution = "Zimmermann J, Kaleta C, Waschina S. gapseq: informed prediction of bacterial metabolic pathways and reconstruction of accurate metabolic models. Genome Biol. 22:81 (2021) (GPL-3.0-or-later)"
+
+pinned_commit = ""
+pinned_date = ""
+sha256 = ""
+
+artefacts = [
+    "dat/seed_reactions_corrected.tsv",
+    "dat/seed_metabolites_edited.tsv",
+    "dat/seed_transporter.tbl",
+    "dat/seed_transporter_custom.tbl",
+    "dat/custom_pwy.tbl",
+]
+
+gpl_obligation = true
+
+notes = """
+gapseq is GPLv3. The `dat/` corrections are incorporated for quality parity.
+GPLv3 obligation: any downstream release that distributes gapsmith-db together
+with gapseq dat/ derivatives MUST comply with GPLv3 for that combined work
+(source availability, copyleft on modifications). See LICENSING.md.
+
+If the release policy demands permissive-only, replace with independently
+derived corrections and drop gapseq as a source.
+"""

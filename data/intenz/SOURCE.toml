@@ -1,0 +1,19 @@
+name = "IntEnz"
+upstream_url = "https://www.ebi.ac.uk/intenz/"
+ftp_url = "https://ftp.ebi.ac.uk/pub/databases/intenz/"
+licence = "Creative Commons Attribution 4.0 International (CC-BY-4.0)"
+licence_url = "https://www.ebi.ac.uk/intenz/"
+attribution = "Fleischmann A et al. IntEnz, the integrated relational enzyme database. Nucleic Acids Res. 32(Database issue):D434-D437 (CC-BY-4.0)"
+
+pinned_release = ""
+pinned_date = ""
+sha256 = ""
+
+artefacts = [
+    "xml/intenz.xml.gz",
+    "flat/enzyme.dat",
+]
+
+notes = """
+Curated EC nomenclature. Feeds the EcValidity verifier (four-level existence).
+"""

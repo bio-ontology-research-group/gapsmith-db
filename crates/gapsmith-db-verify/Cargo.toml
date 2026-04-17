@@ -1,0 +1,19 @@
+[package]
+name = "gapsmith-db-verify"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+description = "Deterministic symbolic and constraint-based verifiers for gapsmith-db proposals."
+
+[lints]
+workspace = true
+
+[dependencies]
+gapsmith-db-core = { workspace = true }
+thiserror = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tracing = { workspace = true }

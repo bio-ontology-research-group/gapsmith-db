@@ -1,0 +1,20 @@
+name = "UniProtKB/Swiss-Prot"
+upstream_url = "https://www.uniprot.org/"
+rest_url = "https://rest.uniprot.org/uniprotkb/"
+licence = "Creative Commons Attribution 4.0 International (CC-BY-4.0)"
+licence_url = "https://www.uniprot.org/help/license"
+attribution = "The UniProt Consortium. UniProt: the Universal Protein Knowledgebase in 2023. Nucleic Acids Res. 51(D1):D523-D531 (CC-BY-4.0)"
+
+pinned_release = ""
+pinned_date = ""
+sha256 = ""
+
+# Fetched as sharded raw JSON via the REST API; query the EC-annotated Swiss-Prot subset.
+query = "reviewed:true AND (ec:*)"
+artefacts = [
+    "shards/*.json.gz",
+]
+
+notes = """
+Swiss-Prot EC-annotated reviewed subset. Drives the UniProtExistence verifier.
+"""

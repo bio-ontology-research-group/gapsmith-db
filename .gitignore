@@ -1,0 +1,39 @@
+# Rust
+/target
+**/*.rs.bk
+Cargo.lock.bak
+
+# Python
+python/.venv
+python/.pytest_cache
+python/.ruff_cache
+python/dist
+python/build
+python/*.egg-info
+__pycache__
+*.pyc
+
+# Raw upstream data — only SOURCE.toml is committed; artefacts are fetched.
+data/*/*
+!data/*/SOURCE.toml
+!data/*/.gitkeep
+!data/README.md
+data/*/.tmp
+data/*/MANIFEST.json
+
+# Proposals, curator state, LLM cache
+proposals/
+corpus/
+.cache/
+.openrouter/
+*.env.local
+
+# Editor / OS
+*.swp
+*.swo
+.DS_Store
+.idea/
+.vscode/
+
+# Backups
+*~

@@ -1,0 +1,25 @@
+name = "MNXref"
+upstream_url = "https://www.metanetx.org/mnxdoc/mnxref.html"
+download_url = "https://www.metanetx.org/ftp/"
+licence = "Creative Commons Attribution 4.0 International (CC-BY-4.0)"
+licence_url = "https://www.metanetx.org/mnxdoc/mnxref.html"
+attribution = "Moretti S et al. MetaNetX/MNXref: unified namespace for metabolites and biochemical reactions. Nucleic Acids Res. 49(D1):D570-D574 (CC-BY-4.0)"
+
+pinned_release = ""
+pinned_date = ""
+sha256 = ""
+
+artefacts = [
+    "chem_xref.tsv",
+    "reac_xref.tsv",
+    "chem_prop.tsv",
+    "reac_prop.tsv",
+]
+
+notes = """
+Cross-reference backbone. Used as the second dedup key (after InChIKey) when
+merging compounds across ModelSEED, Rhea, ChEBI.
+
+MetaNetX aggregates upstream resources; we use it for namespace mapping only,
+never transitively re-redistribute the upstream data it references.
+"""

@@ -1,0 +1,24 @@
+name = "Rhea"
+upstream_url = "https://www.rhea-db.org/"
+ftp_url = "https://ftp.expasy.org/databases/rhea/"
+licence = "Creative Commons Attribution 4.0 International (CC-BY-4.0)"
+licence_url = "https://www.rhea-db.org/help/license-disclaimer"
+attribution = "Bansal P et al. Rhea, the reaction knowledgebase in 2022. Nucleic Acids Res. 50(D1):D693-D700 (CC-BY-4.0)"
+
+# Pin policy: Rhea release number.
+pinned_release = ""
+pinned_date = ""
+sha256 = ""
+
+artefacts = [
+    "tsv/rhea-reactions.tsv",
+    "tsv/rhea2ec.tsv",
+    "tsv/rhea2uniprot_sprot.tsv",
+    "rdf/rhea.rdf.gz",
+    "chebi/rhea2chebi.tsv",
+]
+
+notes = """
+Canonical ChEBI-based reaction references. Prefer Rhea IDs over SEED where
+both exist; SEED is kept as secondary cross-reference.
+"""
