@@ -3,7 +3,7 @@ name = "gapsmith-bridge"
 version = "0.0.0"
 description = "Python bio-ecosystem bridge for gapsmith-db (cobra, equilibrator, PubMed, Europe PMC)."
 requires-python = ">=3.12,<3.13"
-license = { text = "Apache-2.0 OR MIT" }
+license = { text = "GPL-3.0-or-later" }
 authors = [{ name = "Robert Hoehndorf", email = "robert.hoehndorf@kaust.edu.sa" }]
 readme = "README.md"
 

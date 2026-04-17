@@ -1,7 +1,11 @@
 # Licensing
 
-gapsmith-db is an open, licence-clean curation pipeline. The code in this
-repository is dual-licensed **Apache-2.0 OR MIT** at the user's choice.
+gapsmith-db is an open, licence-clean curation pipeline.
+
+**Code licence: GNU GPL-3.0-or-later.** Full text in [`LICENSE`](./LICENSE).
+This aligns with the upstream gapseq project (also GPL-3.0-or-later) so
+that combined builds incorporating gapseq `dat/` corrections raise no
+additional licence questions.
 
 ## Hard exclusions
 
@@ -34,18 +38,18 @@ identifiers.
 | gapseq `dat/`          | GPL-3.0-or-later     | **Copyleft**  | Combined works must ship under GPL-3.0-or-later.|
 | KEGG                   | Proprietary          | **No**        | Fetch gated behind `--i-have-a-kegg-licence`.   |
 
-## The gapseq GPL obligation
+## The gapseq GPL alignment
 
 `data/gapseq/` incorporates corrections from the gapseq `dat/` directory.
-gapseq is GPL-3.0-or-later. The consequences:
+gapseq is GPL-3.0-or-later. Because gapsmith-db is itself GPL-3.0-or-later,
+combined builds are covered by a single licence — no dual-track build
+artefact is needed. Downstream redistribution of a built DB that contains
+gapseq `dat/` derivatives must follow GPL-3.0-or-later (source
+availability, copyleft on modifications).
 
-- **Source code** in this repository is Apache-2.0 OR MIT and can always
-  be reused under those terms.
-- **Redistributing a built database artefact that contains gapseq `dat/`
-  derivatives** (curated corrections, transporter tables, custom pathways)
-  creates a combined work that must be distributed under GPL-3.0-or-later.
-- A release-time flag (`--permissive-only`) will emit a build that omits
-  gapseq-derived rows and relabels the artefact accordingly.
+The CC-BY-4.0 data sources are compatible with redistribution under
+GPL-3.0-or-later provided the attribution strings from each `SOURCE.toml`
+are preserved in `CITATIONS.md`.
 
 ## KEGG
 

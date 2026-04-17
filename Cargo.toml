@@ -12,7 +12,7 @@ members = [
 version = "0.0.0"
 edition = "2024"
 rust-version = "1.90"
-license = "Apache-2.0 OR MIT"
+license = "GPL-3.0-or-later"
 repository = "https://github.com/bio-ontology-research-group/gapsmith-db"
 authors = ["Robert Hoehndorf <robert.hoehndorf@kaust.edu.sa>"]
 

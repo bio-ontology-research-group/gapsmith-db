@@ -54,6 +54,6 @@ Data fetchers and ingestion are wired in Phase 1+.
 
 ## Licensing
 
-Code: Apache-2.0 OR MIT (user's choice).
-Data obligations: per-source in [`LICENSING.md`](./LICENSING.md). Note the
-GPL-3.0 copyleft on any artefact that incorporates gapseq `dat/` corrections.
+Code: **GNU GPL-3.0-or-later** (see [`LICENSE`](./LICENSE)). Matches the
+upstream gapseq licence.
+Data obligations: per-source in [`LICENSING.md`](./LICENSING.md).
