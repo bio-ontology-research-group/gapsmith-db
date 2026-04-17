@@ -203,16 +203,16 @@ def upsert_passages(
     passages: list[Passage],
     vectors: list[list[float]],
     api_key: str | None,
-    batch_size: int = 128,
+    batch_size: int = 64,
+    timeout_seconds: int = 300,
+    max_retries: int = 5,
 ) -> None:
     from qdrant_client import QdrantClient  # noqa: PLC0415
     from qdrant_client.http.models import PointStruct  # noqa: PLC0415
 
-    client = QdrantClient(url=qdrant_url, api_key=api_key)
+    client = QdrantClient(url=qdrant_url, api_key=api_key, timeout=timeout_seconds)
     points = []
     for p, v in zip(passages, vectors, strict=True):
-        # Qdrant needs an int or UUID as the primary id; we hash the
-        # passage id into a 64-bit int.
         idx = int(hashlib.sha256(p.id.encode()).hexdigest()[:16], 16)
         points.append(
             PointStruct(
@@ -229,7 +229,24 @@ def upsert_passages(
         )
     for start in range(0, len(points), batch_size):
         batch = points[start : start + batch_size]
-        client.upsert(collection_name=collection, points=batch, wait=True)
+        # Retry on transient HTTP errors (typical over SSH tunnels).
+        for attempt in range(1, max_retries + 1):
+            try:
+                client.upsert(collection_name=collection, points=batch, wait=True)
+                break
+            except Exception as e:
+                if attempt >= max_retries:
+                    raise
+                sleep_s = min(2**attempt, 30)
+                LOG.warning(
+                    "upsert batch %d failed (attempt %d/%d): %s; retrying in %ds",
+                    start,
+                    attempt,
+                    max_retries,
+                    e,
+                    sleep_s,
+                )
+                time.sleep(sleep_s)
         LOG.info(
             "upserted %d/%d points into %s",
             start + len(batch),
