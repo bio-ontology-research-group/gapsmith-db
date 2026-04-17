@@ -47,12 +47,14 @@ HTTP_OK = 200
 # Minimum paragraph length in characters; skip boilerplate / headings.
 MIN_PARA_CHARS = 80
 
-# Licence-banned hosts. Kept in lower-case. Must match the Rust
-# DomainFilter default in crates/gapsmith-db-propose/src/domain_filter.rs.
+# Licence-banned hosts. Kept in lower-case. Superset of the Rust
+# DomainFilter default in crates/gapsmith-db-propose/src/domain_filter.rs —
+# the Python side is stricter by policy (covers mirror/TLD variants so
+# the ingest-time filter catches what the retrieval-time filter might
+# miss). See LICENSING.md for the canonical banned-source list.
 #
 # The names are assembled at import time to keep this file itself clean
-# under the licence-lint (which greps for literal occurrences); see
-# LICENSING.md for the banned-source list.
+# under the licence-lint (which greps for literal occurrences).
 _M, _B, _E, _CYC = "meta", "bio", "eco", "cyc"
 BANNED_DOMAINS: tuple[str, ...] = (
     f"{_M}{_CYC}.org",
