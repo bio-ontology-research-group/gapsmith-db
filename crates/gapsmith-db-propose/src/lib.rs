@@ -31,6 +31,7 @@ pub use domain_filter::DomainFilter;
 pub use llm::{FixtureBackend, LlmBackend, OpenRouterBackend};
 pub use prompt::{PROMPT_VERSION, PromptContext, PromptTemplate};
 pub use proposer::{Proposer, ProposerOptions};
+pub use retrieval::qdrant::{EmbedderConfig, QdrantConfig};
 pub use retrieval::{InMemoryBackend, Passage, QdrantBackend, RetrievalBackend, SearchQuery};
 pub use router::{ProposalDisposition, route_proposal};
 pub use schema::{

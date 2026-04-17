@@ -153,8 +153,44 @@ uv run --project python --extra retrieval python \
     --max-papers 200
 ```
 
-`gapsmith-db propose` then reads from that collection when the proposer
-is configured with a [`QdrantConfig`](./crates/gapsmith-db-propose/src/retrieval/qdrant.rs).
+`gapsmith-db propose` and `gapsmith-db propose-catalogue` then read
+from that collection when `--qdrant-url` is set:
+
+```sh
+gapsmith-db propose \
+    --model qwen/qwen3.6-plus \
+    --query "methanogenesis from CO2" \
+    --qdrant-url http://localhost:6333 \
+    --qdrant-collection gapsmith
+```
+
+### Batch catalogue run
+
+To propose over a whole pathway-name seed (`proposals/catalogue/`):
+
+```sh
+# Pilot: 10 rows only, 500ms throttle, dry-run first to sanity-check.
+gapsmith-db propose-catalogue \
+    --seed proposals/catalogue/microbial.tsv \
+    --seed proposals/catalogue/reactome.tsv \
+    --model qwen/qwen3.6-plus \
+    --qdrant-url http://localhost:6333 \
+    --limit 10 --throttle-ms 500 --dry-run
+
+# Real run. --resume skips pathways already proposed on disk so the
+# driver is restartable after rate-limit backoff.
+gapsmith-db propose-catalogue \
+    --seed proposals/catalogue/microbial.tsv \
+    --model qwen/qwen3.6-plus \
+    --qdrant-url http://localhost:6333 \
+    --throttle-ms 3000 --resume
+
+# Per-run TSV log lands in proposals/runs/catalogue_<timestamp>.tsv
+# with one row per pathway: timestamp, pathway, status, detail.
+```
+
+Category filter is handy for piloting inside one family
+(`--category methanogenesis`, `--category amino_acid_biosynthesis`, …).
 
 ## Licensing
 

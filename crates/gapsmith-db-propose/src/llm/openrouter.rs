@@ -163,10 +163,74 @@ impl LlmBackend for OpenRouterBackend {
             .next()
             .map(|c| c.message.content)
             .ok_or_else(|| ProposeError::Llm("openrouter returned no choices".into()))?;
-        let mut proposal: Proposal = serde_json::from_str(&content).map_err(|e| {
+        let mut proposal: Proposal = parse_proposal_content(&content).map_err(|e| {
             ProposeError::Llm(format!("openrouter response not valid Proposal JSON: {e}"))
         })?;
         proposal.model.clone_from(&self.config.model);
         Ok(proposal.hashed())
+    }
+}
+
+/// Parse a model response into a `Proposal`.
+///
+/// Tries the raw body first. On failure, falls back to stripping common
+/// markdown fences (```json … ```) and slicing from the first `{` to the
+/// last `}` — the typical shape of a chat response that ignored
+/// `response_format: json_object`. This makes the client robust against
+/// free-tier models that add preamble/commentary around the JSON.
+fn parse_proposal_content(raw: &str) -> std::result::Result<Proposal, serde_json::Error> {
+    if let Ok(p) = serde_json::from_str::<Proposal>(raw) {
+        return Ok(p);
+    }
+    serde_json::from_str(extract_json_object(raw))
+}
+
+fn extract_json_object(raw: &str) -> &str {
+    let s = raw.trim();
+    // Strip leading/trailing triple-backtick fences, optionally with a
+    // language tag (```json). We tolerate both ```json and ``` at the
+    // start, and an optional trailing ```.
+    let s = s
+        .strip_prefix("```json")
+        .or_else(|| s.strip_prefix("```JSON"))
+        .or_else(|| s.strip_prefix("```"))
+        .map_or(s, str::trim);
+    let s = s.strip_suffix("```").map_or(s, str::trim);
+    // Slice from the first `{` to the last `}` to drop any prose the
+    // model added before/after.
+    let start = s.find('{');
+    let end = s.rfind('}');
+    match (start, end) {
+        (Some(a), Some(b)) if b > a => &s[a..=b],
+        _ => s,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn extract_plain_json_unchanged() {
+        let s = r#"{"a":1}"#;
+        assert_eq!(extract_json_object(s), s);
+    }
+
+    #[test]
+    fn extract_strips_json_fence() {
+        let s = "```json\n{\"a\":1}\n```";
+        assert_eq!(extract_json_object(s), "{\"a\":1}");
+    }
+
+    #[test]
+    fn extract_strips_bare_fence_and_prose() {
+        let s = "Sure, here's the proposal:\n```\n{\"schema_version\":\"1\"}\n```\nLet me know if you need anything else.";
+        assert_eq!(extract_json_object(s), "{\"schema_version\":\"1\"}");
+    }
+
+    #[test]
+    fn extract_slices_on_prose_without_fence() {
+        let s = "Here it is: {\"a\":1} — hope that helps!";
+        assert_eq!(extract_json_object(s), "{\"a\":1}");
     }
 }

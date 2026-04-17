@@ -1,17 +1,14 @@
-//! `gapsmith-db propose` subcommand. Phase-4 default: mock proposer
-//! driven by a fixture file; no real LLM calls.
-
-use std::path::{Path, PathBuf};
+//! `gapsmith-db propose` subcommand — single pathway, mock or live.
 
 use anyhow::Context;
 use gapsmith_db_propose::llm::{FixtureBackend, LlmBackend, OpenRouterBackend, OpenRouterConfig};
-use gapsmith_db_propose::retrieval::{InMemoryBackend, Passage, RetrievalBackend};
 use gapsmith_db_propose::{
     DomainFilter, PromptTemplate, Proposer, ProposerOptions, schema::ProposalTarget,
 };
 use tracing::info;
 
 use crate::ProposeArgs;
+use crate::retrieval_factory;
 
 pub fn run(args: ProposeArgs) -> anyhow::Result<()> {
     let template = if args.prompt.exists() {
@@ -21,11 +18,11 @@ pub fn run(args: ProposeArgs) -> anyhow::Result<()> {
         PromptTemplate::from_string(include_str!("../../../prompts/pathway_proposal.md"))
     };
 
-    let retrieval = load_retrieval(&args)?;
+    let retrieval = retrieval_factory::build(&args.retrieval)?;
 
     let opts = ProposerOptions {
         proposals_dir: args.proposals_dir.clone(),
-        top_k: args.top_k,
+        top_k: args.retrieval.top_k,
         filter: DomainFilter::default(),
     };
 
@@ -59,18 +56,3 @@ pub fn run(args: ProposeArgs) -> anyhow::Result<()> {
     }
     Ok(())
 }
-
-fn load_retrieval(args: &ProposeArgs) -> anyhow::Result<InMemoryBackend> {
-    // Phase-4 default: no retrieval. Load from a JSON array if the file exists.
-    let mut passages: Vec<Passage> = Vec::new();
-    if let Some(path) = args.passages.as_ref() {
-        let bytes = std::fs::read(path)
-            .with_context(|| format!("reading passages from {}", path.display()))?;
-        passages = serde_json::from_slice(&bytes)?;
-    }
-    Ok(InMemoryBackend::new(passages))
-}
-
-// Silence unused-import warnings.
-#[allow(dead_code)]
-fn _unused(_: &Path, _: &PathBuf, _: &dyn RetrievalBackend) {}

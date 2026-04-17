@@ -7,8 +7,10 @@ use clap::{Parser, Subcommand};
 mod curate_cmd;
 mod fetch_cmd;
 mod ingest_cmd;
+mod propose_catalogue_cmd;
 mod propose_cmd;
 mod release_cmd;
+mod retrieval_factory;
 mod universal_cmd;
 mod verify_cmd;
 
@@ -33,6 +35,8 @@ enum Command {
     Verify(VerifyArgs),
     /// Run the LLM proposer (or the Phase-4 mock).
     Propose(ProposeArgs),
+    /// Batch-run the proposer over a pathway-name catalogue (TSV seed).
+    ProposeCatalogue(propose_catalogue_cmd::ProposeCatalogueArgs),
     /// Curator tools: list/show/accept/reject/log/verify-chain.
     Curate(CurateArgs),
     /// Build a release tarball (TSV + binary DB + MANIFEST + RECEIPT).
@@ -210,13 +214,8 @@ pub struct ProposeArgs {
     #[arg(long, default_value = "proposals")]
     pub proposals_dir: PathBuf,
 
-    /// JSON file of retrieved passages (array of `Passage`).
-    #[arg(long)]
-    pub passages: Option<PathBuf>,
-
-    /// Top-k retrieval hits to include in the prompt.
-    #[arg(long, default_value_t = 8)]
-    pub top_k: usize,
+    #[command(flatten)]
+    pub retrieval: retrieval_factory::RetrievalArgs,
 }
 
 #[derive(clap::Args, Debug)]
@@ -271,6 +270,7 @@ async fn main() -> anyhow::Result<()> {
         Command::Ingest(args) => ingest_cmd::run(args),
         Command::Verify(args) => verify_cmd::run(args),
         Command::Propose(args) => propose_cmd::run(args),
+        Command::ProposeCatalogue(args) => propose_catalogue_cmd::run(args),
         Command::Curate(args) => curate_cmd::run(args),
         Command::Release(args) => release_cmd::run(args),
         Command::Universal(args) => universal_cmd::run(args),
