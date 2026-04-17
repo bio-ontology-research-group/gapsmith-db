@@ -1,0 +1,336 @@
+pathway_name	category	organism_scope	source	source_id	notes
+5-Phosphoribose 1-diphosphate biosynthesis	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-73843	
+ABO blood group biosynthesis	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-9033807	
+AMPK inhibits chREBP transcriptional activation activity	Integration of energy metabolism	Homo sapiens	reactome	R-HSA-163680	
+Acetylation	Biological oxidations	Homo sapiens	reactome	R-HSA-156582	
+Acetylcholine regulates insulin secretion	Integration of energy metabolism	Homo sapiens	reactome	R-HSA-399997	
+Activation of gene expression by SREBF (SREBP)	Metabolism of lipids	Homo sapiens	reactome	R-HSA-2426168	
+Acyl chain remodeling of CL	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1482798	
+Acyl chain remodeling of DAG and TAG	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1482883	
+Acyl chain remodelling of PC	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1482788	
+Acyl chain remodelling of PE	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1482839	
+Acyl chain remodelling of PG	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1482925	
+Acyl chain remodelling of PI	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1482922	
+Acyl chain remodelling of PS	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1482801	
+Adrenaline,noradrenaline inhibits insulin secretion	Integration of energy metabolism	Homo sapiens	reactome	R-HSA-400042	
+Aerobic respiration and respiratory electron transport	top_level	Homo sapiens	reactome	R-HSA-1428517	
+Aflatoxin activation and detoxification	Biological oxidations	Homo sapiens	reactome	R-HSA-5423646	
+Agmatine biosynthesis	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-351143	
+Alanine metabolism	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-8964540	
+Alpha-oxidation of phytanate	Metabolism of lipids	Homo sapiens	reactome	R-HSA-389599	
+Amine Oxidase reactions	Biological oxidations	Homo sapiens	reactome	R-HSA-140179	
+Amino Acid conjugation	Biological oxidations	Homo sapiens	reactome	R-HSA-156587	
+Androgen biosynthesis	Metabolism of lipids	Homo sapiens	reactome	R-HSA-193048	
+Arachidonate metabolism	Metabolism of lipids	Homo sapiens	reactome	R-HSA-2142753	
+Aromatic amines can be N-hydroxylated or N-dealkylated by CYP1A2	Biological oxidations	Homo sapiens	reactome	R-HSA-211957	
+Aryl hydrocarbon receptor signalling	Biological oxidations	Homo sapiens	reactome	R-HSA-8937144	
+Aspartate and asparagine metabolism	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-8963693	
+BCKDH synthesizes BCAA-CoA from KIC, KMVA, KIV	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-9859138	
+Beta oxidation of butanoyl-CoA to acetyl-CoA	Metabolism of lipids	Homo sapiens	reactome	R-HSA-77352	
+Beta oxidation of decanoyl-CoA to octanoyl-CoA-CoA	Metabolism of lipids	Homo sapiens	reactome	R-HSA-77346	
+Beta oxidation of hexanoyl-CoA to butanoyl-CoA	Metabolism of lipids	Homo sapiens	reactome	R-HSA-77350	
+Beta oxidation of lauroyl-CoA to decanoyl-CoA-CoA	Metabolism of lipids	Homo sapiens	reactome	R-HSA-77310	
+Beta oxidation of myristoyl-CoA to lauroyl-CoA	Metabolism of lipids	Homo sapiens	reactome	R-HSA-77285	
+Beta oxidation of octanoyl-CoA to hexanoyl-CoA	Metabolism of lipids	Homo sapiens	reactome	R-HSA-77348	
+Beta oxidation of palmitoyl-CoA to myristoyl-CoA	Metabolism of lipids	Homo sapiens	reactome	R-HSA-77305	
+Beta-oxidation of pristanoyl-CoA	Metabolism of lipids	Homo sapiens	reactome	R-HSA-389887	
+Beta-oxidation of very long chain fatty acids	Metabolism of lipids	Homo sapiens	reactome	R-HSA-390247	
+Bile acid and bile salt metabolism	Metabolism of lipids	Homo sapiens	reactome	R-HSA-194068	
+Biogenic amines are oxidatively deaminated to aldehydes by MAOA and MAOB	Biological oxidations	Homo sapiens	reactome	R-HSA-141333	
+Biological oxidations	top_level	Homo sapiens	reactome	R-HSA-211859	
+Biosynthesis of D-series resolvins	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9018676	
+Biosynthesis of DHA-derived SPMs	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9018677	
+Biosynthesis of DHA-derived sulfido conjugates	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9026395	
+Biosynthesis of DPA-derived SPMs	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9018683	
+Biosynthesis of DPAn-3 SPMs	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9025094	
+Biosynthesis of DPAn-3-derived 13-series resolvins	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9026403	
+Biosynthesis of DPAn-3-derived maresins	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9026290	
+Biosynthesis of DPAn-3-derived protectins and resolvins	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9026286	
+Biosynthesis of DPAn-6 SPMs	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9025106	
+Biosynthesis of E-series 18(R)-resolvins	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9023661	
+Biosynthesis of E-series 18(S)-resolvins	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9018896	
+Biosynthesis of EPA-derived SPMs	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9018679	
+Biosynthesis of Lipoxins (LX)	Metabolism of lipids	Homo sapiens	reactome	R-HSA-2142700	
+Biosynthesis of aspirin-triggered D-series resolvins	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9020265	
+Biosynthesis of electrophilic ω-3 PUFA oxo-derivatives	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9027604	
+Biosynthesis of maresin conjugates in tissue regeneration (MCTR)	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9026762	
+Biosynthesis of maresin-like SPMs	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9027307	
+Biosynthesis of maresins	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9018682	
+Biosynthesis of protectin and resolvin conjugates in tissue regeneration (PCTR and RCTR)	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9026766	
+Biosynthesis of protectins	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9018681	
+Biosynthesis of specialized proresolving mediators (SPMs)	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9018678	
+Biotin transport and metabolism	Metabolism of vitamins and cofactors	Homo sapiens	reactome	R-HSA-196780	
+Blood group systems biosynthesis	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-9033658	
+Branched-chain amino acid catabolism	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-70895	
+COX reactions	Biological oxidations	Homo sapiens	reactome	R-HSA-140180	
+CS-GAG biosynthesis	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-2022870	
+CS/DS degradation	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-2024101	
+CYP2E1 reactions	Biological oxidations	Homo sapiens	reactome	R-HSA-211999	
+Carnitine shuttle	Metabolism of lipids	Homo sapiens	reactome	R-HSA-200425	
+Carnitine synthesis	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-71262	
+Catecholamine biosynthesis	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-209905	
+ChREBP activates metabolic gene expression	Integration of energy metabolism	Homo sapiens	reactome	R-HSA-163765	
+Cholesterol biosynthesis	Metabolism of lipids	Homo sapiens	reactome	R-HSA-191273	
+Cholesterol biosynthesis from zymosterol (modified Kandutsch-Russell pathway)	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9969901	
+Cholesterol biosynthesis via desmosterol (Bloch pathway)	Metabolism of lipids	Homo sapiens	reactome	R-HSA-6807047	
+Choline catabolism	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-6798163	
+Chondroitin sulfate/dermatan sulfate metabolism	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-1793185	
+Citric acid cycle (TCA cycle)	Aerobic respiration and respiratory electron transport	Homo sapiens	reactome	R-HSA-71403	
+Cobalamin (Cbl) metabolism	Metabolism of vitamins and cofactors	Homo sapiens	reactome	R-HSA-9759218	
+Cobalamin (Cbl, vitamin B12) transport and metabolism	Metabolism of vitamins and cofactors	Homo sapiens	reactome	R-HSA-196741	
+Coenzyme A biosynthesis	Metabolism of vitamins and cofactors	Homo sapiens	reactome	R-HSA-196783	
+Complex I biogenesis	Aerobic respiration and respiratory electron transport	Homo sapiens	reactome	R-HSA-6799198	
+Complex III assembly	Aerobic respiration and respiratory electron transport	Homo sapiens	reactome	R-HSA-9865881	
+Complex IV assembly	Aerobic respiration and respiratory electron transport	Homo sapiens	reactome	R-HSA-9864848	
+Conjugation of benzoate with glycine	Biological oxidations	Homo sapiens	reactome	R-HSA-177135	
+Conjugation of carboxylic acids	Biological oxidations	Homo sapiens	reactome	R-HSA-159424	
+Conjugation of phenylacetate with glutamine	Biological oxidations	Homo sapiens	reactome	R-HSA-177162	
+Conjugation of salicylate with glycine	Biological oxidations	Homo sapiens	reactome	R-HSA-177128	
+Creatine metabolism	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-71288	
+Cysteine formation from homocysteine	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-1614603	
+Cytochrome P450 - arranged by substrate type	Biological oxidations	Homo sapiens	reactome	R-HSA-211897	
+Cytosolic iron-sulfur cluster assembly	top_level	Homo sapiens	reactome	R-HSA-2564830	
+Cytosolic sulfonation of small molecules	Biological oxidations	Homo sapiens	reactome	R-HSA-156584	
+DS-GAG biosynthesis	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-2022923	
+Degradation of cysteine and homocysteine	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-1614558	
+Eicosanoids	Biological oxidations	Homo sapiens	reactome	R-HSA-211979	
+Electron transport from NADPH to Ferredoxin	Mitochondrial iron-sulfur cluster biogenesis	Homo sapiens	reactome	R-HSA-2395516	
+Endogenous sterols	Biological oxidations	Homo sapiens	reactome	R-HSA-211976	
+Estrogen biosynthesis	Metabolism of lipids	Homo sapiens	reactome	R-HSA-193144	
+Ethanol oxidation	Biological oxidations	Homo sapiens	reactome	R-HSA-71384	
+FMO oxidises nucleophiles	Biological oxidations	Homo sapiens	reactome	R-HSA-217271	
+Fatty Acids bound to GPR40 (FFAR1) regulate insulin secretion	Integration of energy metabolism	Homo sapiens	reactome	R-HSA-434316	
+Fatty acid metabolism	Metabolism of lipids	Homo sapiens	reactome	R-HSA-8978868	
+Fatty acids	Biological oxidations	Homo sapiens	reactome	R-HSA-211935	
+Fatty acyl-CoA biosynthesis	Metabolism of lipids	Homo sapiens	reactome	R-HSA-75105	
+Formation of ATP by chemiosmotic coupling	Aerobic respiration and respiratory electron transport	Homo sapiens	reactome	R-HSA-163210	
+Formation of selenosugars for excretion	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-2408499	
+Formation of the active cofactor, UDP-glucuronate	Biological oxidations	Homo sapiens	reactome	R-HSA-173599	
+Formation of xylulose-5-phosphate	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-5661270	
+Free fatty acids regulate insulin secretion	Integration of energy metabolism	Homo sapiens	reactome	R-HSA-400451	
+Fructose biosynthesis	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-5652227	
+Fructose catabolism	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-70350	
+Fructose metabolism	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-5652084	
+Galactose catabolism	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-70370	
+Glucagon signaling in metabolic regulation	Integration of energy metabolism	Homo sapiens	reactome	R-HSA-163359	
+Glucagon-like Peptide-1 (GLP1) regulates insulin secretion	Integration of energy metabolism	Homo sapiens	reactome	R-HSA-381676	
+Glucocorticoid biosynthesis	Metabolism of lipids	Homo sapiens	reactome	R-HSA-194002	
+Gluconeogenesis	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-70263	
+Glucose metabolism	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-70326	
+Glucuronidation	Biological oxidations	Homo sapiens	reactome	R-HSA-156588	
+Glutamate and glutamine metabolism	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-8964539	
+Glutathione conjugation	Biological oxidations	Homo sapiens	reactome	R-HSA-156590	
+Glutathione synthesis and recycling	Biological oxidations	Homo sapiens	reactome	R-HSA-174403	
+Glycerophospholipid biosynthesis	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1483206	
+Glycerophospholipid catabolism	Metabolism of lipids	Homo sapiens	reactome	R-HSA-6814848	
+Glycine degradation	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-6783984	
+Glycogen breakdown (glycogenolysis)	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-70221	
+Glycogen metabolism	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-8982491	
+Glycogen synthesis	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-3322077	
+Glycolysis	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-70171	
+Glycosaminoglycan metabolism	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-1630316	
+Glycosaminoglycan-protein linkage region biosynthesis	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-1971475	
+Glycosphingolipid biosynthesis	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9840309	
+Glycosphingolipid catabolism	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9840310	
+Glycosphingolipid metabolism	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1660662	
+Glyoxylate metabolism and glycine degradation	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-389661	
+HS-GAG biosynthesis	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-2022928	
+HS-GAG degradation	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-2024096	
+Heme biosynthesis	Metabolism of porphyrins	Homo sapiens	reactome	R-HSA-189451	
+Heme degradation	Metabolism of porphyrins	Homo sapiens	reactome	R-HSA-189483	
+Heparan sulfate/heparin (HS-GAG) metabolism	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-1638091	
+Histidine catabolism	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-70921	
+Hyaluronan degradation	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-2160916	
+Hyaluronan metabolism	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-2142845	
+Hydrolysis of LPC	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1483115	
+Hydrolysis of LPE	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1483152	
+IP3 and IP4 transport between cytosol and nucleus	Inositol phosphate metabolism	Homo sapiens	reactome	R-HSA-1855196	
+IP6 and IP7 transport between cytosol and nucleus	Inositol phosphate metabolism	Homo sapiens	reactome	R-HSA-1855229	
+IPs transport between ER lumen and cytosol	Inositol phosphate metabolism	Homo sapiens	reactome	R-HSA-1855215	
+IPs transport between ER lumen and nucleus	Inositol phosphate metabolism	Homo sapiens	reactome	R-HSA-1855156	
+IPs transport between cytosol and ER lumen	Inositol phosphate metabolism	Homo sapiens	reactome	R-HSA-1855184	
+IPs transport between nucleus and ER lumen	Inositol phosphate metabolism	Homo sapiens	reactome	R-HSA-1855192	
+IPs transport between nucleus and cytosol	Inositol phosphate metabolism	Homo sapiens	reactome	R-HSA-1855170	
+Inositol phosphate metabolism	top_level	Homo sapiens	reactome	R-HSA-1483249	
+Insulin effects increased synthesis of Xylulose-5-Phosphate	Integration of energy metabolism	Homo sapiens	reactome	R-HSA-163754	
+Integration of energy metabolism	top_level	Homo sapiens	reactome	R-HSA-163685	
+Interconversion of 2-oxoglutarate and 2-hydroxyglutarate	Aerobic respiration and respiratory electron transport	Homo sapiens	reactome	R-HSA-880009	
+Interconversion of nucleotide di- and triphosphates	Metabolism of nucleotides	Homo sapiens	reactome	R-HSA-499943	
+Interconversion of polyamines	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-351200	
+Intracellular metabolism of fatty acids regulates insulin secretion	Integration of energy metabolism	Homo sapiens	reactome	R-HSA-434313	
+Keratan sulfate biosynthesis	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-2022854	
+Keratan sulfate degradation	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-2022857	
+Keratan sulfate/keratin metabolism	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-1638074	
+Ketone body metabolism	Metabolism of lipids	Homo sapiens	reactome	R-HSA-74182	
+Lactose synthesis	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-5653890	
+Lanosterol biosynthesis	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9969896	
+Lewis blood group biosynthesis	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-9037629	
+Linoleic acid (LA) metabolism	Metabolism of lipids	Homo sapiens	reactome	R-HSA-2046105	
+Lipid particle organization	Metabolism of lipids	Homo sapiens	reactome	R-HSA-8964572	
+Lysine catabolism	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-71064	
+Lysosomal oligosaccharide catabolism	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-8853383	
+Malate-aspartate shuttle	Aerobic respiration and respiratory electron transport	Homo sapiens	reactome	R-HSA-9856872	
+Maturation of TCA enzymes and regulation of TCA cycle	Aerobic respiration and respiratory electron transport	Homo sapiens	reactome	R-HSA-9854311	
+Melanin biosynthesis	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-5662702	
+Metabolism	top_level	Homo sapiens	reactome	R-HSA-1430728	
+Metabolism of amine-derived hormones	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-209776	
+Metabolism of amino acids and derivatives	top_level	Homo sapiens	reactome	R-HSA-71291	
+Metabolism of carbohydrates and carbohydrate derivatives	top_level	Homo sapiens	reactome	R-HSA-71387	
+Metabolism of cofactors	Metabolism of vitamins and cofactors	Homo sapiens	reactome	R-HSA-8978934	
+Metabolism of fat-soluble vitamins	Metabolism of vitamins and cofactors	Homo sapiens	reactome	R-HSA-6806667	
+Metabolism of folate and pterines	Metabolism of vitamins and cofactors	Homo sapiens	reactome	R-HSA-196757	
+Metabolism of ingested H2SeO4 and H2SeO3 into H2Se	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-2408550	
+Metabolism of ingested MeSeO2H into MeSeH	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-5263617	
+Metabolism of ingested SeMet, Sec, MeSec into H2Se	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-2408508	
+Metabolism of lipids	top_level	Homo sapiens	reactome	R-HSA-556833	
+Metabolism of nitric oxide: NOS3 activation and regulation	top_level	Homo sapiens	reactome	R-HSA-202131	
+Metabolism of nucleotides	top_level	Homo sapiens	reactome	R-HSA-15869	
+Metabolism of polyamines	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-351202	
+Metabolism of porphyrins	top_level	Homo sapiens	reactome	R-HSA-189445	
+Metabolism of steroid hormones	Metabolism of lipids	Homo sapiens	reactome	R-HSA-196071	
+Metabolism of steroids	Metabolism of lipids	Homo sapiens	reactome	R-HSA-8957322	
+Metabolism of vitamin K	Metabolism of vitamins and cofactors	Homo sapiens	reactome	R-HSA-6806664	
+Metabolism of vitamins and cofactors	top_level	Homo sapiens	reactome	R-HSA-196854	
+Metabolism of water-soluble vitamins and cofactors	Metabolism of vitamins and cofactors	Homo sapiens	reactome	R-HSA-196849	
+Methionine salvage pathway	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-1237112	
+Methylation	Biological oxidations	Homo sapiens	reactome	R-HSA-156581	
+Methylation of MeSeH for excretion	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-2408552	
+Mineralocorticoid biosynthesis	Metabolism of lipids	Homo sapiens	reactome	R-HSA-193993	
+Miscellaneous substrates	Biological oxidations	Homo sapiens	reactome	R-HSA-211958	
+Mitochondrial Fatty Acid Beta-Oxidation	Metabolism of lipids	Homo sapiens	reactome	R-HSA-77289	
+Mitochondrial Uncoupling	Aerobic respiration and respiratory electron transport	Homo sapiens	reactome	R-HSA-166187	
+Mitochondrial iron-sulfur cluster biogenesis	top_level	Homo sapiens	reactome	R-HSA-1362409	
+Molybdenum cofactor biosynthesis	Metabolism of vitamins and cofactors	Homo sapiens	reactome	R-HSA-947581	
+NADPH regeneration	Metabolism of vitamins and cofactors	Homo sapiens	reactome	R-HSA-389542	
+NOSIP mediated eNOS trafficking	Metabolism of nitric oxide: NOS3 activation and regulation	Homo sapiens	reactome	R-HSA-203754	
+NOSTRIN mediated eNOS trafficking	Metabolism of nitric oxide: NOS3 activation and regulation	Homo sapiens	reactome	R-HSA-203641	
+Nicotinate metabolism	Metabolism of vitamins and cofactors	Homo sapiens	reactome	R-HSA-196807	
+Nucleotide biosynthesis	Metabolism of nucleotides	Homo sapiens	reactome	R-HSA-8956320	
+Nucleotide catabolism	Metabolism of nucleotides	Homo sapiens	reactome	R-HSA-8956319	
+Nucleotide salvage	Metabolism of nucleotides	Homo sapiens	reactome	R-HSA-8956321	
+OADH complex synthesizes glutaryl-CoA from 2-OA	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-9858328	
+OGDH complex synthesizes succinyl-CoA from 2-OG	Aerobic respiration and respiratory electron transport	Homo sapiens	reactome	R-HSA-9853506	
+Oleoyl-phe metabolism	Aerobic respiration and respiratory electron transport	Homo sapiens	reactome	R-HSA-9673163	
+PAOs oxidise polyamines to amines	Biological oxidations	Homo sapiens	reactome	R-HSA-141334	
+PDH complex synthesizes acetyl-CoA from PYR	Aerobic respiration and respiratory electron transport	Homo sapiens	reactome	R-HSA-9861559	
+PI Metabolism	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1483255	
+PI and PC transport between ER and Golgi membranes	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1483196	
+PIPs transport between Golgi and plasma membranes	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1660510	
+PIPs transport between early and late endosome membranes	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1660502	
+PIPs transport between early endosome and Golgi membranes	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1660537	
+PIPs transport between late endosome and Golgi membranes	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1660508	
+PIPs transport between plasma and early endosome membranes	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1660524	
+PKA activation in glucagon signalling	Integration of energy metabolism	Homo sapiens	reactome	R-HSA-164378	
+PKA-mediated phosphorylation of key metabolic factors	Integration of energy metabolism	Homo sapiens	reactome	R-HSA-163358	
+PP2A-mediated dephosphorylation of key metabolic factors	Integration of energy metabolism	Homo sapiens	reactome	R-HSA-163767	
+PPARA activates gene expression	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1989781	
+Pentose phosphate pathway	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-71336	
+Peroxisomal lipid metabolism	Metabolism of lipids	Homo sapiens	reactome	R-HSA-390918	
+Phase I - Functionalization of compounds	Biological oxidations	Homo sapiens	reactome	R-HSA-211945	
+Phase II - Conjugation of compounds	Biological oxidations	Homo sapiens	reactome	R-HSA-156580	
+Phenylalanine and tyrosine metabolism	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-8963691	
+Phenylalanine metabolism	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-8964208	
+Phosphate bond hydrolysis by NTPDase proteins	Metabolism of nucleotides	Homo sapiens	reactome	R-HSA-8850843	
+Phosphate bond hydrolysis by NUDT proteins	Metabolism of nucleotides	Homo sapiens	reactome	R-HSA-2393930	
+Phospholipid metabolism	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1483257	
+Plasmalogen biosynthesis	Metabolism of lipids	Homo sapiens	reactome	R-HSA-75896	
+Pregnenolone biosynthesis	Metabolism of lipids	Homo sapiens	reactome	R-HSA-196108	
+Proline catabolism	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-70688	
+Propionyl-CoA catabolism	Metabolism of lipids	Homo sapiens	reactome	R-HSA-71032	
+Purine catabolism	Metabolism of nucleotides	Homo sapiens	reactome	R-HSA-74259	
+Purine ribonucleoside monophosphate biosynthesis	Metabolism of nucleotides	Homo sapiens	reactome	R-HSA-73817	
+Purine salvage	Metabolism of nucleotides	Homo sapiens	reactome	R-HSA-74217	
+Pyrimidine biosynthesis	Metabolism of nucleotides	Homo sapiens	reactome	R-HSA-500753	
+Pyrimidine catabolism	Metabolism of nucleotides	Homo sapiens	reactome	R-HSA-73621	
+Pyrimidine salvage	Metabolism of nucleotides	Homo sapiens	reactome	R-HSA-73614	
+Pyrophosphate hydrolysis	top_level	Homo sapiens	reactome	R-HSA-71737	
+Pyruvate metabolism	Aerobic respiration and respiratory electron transport	Homo sapiens	reactome	R-HSA-70268	
+Recycling of bile acids and salts	Metabolism of lipids	Homo sapiens	reactome	R-HSA-159418	
+Regulation of Glucokinase by Glucokinase Regulatory Protein	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-170822	
+Regulation of cholesterol biosynthesis by SREBP (SREBF)	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1655829	
+Regulation of glycolysis by fructose 2,6-bisphosphate metabolism	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-9634600	
+Regulation of insulin secretion	Integration of energy metabolism	Homo sapiens	reactome	R-HSA-422356	
+Regulation of lipid metabolism by PPARalpha	Metabolism of lipids	Homo sapiens	reactome	R-HSA-400206	
+Regulation of ornithine decarboxylase (ODC)	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-350562	
+Regulation of pyruvate dehydrogenase (PDH) complex	Aerobic respiration and respiratory electron transport	Homo sapiens	reactome	R-HSA-204174	
+Regulation of pyruvate metabolism	Aerobic respiration and respiratory electron transport	Homo sapiens	reactome	R-HSA-9861718	
+Regulation of thyroid hormone activity	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-350864	
+Respiratory electron transport	Aerobic respiration and respiratory electron transport	Homo sapiens	reactome	R-HSA-611105	
+Retinoid metabolism and transport	Metabolism of vitamins and cofactors	Homo sapiens	reactome	R-HSA-975634	
+Reversible hydration of carbon dioxide	top_level	Homo sapiens	reactome	R-HSA-1475029	
+Rhesus blood group biosynthesis	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-9037628	
+Selenoamino acid metabolism	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-2408522	
+Selenocysteine synthesis	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-2408557	
+Serine metabolism	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-977347	
+Serotonin and melatonin biosynthesis	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-209931	
+Sphingolipid catabolism	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9845614	
+Sphingolipid de novo biosynthesis	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1660661	
+Sphingolipid metabolism	Metabolism of lipids	Homo sapiens	reactome	R-HSA-428157	
+Sterols are 12-hydroxylated by CYP8B1	Biological oxidations	Homo sapiens	reactome	R-HSA-211994	
+Sulfide oxidation to sulfate	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-1614517	
+Sulfur amino acid metabolism	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-1614635	
+Synthesis of (16-20)-hydroxyeicosatetraenoic acids (HETE)	Metabolism of lipids	Homo sapiens	reactome	R-HSA-2142816	
+Synthesis of 12-eicosatetraenoic acid derivatives	Metabolism of lipids	Homo sapiens	reactome	R-HSA-2142712	
+Synthesis of 15-eicosatetraenoic acid derivatives	Metabolism of lipids	Homo sapiens	reactome	R-HSA-2142770	
+Synthesis of 5-eicosatetraenoic acids	Metabolism of lipids	Homo sapiens	reactome	R-HSA-2142688	
+Synthesis of BMP	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1483171	
+Synthesis of CL	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1483076	
+Synthesis of Hepoxilins (HX) and Trioxilins (TrX)	Metabolism of lipids	Homo sapiens	reactome	R-HSA-2142696	
+Synthesis of IP2, IP, and Ins in the cytosol	Inositol phosphate metabolism	Homo sapiens	reactome	R-HSA-1855183	
+Synthesis of IP3 and IP4 in the cytosol	Inositol phosphate metabolism	Homo sapiens	reactome	R-HSA-1855204	
+Synthesis of IPs in the ER lumen	Inositol phosphate metabolism	Homo sapiens	reactome	R-HSA-1855231	
+Synthesis of IPs in the nucleus	Inositol phosphate metabolism	Homo sapiens	reactome	R-HSA-1855191	
+Synthesis of Ketone Bodies	Metabolism of lipids	Homo sapiens	reactome	R-HSA-77111	
+Synthesis of Leukotrienes (LT) and Eoxins (EX)	Metabolism of lipids	Homo sapiens	reactome	R-HSA-2142691	
+Synthesis of PA	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1483166	
+Synthesis of PC	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1483191	
+Synthesis of PE	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1483213	
+Synthesis of PG	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1483148	
+Synthesis of PI	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1483226	
+Synthesis of PIPs at the ER membrane	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1483248	
+Synthesis of PIPs at the Golgi membrane	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1660514	
+Synthesis of PIPs at the early endosome membrane	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1660516	
+Synthesis of PIPs at the late endosome membrane	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1660517	
+Synthesis of PIPs at the plasma membrane	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1660499	
+Synthesis of PIPs in the nucleus	Metabolism of lipids	Homo sapiens	reactome	R-HSA-8847453	
+Synthesis of PS	Metabolism of lipids	Homo sapiens	reactome	R-HSA-1483101	
+Synthesis of Prostaglandins (PG) and Thromboxanes (TX)	Metabolism of lipids	Homo sapiens	reactome	R-HSA-2162123	
+Synthesis of bile acids and bile salts	Metabolism of lipids	Homo sapiens	reactome	R-HSA-192105	
+Synthesis of bile acids and bile salts via 24-hydroxycholesterol	Metabolism of lipids	Homo sapiens	reactome	R-HSA-193775	
+Synthesis of bile acids and bile salts via 27-hydroxycholesterol	Metabolism of lipids	Homo sapiens	reactome	R-HSA-193807	
+Synthesis of bile acids and bile salts via 7alpha-hydroxycholesterol	Metabolism of lipids	Homo sapiens	reactome	R-HSA-193368	
+Synthesis of epoxy (EET) and dihydroxyeicosatrienoic acids (DHET)	Metabolism of lipids	Homo sapiens	reactome	R-HSA-2142670	
+Synthesis of pyrophosphates in the cytosol	Inositol phosphate metabolism	Homo sapiens	reactome	R-HSA-1855167	
+Synthesis of very long-chain fatty acyl-CoAs	Metabolism of lipids	Homo sapiens	reactome	R-HSA-75876	
+Tetrahydrobiopterin (BH4) synthesis, recycling, salvage and regulation	Metabolism of vitamins and cofactors	Homo sapiens	reactome	R-HSA-1474151	
+The fatty acid cycling model	Aerobic respiration and respiratory electron transport	Homo sapiens	reactome	R-HSA-167826	
+Threonine catabolism	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-8849175	
+Thyroxine biosynthesis	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-209968	
+Transport and metabolism of PAPS	Metabolism of carbohydrates and carbohydrate derivatives	Homo sapiens	reactome	R-HSA-174362	
+Transport of RCbl within the body	Metabolism of vitamins and cofactors	Homo sapiens	reactome	R-HSA-9758890	
+Triglyceride biosynthesis	Metabolism of lipids	Homo sapiens	reactome	R-HSA-75109	
+Triglyceride catabolism	Metabolism of lipids	Homo sapiens	reactome	R-HSA-163560	
+Triglyceride metabolism	Metabolism of lipids	Homo sapiens	reactome	R-HSA-8979227	
+Tryptophan catabolism	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-71240	
+Tyrosine catabolism	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-8963684	
+Ubiquinol biosynthesis	Metabolism of vitamins and cofactors	Homo sapiens	reactome	R-HSA-2142789	
+Uptake of dietary cobalamins into enterocytes	Metabolism of vitamins and cofactors	Homo sapiens	reactome	R-HSA-9758881	
+Urea cycle	Metabolism of amino acids and derivatives	Homo sapiens	reactome	R-HSA-70635	
+Utilization of Ketone Bodies	Metabolism of lipids	Homo sapiens	reactome	R-HSA-77108	
+Vitamin B1 (thiamin) metabolism	Metabolism of vitamins and cofactors	Homo sapiens	reactome	R-HSA-196819	
+Vitamin B2 (riboflavin) metabolism	Metabolism of vitamins and cofactors	Homo sapiens	reactome	R-HSA-196843	
+Vitamin B5 (pantothenate) metabolism	Metabolism of vitamins and cofactors	Homo sapiens	reactome	R-HSA-199220	
+Vitamin B6 activation to pyridoxal phosphate	Metabolism of vitamins and cofactors	Homo sapiens	reactome	R-HSA-964975	
+Vitamin C (ascorbate) metabolism	Metabolism of vitamins and cofactors	Homo sapiens	reactome	R-HSA-196836	
+Vitamin D (calciferol) metabolism	Metabolism of lipids	Homo sapiens	reactome	R-HSA-196791	
+Vitamin E transport	Metabolism of vitamins and cofactors	Homo sapiens	reactome	R-HSA-8877627	
+Vitamins	Biological oxidations	Homo sapiens	reactome	R-HSA-211916	
+Wax and plasmalogen biosynthesis	Metabolism of lipids	Homo sapiens	reactome	R-HSA-8848584	
+Wax biosynthesis	Metabolism of lipids	Homo sapiens	reactome	R-HSA-9640463	
+Xenobiotics	Biological oxidations	Homo sapiens	reactome	R-HSA-211981	
+Zymostenol biosynthesis via lathosterol (Kandutsch-Russell pathway)	Metabolism of lipids	Homo sapiens	reactome	R-HSA-6807062	
+alpha-linolenic (omega3) and linoleic (omega6) acid metabolism	Metabolism of lipids	Homo sapiens	reactome	R-HSA-2046104	
+alpha-linolenic acid (ALA) metabolism	Metabolism of lipids	Homo sapiens	reactome	R-HSA-2046106	
+eNOS activation	Metabolism of nitric oxide: NOS3 activation and regulation	Homo sapiens	reactome	R-HSA-203615	
+mitochondrial fatty acid beta-oxidation of saturated fatty acids	Metabolism of lipids	Homo sapiens	reactome	R-HSA-77286	
+mitochondrial fatty acid beta-oxidation of unsaturated fatty acids	Metabolism of lipids	Homo sapiens	reactome	R-HSA-77288	

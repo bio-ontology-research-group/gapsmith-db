@@ -1,0 +1,409 @@
+pathway_name	category	organism_scope	source	source_id	notes
+Embden-Meyerhof-Parnas glycolysis	central_carbon	universal	textbook		Canonical EMP; glucose -> 2 pyruvate, net 2 ATP + 2 NADH
+Entner-Doudoroff pathway	central_carbon	bacteria/archaea	textbook		KDPG cleavage branch; 1 ATP net
+Pentose phosphate pathway, oxidative branch	central_carbon	universal	textbook		G6P -> ribulose-5P, NADPH + CO2
+Pentose phosphate pathway, non-oxidative branch	central_carbon	universal	textbook		Transketolase/transaldolase sugar interconversion
+Phosphoketolase pathway	central_carbon	heterofermentative bacteria	textbook		Bifidobacterium/Leuconostoc fructose-6P or xylulose-5P cleavage
+Tricarboxylic acid cycle	central_carbon	aerobic	textbook		Citrate cycle, oxidative
+Reductive tricarboxylic acid cycle	carbon_fixation	autotrophic bacteria/archaea	textbook		rTCA; Chlorobium, Aquifex, Hydrogenobacter
+Glyoxylate cycle	central_carbon	bacteria/plants/protists	textbook		Isocitrate lyase + malate synthase
+Ethylmalonyl-CoA pathway	central_carbon	alphaproteobacteria	textbook		Acetate assimilation w/o glyoxylate cycle
+Methylcitrate cycle	central_carbon	bacteria	textbook		Propionate assimilation
+Calvin-Benson-Bassham cycle	carbon_fixation	plants/cyanobacteria/chemoautotrophs	textbook		Reductive pentose phosphate; RuBisCO
+3-Hydroxypropionate bicycle	carbon_fixation	Chloroflexus	textbook		Acetyl-CoA carboxylase route
+3-Hydroxypropionate/4-hydroxybutyrate cycle	carbon_fixation	Crenarchaeota (Sulfolobales)	textbook		
+Dicarboxylate/4-hydroxybutyrate cycle	carbon_fixation	Thermoproteales/Desulfurococcales	textbook		
+Wood-Ljungdahl pathway, acetyl-CoA synthase branch	carbon_fixation	acetogens/methanogens	textbook		CODH/ACS; reductive acetyl-CoA pathway
+Hydrogenotrophic methanogenesis	methanogenesis	Euryarchaeota	textbook		CO2 + 4 H2 -> CH4; via methanofuran/H4MPT/CoM
+Methylotrophic methanogenesis (methanol)	methanogenesis	Methanosarcina	textbook		Methanol -> CH4 + CO2
+Methylotrophic methanogenesis (methylamines)	methanogenesis	Methanosarcina	textbook		Mono/di/trimethylamine -> CH4
+Methylotrophic methanogenesis (dimethylsulfide)	methanogenesis	Methanosarcina	textbook		DMS -> CH4 + H2S
+Aceticlastic methanogenesis	methanogenesis	Methanosarcina/Methanosaeta	textbook		Acetate -> CH4 + CO2
+Methanogenesis from CO	methanogenesis	Methanosarcina	textbook		Trace pathway; via CODH
+Reverse methanogenesis (anaerobic methane oxidation)	methanogenesis	ANME archaea	textbook		AOM coupled to sulfate or NO3-
+Dissimilatory sulfate reduction	sulfur	Desulfovibrio/Desulfobacter	textbook		APS reductase; electron acceptor is SO4
+Dissimilatory sulfur reduction	sulfur	Desulfuromonas/Pyrococcus	textbook		Elemental S -> H2S
+Assimilatory sulfate reduction	sulfur	universal	textbook		APS/PAPS -> cysteine
+Thiosulfate oxidation (Sox system)	sulfur	Paracoccus/Thiobacillus	textbook		S2O3 -> SO4 via SoxXYZABCD
+Sulfide oxidation (SQR)	sulfur	phototrophs/chemotrophs	textbook		H2S -> S0 or SO4
+Elemental sulfur oxidation	sulfur	Acidithiobacillus	textbook		
+Ammonia oxidation (nitrification, step 1)	nitrogen	ammonia oxidisers	textbook		NH3 -> NO2; AMO/HAO
+Nitrite oxidation (nitrification, step 2)	nitrogen	Nitrobacter/Nitrospira	textbook		NO2 -> NO3; NXR
+Complete ammonia oxidation (comammox)	nitrogen	Nitrospira	textbook		NH3 -> NO3 in a single organism
+Denitrification	nitrogen	facultative anaerobes	textbook		NO3 -> N2
+Dissimilatory nitrate reduction to ammonium	nitrogen	fermentative anaerobes	textbook		DNRA; NO3 -> NH4
+Anaerobic ammonium oxidation	nitrogen	Planctomycetes	textbook		Anammox; NH4 + NO2 -> N2; hydrazine intermediate
+Biological nitrogen fixation	nitrogen	diazotrophs	textbook		N2 -> NH3; MoFe/VFe/FeFe nitrogenases
+Assimilatory nitrate reduction	nitrogen	plants/bacteria	textbook		NO3 -> NH4 for incorporation
+Glutamine synthetase / glutamate synthase (GS-GOGAT)	nitrogen	universal	textbook		Primary N-assimilation under low NH4
+Glutamate dehydrogenase	nitrogen	universal	textbook		Alternative N-assimilation under high NH4
+Urea cycle	nitrogen	ureotelic organisms	textbook		Ornithine cycle
+Urease pathway	nitrogen	urease-positive	textbook		Urea hydrolysis
+Anaerobic iron respiration	iron	Geobacter/Shewanella	textbook		Fe(III) as terminal acceptor; multi-heme cytochromes
+Aerobic iron oxidation	iron	Acidithiobacillus/Leptothrix	textbook		Fe(II) -> Fe(III)
+Manganese respiration	metal	Shewanella	textbook		Mn(IV) -> Mn(II)
+Arsenate respiration	metal	Geobacter/Shewanella	textbook		As(V) -> As(III)
+Selenate respiration	metal	Sulfurospirillum	textbook		Se(VI) -> Se(0)
+Chlorate/perchlorate respiration	inorganic	Dechloromonas	textbook		ClO4 -> Cl
+DMSO/TMAO respiration	s_n_oxides	facultative anaerobes	textbook		Anaerobic electron acceptor
+Fumarate respiration	organic_acceptor	Wolinella/E. coli	textbook		Fumarate -> succinate as acceptor
+Homolactic fermentation	fermentation	lactic acid bacteria	textbook		Glucose -> 2 lactate
+Heterolactic fermentation	fermentation	Leuconostoc	textbook		Glucose -> lactate + ethanol + CO2
+Ethanol fermentation	fermentation	yeasts/Zymomonas	textbook		Pyruvate -> ethanol + CO2
+Mixed-acid fermentation	fermentation	E. coli/Shigella	textbook		Lactate + acetate + ethanol + succinate + formate
+2,3-Butanediol fermentation	fermentation	Klebsiella/Enterobacter	textbook		Acetoin -> 2,3-butanediol
+Butyric acid fermentation	fermentation	Clostridium	textbook		Glucose -> butyrate + acetate + H2 + CO2
+Acetone-butanol-ethanol (ABE) fermentation	fermentation	C. acetobutylicum	textbook		Solventogenic phase of C. acetobutylicum
+Propionic fermentation (succinate pathway)	fermentation	Propionibacterium	textbook		Via methylmalonyl-CoA
+Propionic fermentation (acrylate pathway)	fermentation	Clostridium/Megasphaera	textbook		Via lactyl-CoA/acrylyl-CoA
+Stickland fermentation	fermentation	proteolytic clostridia	textbook		Coupled AA oxidation/reduction
+Caproate fermentation (chain elongation)	fermentation	Clostridium kluyveri	textbook		Reverse beta-oxidation
+Acetate fermentation (acetogenesis from H2/CO2)	fermentation	Clostridium/Moorella	textbook		Wood-Ljungdahl + acetate kinase
+Bifid shunt	fermentation	Bifidobacterium	textbook		F6P phosphoketolase
+Alanine biosynthesis	amino_acid_biosynthesis	universal	textbook		From pyruvate
+Arginine biosynthesis (acetylated cycle)	amino_acid_biosynthesis	universal	textbook		Via N-acetyl-glutamate cycle
+Asparagine biosynthesis	amino_acid_biosynthesis	universal	textbook		Glutamine-dependent
+Aspartate biosynthesis	amino_acid_biosynthesis	universal	textbook		Transamination of OAA
+Cysteine biosynthesis (bacteria)	amino_acid_biosynthesis	bacteria/plants	textbook		O-acetylserine + sulfide
+Cysteine biosynthesis (animals, trans-sulfuration)	amino_acid_biosynthesis	animals	textbook		Homocysteine + serine
+Glutamate biosynthesis	amino_acid_biosynthesis	universal	textbook		GDH or GS-GOGAT
+Glutamine biosynthesis	amino_acid_biosynthesis	universal	textbook		Glutamine synthetase
+Glycine biosynthesis	amino_acid_biosynthesis	universal	textbook		From serine (SHMT) or threonine
+Histidine biosynthesis	amino_acid_biosynthesis	bacteria/archaea/plants/fungi	textbook		PRPP + ATP initial step
+Isoleucine biosynthesis (threonine-derived)	amino_acid_biosynthesis	bacteria/plants	textbook		Via 2-oxobutyrate from threonine
+Isoleucine biosynthesis (citramalate pathway)	amino_acid_biosynthesis	Methanococcus/Leptospira	textbook		Pyruvate + acetyl-CoA via citramalate
+Leucine biosynthesis	amino_acid_biosynthesis	bacteria/plants/fungi	textbook		From 2-oxoisovalerate
+Lysine biosynthesis (DAP pathway, succinyl)	amino_acid_biosynthesis	bacteria	textbook		Via meso-diaminopimelate
+Lysine biosynthesis (DAP pathway, acetyl)	amino_acid_biosynthesis	bacteria	textbook		Via acetyl-DAP intermediate
+Lysine biosynthesis (DAP pathway, dehydrogenase)	amino_acid_biosynthesis	Corynebacterium/Bacillus	textbook		DAP dehydrogenase shortcut
+Lysine biosynthesis (AAA pathway)	amino_acid_biosynthesis	fungi/euglenoids/Thermus	textbook		Via alpha-aminoadipate
+Methionine biosynthesis	amino_acid_biosynthesis	bacteria/plants	textbook		Homocysteine + methyl donor
+Phenylalanine biosynthesis	amino_acid_biosynthesis	bacteria/plants/fungi	textbook		From chorismate via prephenate
+Proline biosynthesis (glutamate route)	amino_acid_biosynthesis	universal	textbook		Glutamate -> P5C -> proline
+Proline biosynthesis (ornithine route)	amino_acid_biosynthesis	fungi/some bacteria	textbook		Ornithine transaminase
+Serine biosynthesis (phosphorylated pathway)	amino_acid_biosynthesis	universal	textbook		From 3-phosphoglycerate
+Threonine biosynthesis	amino_acid_biosynthesis	bacteria/plants/fungi	textbook		From aspartate via homoserine
+Tryptophan biosynthesis	amino_acid_biosynthesis	bacteria/plants/fungi	textbook		From chorismate + PRPP
+Tyrosine biosynthesis	amino_acid_biosynthesis	bacteria/plants/fungi	textbook		From chorismate via prephenate/arogenate
+Valine biosynthesis	amino_acid_biosynthesis	bacteria/plants/fungi	textbook		From pyruvate via 2-oxoisovalerate
+Shikimate pathway	amino_acid_biosynthesis	bacteria/plants/fungi	textbook		PEP + E4P -> chorismate
+Selenocysteine biosynthesis	amino_acid_biosynthesis	universal	textbook		Sec-tRNA pathway
+Pyrrolysine biosynthesis	amino_acid_biosynthesis	methanogenic archaea	textbook		22nd amino acid
+Purine de novo biosynthesis	nucleotide_biosynthesis	universal	textbook		IMP from PRPP
+Pyrimidine de novo biosynthesis	nucleotide_biosynthesis	universal	textbook		UMP via carbamoyl-phosphate
+Purine salvage	nucleotide_biosynthesis	universal	textbook		HGPRT/APRT
+Pyrimidine salvage	nucleotide_biosynthesis	universal	textbook		Uridine kinase etc.
+Deoxyribonucleotide biosynthesis (NDP reduction)	nucleotide_biosynthesis	universal	textbook		Ribonucleotide reductase
+Thymidylate biosynthesis (ThyA)	nucleotide_biosynthesis	universal	textbook		dUMP -> dTMP
+Thymidylate biosynthesis (ThyX)	nucleotide_biosynthesis	Mycobacterium/Helicobacter	textbook		Flavin-dependent alternate
+NAD biosynthesis (de novo, aspartate)	cofactor_biosynthesis	bacteria/plants	textbook		From aspartate + DHAP
+NAD biosynthesis (de novo, tryptophan)	cofactor_biosynthesis	fungi/animals	textbook		Kynurenine pathway
+NAD salvage	cofactor_biosynthesis	universal	textbook		Nicotinamide/nicotinate
+FAD biosynthesis	cofactor_biosynthesis	universal	textbook		Riboflavin -> FMN -> FAD
+Riboflavin biosynthesis	cofactor_biosynthesis	bacteria/plants/fungi	textbook		From GTP + ribulose-5P
+Coenzyme A biosynthesis	cofactor_biosynthesis	universal	textbook		From pantothenate + cysteine
+Pantothenate biosynthesis	cofactor_biosynthesis	bacteria/plants/fungi	textbook		From valine precursors
+Thiamine biosynthesis	cofactor_biosynthesis	bacteria/plants/fungi	textbook		HMP + THZ moieties
+Pyridoxal 5-phosphate biosynthesis (DXP-dependent)	cofactor_biosynthesis	E. coli	textbook		From deoxyxylulose-5P + 4-HTP
+Pyridoxal 5-phosphate biosynthesis (DXP-independent)	cofactor_biosynthesis	most bacteria/plants/archaea	textbook		Pdx1/Pdx2 route
+Biotin biosynthesis	cofactor_biosynthesis	bacteria/plants	textbook		Pimelate -> KAPA -> DAPA -> DTB -> biotin
+Tetrahydrofolate biosynthesis	cofactor_biosynthesis	bacteria/plants	textbook		GTP -> dihydropterin -> THF
+Cobalamin biosynthesis (aerobic)	cofactor_biosynthesis	Pseudomonas	textbook		Oxygen-dependent corrin ring insertion
+Cobalamin biosynthesis (anaerobic)	cofactor_biosynthesis	Salmonella/Clostridium	textbook		Early cobalt insertion
+Cobalamin salvage	cofactor_biosynthesis	bacteria/archaea	textbook		Cobinamide -> adenosylcobalamin
+Heme biosynthesis (classical/protoporphyrin)	cofactor_biosynthesis	aerobes/eukaryotes	textbook		From ALA; protoporphyrin IX
+Heme biosynthesis (alternative/siroheme-dependent)	cofactor_biosynthesis	sulfate reducers/archaea	textbook		Via siroheme + coproheme
+Siroheme biosynthesis	cofactor_biosynthesis	universal	textbook		Uroporphyrinogen -> siroheme
+Chlorophyll a biosynthesis	cofactor_biosynthesis	plants/cyanobacteria	textbook		Branch of tetrapyrrole pathway
+Bacteriochlorophyll biosynthesis	cofactor_biosynthesis	anoxygenic phototrophs	textbook		Bchl a/b/c/d/e
+Ubiquinone biosynthesis	cofactor_biosynthesis	aerobes	textbook		Q-8 in E. coli
+Menaquinone biosynthesis (classical)	cofactor_biosynthesis	bacteria	textbook		MenA-H chorismate pathway
+Menaquinone biosynthesis (futalosine)	cofactor_biosynthesis	Helicobacter/Streptomyces	textbook		Alternative MK route
+Plastoquinone biosynthesis	cofactor_biosynthesis	plants/cyanobacteria	textbook		PQ-9
+Phylloquinone biosynthesis	cofactor_biosynthesis	plants/cyanobacteria	textbook		Vitamin K1
+Tocopherol biosynthesis	cofactor_biosynthesis	plants/cyanobacteria	textbook		Alpha-tocopherol
+Molybdopterin biosynthesis	cofactor_biosynthesis	universal	textbook		MPT/Moco; precursor Z
+Tungstopterin biosynthesis	cofactor_biosynthesis	archaea/hyperthermophiles	textbook		W-containing variant
+Lipoic acid biosynthesis	cofactor_biosynthesis	bacteria/mitochondria	textbook		Octanoyl-ACP -> lipoate
+Pyrroloquinoline quinone biosynthesis	cofactor_biosynthesis	methylotrophs	textbook		PQQ
+Coenzyme F420 biosynthesis	cofactor_biosynthesis	methanogens/actinomycetes	textbook		Deazaflavin cofactor
+Coenzyme M biosynthesis	cofactor_biosynthesis	methanogens	textbook		HS-CoM; terminal methyl carrier
+Coenzyme B biosynthesis	cofactor_biosynthesis	methanogens	textbook		Homocysteinyl-threonine phosphate
+Methanofuran biosynthesis	cofactor_biosynthesis	methanogens	textbook		CHO acceptor in methanogenesis
+Tetrahydromethanopterin biosynthesis	cofactor_biosynthesis	methanogens	textbook		H4MPT
+Factor F430 biosynthesis	cofactor_biosynthesis	methanogens	textbook		Ni tetrapyrrole
+Queuosine biosynthesis	cofactor_biosynthesis	bacteria	textbook		Hypermodified tRNA nucleoside
+Wyosine biosynthesis	cofactor_biosynthesis	archaea/eukarya	textbook		tRNA-Phe modification
+MEP/DOXP isoprenoid pathway	isoprenoid	bacteria/plastids	textbook		Non-mevalonate
+Mevalonate isoprenoid pathway	isoprenoid	eukarya/archaea/some bacteria	textbook		HMG-CoA route
+Archaeal mevalonate pathway (alternate)	isoprenoid	archaea	textbook		Diverged decarboxylation step
+Farnesyl diphosphate biosynthesis	isoprenoid	universal	textbook		C15 prenyl donor
+Geranylgeranyl diphosphate biosynthesis	isoprenoid	universal	textbook		C20 prenyl donor
+Hopanoid biosynthesis	isoprenoid	bacteria	textbook		Squalene -> hopanoids
+Sterol biosynthesis (lanosterol route)	isoprenoid	animals/fungi	textbook		Cholesterol/ergosterol
+Sterol biosynthesis (cycloartenol route)	isoprenoid	plants/some protists	textbook		
+Carotenoid biosynthesis	isoprenoid	plants/bacteria/archaea	textbook		From GGPP; lycopene/beta-carotene
+Type II fatty acid biosynthesis (FAS II)	lipid	bacteria/plastids	textbook		Dissociated enzymes; malonyl-ACP
+Type I fatty acid biosynthesis (FAS I)	lipid	animals/fungi	textbook		Single multi-domain polypeptide
+Beta-oxidation (aerobic)	lipid	universal	textbook		Acyl-CoA -> acetyl-CoA
+Beta-oxidation (anaerobic)	lipid	Clostridium/Syntrophomonas	textbook		With electron-confurcation
+Alpha-oxidation	lipid	plants/animals (peroxisomal)	textbook		Branched/odd-chain FA
+Omega-oxidation	lipid	bacteria/fungi/animals	textbook		Terminal methyl oxidation
+Phosphatidylethanolamine biosynthesis	lipid	universal	textbook		CDP-diacylglycerol pathway
+Phosphatidylglycerol biosynthesis	lipid	universal	textbook		
+Cardiolipin biosynthesis	lipid	bacteria/mitochondria	textbook		
+Archaeal ether-lipid (archaeol) biosynthesis	lipid	archaea	textbook		Isoprenoid ether lipids
+Tetraether (caldarchaeol) biosynthesis	lipid	Crenarchaeota	textbook		Monolayer membranes
+Peptidoglycan biosynthesis	cell_envelope	bacteria	textbook		UDP-GlcNAc/MurNAc pentapeptide
+Pseudopeptidoglycan biosynthesis	cell_envelope	Methanobacteriales	textbook		Pseudomurein
+S-layer glycoprotein biosynthesis	cell_envelope	archaea/bacteria	textbook		
+Lipopolysaccharide (lipid A) biosynthesis	cell_envelope	gram-negative bacteria	textbook		Raetz pathway
+Lipopolysaccharide core biosynthesis	cell_envelope	gram-negative bacteria	textbook		Kdo/heptose inner/outer core
+O-antigen biosynthesis	cell_envelope	gram-negative bacteria	textbook		Wzy-dependent/Wzx
+Wall teichoic acid biosynthesis	cell_envelope	gram-positive bacteria	textbook		
+Lipoteichoic acid biosynthesis	cell_envelope	gram-positive bacteria	textbook		
+Mycolic acid biosynthesis	cell_envelope	mycobacteria/corynebacteria	textbook		
+Capsular polysaccharide biosynthesis	cell_envelope	bacteria	textbook		Group 1/2/3/4 pathways
+Aromatic ring cleavage (ortho)	degradation	bacteria	textbook		Intradiol dioxygenases
+Aromatic ring cleavage (meta)	degradation	bacteria	textbook		Extradiol dioxygenases
+Benzoate degradation (aerobic)	degradation	Pseudomonas	textbook		Via catechol
+Benzoate degradation (anaerobic, benzoyl-CoA)	degradation	Rhodopseudomonas/Azoarcus	textbook		Birch-like reductive dearomatisation
+Catechol degradation	degradation	bacteria	textbook		Ortho or meta cleavage
+Protocatechuate degradation	degradation	bacteria	textbook		Ortho or meta
+Homogentisate degradation	degradation	bacteria/animals	textbook		Tyrosine catabolism
+Toluene degradation (aerobic, T4MO)	degradation	Pseudomonas	textbook		Toluene-4-monooxygenase
+Toluene degradation (anaerobic)	degradation	Thauera/Azoarcus	textbook		Benzylsuccinate synthase
+Naphthalene degradation	degradation	bacteria	textbook		Naphthalene dioxygenase
+BTEX/phenol degradation	degradation	Pseudomonas	textbook		
+Polycyclic aromatic hydrocarbon degradation	degradation	bacteria/fungi	textbook		
+Aliphatic alkane degradation	degradation	bacteria/archaea	textbook		AlkB/CYP153
+Cyclohexane degradation	degradation	bacteria	textbook		
+Lignin degradation	degradation	fungi/bacteria	textbook		Laccases/peroxidases
+Cellulose degradation	degradation	bacteria/fungi	textbook		Cellulosome/cellulases
+Hemicellulose (xylan) degradation	degradation	bacteria/fungi	textbook		
+Chitin degradation	degradation	bacteria/fungi	textbook		Chitinases
+Starch degradation	degradation	universal	textbook		Amylases
+Glycogen degradation	degradation	universal	textbook		Glycogen phosphorylase
+Trehalose degradation	degradation	universal	textbook		TreA/TreC
+Sucrose degradation	degradation	universal	textbook		Invertase or sucrose phosphorylase
+Cellobiose degradation	degradation	bacteria/fungi	textbook		Beta-glucosidase
+Maltose degradation	degradation	universal	textbook		
+Mannose degradation	degradation	universal	textbook		
+Rhamnose degradation	degradation	bacteria	textbook		
+Fucose degradation	degradation	bacteria	textbook		
+Galactose degradation (Leloir)	degradation	universal	textbook		GalT; galactose -> glucose-1P
+Galactose degradation (De Ley-Doudoroff)	degradation	bacteria	textbook		Oxidative; via KDG
+Polyamine degradation	degradation	bacteria/plants/animals	textbook		Putrescine/spermidine
+Urea degradation	degradation	bacteria/plants/fungi	textbook		Urease
+Creatinine degradation	degradation	bacteria	textbook		
+Purine degradation	degradation	bacteria/plants/animals	textbook		-> urate -> allantoin -> urea
+Pyrimidine degradation (reductive)	degradation	bacteria/animals	textbook		
+Pyrimidine degradation (oxidative)	degradation	bacteria/fungi	textbook		
+Enterobactin biosynthesis	siderophore	enteric bacteria	textbook		Triserine DHB siderophore
+Aerobactin biosynthesis	siderophore	enteric bacteria	textbook		Hydroxamate
+Pyochelin biosynthesis	siderophore	Pseudomonas aeruginosa	textbook		
+Pyoverdine biosynthesis	siderophore	Pseudomonas	textbook		
+Bacillibactin biosynthesis	siderophore	Bacillus	textbook		
+Yersiniabactin biosynthesis	siderophore	Yersinia/enterobacteria	textbook		
+Staphyloferrin biosynthesis	siderophore	Staphylococcus	textbook		
+Mycobactin biosynthesis	siderophore	Mycobacterium	textbook		
+Ectoine biosynthesis	osmoprotectant	halotolerant bacteria	textbook		
+Glycine betaine biosynthesis	osmoprotectant	universal	textbook		From choline or glycine
+Trehalose biosynthesis (OtsA/OtsB)	osmoprotectant	universal	textbook		
+Trehalose biosynthesis (TreS)	osmoprotectant	Mycobacterium	textbook		
+Trehalose biosynthesis (TreY/TreZ)	osmoprotectant	Arthrobacter	textbook		
+Spermidine biosynthesis	polyamine	universal	textbook		
+Putrescine biosynthesis	polyamine	universal	textbook		
+Spermine biosynthesis	polyamine	eukarya	textbook		
+Homospermidine biosynthesis	polyamine	bacteria/plants	textbook		
+Polyphosphate metabolism	phosphorus	universal	textbook		PPK1/PPK2
+Photosystem II assembly	photosynthesis	cyanobacteria/plants	textbook		Water-splitting Mn4CaO5
+Photosystem I assembly	photosynthesis	cyanobacteria/plants	textbook		NADP+ reduction
+Anoxygenic photosystem (Type II, purple bacteria)	photosynthesis	Proteobacteria	textbook		
+Anoxygenic photosystem (Type I, green sulfur)	photosynthesis	Chlorobiaceae	textbook		
+Chlorosome assembly	photosynthesis	green sulfur/green non-sulfur	textbook		
+Respiratory complex I (NADH dehydrogenase)	energy	universal	textbook		Nuo/NDH-1
+Respiratory complex II (succinate dehydrogenase)	energy	universal	textbook		
+Respiratory complex III (cytochrome bc1)	energy	aerobes	textbook		
+Respiratory complex III (cytochrome b6f)	energy	phototrophs	textbook		
+Cytochrome c oxidase (aa3)	energy	aerobes	textbook		Complex IV
+Cytochrome bd oxidase	energy	bacteria	textbook		Low-oxygen alternative
+Cytochrome cbb3 oxidase	energy	microaerobes	textbook		
+F-type ATP synthase	energy	universal	textbook		F1Fo
+V-type/A-type ATPase	energy	archaea/vacuoles	textbook		
+Sodium-translocating NADH-quinone oxidoreductase	energy	Vibrio	textbook		Na+-pumping NQR
+Rnf complex	energy	clostridia/acetogens	textbook		Ferredoxin:NAD+ oxidoreductase
+Ech hydrogenase	energy	methanogens/firmicutes	textbook		Energy-converting hydrogenase
+[FeFe] hydrogenase	energy	anaerobic bacteria/algae	textbook		
+[NiFe] hydrogenase	energy	diverse prokaryotes	textbook		
+[Fe] hydrogenase (Hmd)	energy	methanogens	textbook		Methylenetetrahydromethanopterin dehydrogenase
+Formate hydrogen lyase	energy	enterobacteria	textbook		FHL complex; formate -> H2 + CO2
+Formate dehydrogenase (NAD-dependent)	energy	bacteria	textbook		Soluble FdhA
+Formate dehydrogenase (W-containing, anaerobic)	energy	methanogens/acetogens	textbook		Tungsten/selenium cofactor
+Carbon monoxide dehydrogenase (anaerobic, Ni-Fe)	c1_metabolism	anaerobes	textbook		CODH reductive
+Carbon monoxide dehydrogenase (aerobic, Mo-Cu)	c1_metabolism	carboxydotrophs	textbook		Oligotropha-like
+Serine cycle (methylotrophy)	c1_metabolism	Methylobacterium	textbook		Formaldehyde + glycine -> serine -> PEP
+Ribulose monophosphate (RuMP) cycle	c1_metabolism	Methylococcus/Bacillus	textbook		HCHO + Ru5P -> F6P
+Xylulose monophosphate cycle	c1_metabolism	yeasts (Pichia/Hansenula)	textbook		Methylotrophic yeasts
+Glutathione-dependent formaldehyde oxidation	c1_metabolism	bacteria/eukarya	textbook		S-(hydroxymethyl)glutathione -> formate
+H4MPT-dependent formaldehyde oxidation	c1_metabolism	methylotrophs/methanogens	textbook		Mtd/Mch/Fwd/Fhc pathway
+Reductive glycine pathway	c1_metabolism	Desulfovibrio/synthetic	textbook		CO2 -> formate -> glycine -> pyruvate
+Methanol dehydrogenase (PQQ)	c1_metabolism	methylotrophs	textbook		Ca-dependent MxaFI
+Methanol dehydrogenase (REE/lanthanide)	c1_metabolism	Methylacidiphilum	textbook		XoxF; La/Ce-dependent
+Methanol dehydrogenase (NAD-dependent)	c1_metabolism	Bacillus/yeast	textbook		AOX / MDH2
+Methylamine dehydrogenase	c1_metabolism	methylotrophs	textbook		TTQ cofactor
+Trimethylamine monooxygenase	c1_metabolism	Aminobacter	textbook		TMM; TMA -> TMAO
+N-methylglutamate pathway	c1_metabolism	Methylocella/Methyloversatilis	textbook		Alternative MMA assimilation
+Methanotrophy (aerobic, pMMO)	c1_metabolism	Methylococcaceae/Methylocystaceae	textbook		Particulate methane monooxygenase
+Methanotrophy (aerobic, sMMO)	c1_metabolism	Methylococcus/Methylosinus	textbook		Soluble methane monooxygenase
+Alanine degradation	amino_acid_catabolism	universal	textbook		Alanine dehydrogenase
+Arginine degradation (arginine deiminase, ADI)	amino_acid_catabolism	lactic acid bacteria	textbook		Arg -> ornithine + NH3 + CO2 + ATP
+Arginine degradation (succinylarginine, AST)	amino_acid_catabolism	Proteobacteria	textbook		AST aerobic pathway
+Arginine degradation (arginase)	amino_acid_catabolism	universal	textbook		Arg -> ornithine + urea
+Arginine degradation (agmatine)	amino_acid_catabolism	bacteria	textbook		Arg decarboxylase -> putrescine
+Asparagine degradation	amino_acid_catabolism	universal	textbook		Asparaginase; -> aspartate
+Aspartate degradation	amino_acid_catabolism	universal	textbook		Aspartase; -> fumarate + NH3
+Cysteine degradation	amino_acid_catabolism	universal	textbook		Via 3-mercaptopyruvate
+Glutamate degradation (to butyrate)	amino_acid_catabolism	clostridia	textbook		Fermentative; via 2-hydroxyglutarate
+Glutamate degradation (to propionate, methylaspartate)	amino_acid_catabolism	clostridia	textbook		B12-dependent glutamate mutase
+Glycine cleavage system	amino_acid_catabolism	universal	textbook		GCS/GCV; glycine -> CO2 + NH3 + methylene-THF
+Glycine degradation (reductive)	amino_acid_catabolism	Clostridium	textbook		Glycine reductase, selenoprotein
+Histidine degradation	amino_acid_catabolism	bacteria/animals	textbook		Urocanate -> glutamate
+Isoleucine degradation	amino_acid_catabolism	universal	textbook		To propionyl-CoA + acetyl-CoA
+Leucine degradation	amino_acid_catabolism	universal	textbook		To acetoacetate + acetyl-CoA
+Lysine degradation (cadaverine)	amino_acid_catabolism	bacteria	textbook		Lysine decarboxylase
+Lysine degradation (saccharopine)	amino_acid_catabolism	fungi/mammals	textbook		AAA pathway in reverse
+Methionine degradation	amino_acid_catabolism	universal	textbook		Via homocysteine; trans-sulfuration
+Methionine salvage pathway	amino_acid_catabolism	universal	textbook		MTA -> methionine
+Phenylalanine degradation	amino_acid_catabolism	universal	textbook		Via tyrosine (PAH) or phenylacetate
+Proline degradation	amino_acid_catabolism	universal	textbook		PutA bifunctional; -> glutamate
+Serine degradation	amino_acid_catabolism	universal	textbook		Serine dehydratase; -> pyruvate
+Threonine degradation (aldolase)	amino_acid_catabolism	universal	textbook		Ltae; -> glycine + acetaldehyde
+Threonine degradation (dehydratase)	amino_acid_catabolism	universal	textbook		TdcB; -> 2-oxobutyrate
+Tryptophan degradation (kynurenine)	amino_acid_catabolism	universal	textbook		Via formylkynurenine
+Tryptophan degradation (aromatic cleavage)	amino_acid_catabolism	bacteria	textbook		Ring-hydroxylating dioxygenase
+Valine degradation	amino_acid_catabolism	universal	textbook		To propionyl-CoA
+GABA shunt	amino_acid_catabolism	bacteria/plants/animals	textbook		Glutamate -> GABA -> succinate
+Glucuronate degradation (Ashwell pathway)	sugar_catabolism	enterobacteria	textbook		Glucuronate -> KDG -> pyruvate
+Galacturonate degradation	sugar_catabolism	enterobacteria	textbook		Isomerase route
+Galactonate degradation	sugar_catabolism	bacteria	textbook		Via KDGal
+Gluconate degradation	sugar_catabolism	universal	textbook		Via 6-phosphogluconate
+Glycerol catabolism (aerobic, GlpK)	sugar_catabolism	universal	textbook		Glycerol -> DHAP
+Glycerol fermentation (1,3-propanediol)	fermentation	Klebsiella/Clostridium	textbook		Two-step reduction
+Myo-inositol degradation	sugar_catabolism	Bacillus/Salmonella	textbook		IolABCDEGHIJ
+Mannitol degradation	sugar_catabolism	universal	textbook		Mannitol-1P dehydrogenase
+Sorbitol degradation	sugar_catabolism	universal	textbook		Sorbitol-6P dehydrogenase
+Xylitol metabolism	sugar_catabolism	bacteria/fungi	textbook		
+L-arabinose degradation (bacterial)	sugar_catabolism	E. coli/Bacillus	textbook		AraBAD pathway
+D-xylose degradation (isomerase)	sugar_catabolism	bacteria	textbook		XylA/XylB
+D-xylose degradation (oxidoreductase)	sugar_catabolism	fungi/some archaea	textbook		XylDH/XylR
+Glycolate utilization	sugar_catabolism	bacteria/plants	textbook		Glycolate oxidase; glyoxylate pathway
+D-lactate oxidation	sugar_catabolism	bacteria	textbook		D-lactate dehydrogenase (FMN)
+L-lactate oxidation (FMN-dependent)	sugar_catabolism	bacteria	textbook		L-lactate dehydrogenase membrane-bound
+Sialic acid catabolism	sugar_catabolism	enterobacteria	textbook		NanA/NanE; Neu5Ac -> ManNAc-6P
+Fucose catabolism (fucose isomerase)	sugar_catabolism	bacteria	textbook		FucIKA
+Malolactic fermentation	fermentation	lactic acid bacteria	textbook		Malate -> lactate + CO2
+Gluconate fermentation	fermentation	bacteria	textbook		Via ED or PP
+Acetoin biosynthesis	fermentation	Bacillus/Klebsiella	textbook		Pyruvate -> alpha-acetolactate -> acetoin
+Dihydroxyacetone metabolism	fermentation	bacteria	textbook		DhaK/DhaL kinase
+Nonribosomal peptide synthetase (generic)	secondary	bacteria/fungi	textbook		NRPS thiotemplate assembly
+Type I polyketide synthase (generic)	secondary	actinomycetes/Proteobacteria	textbook		Modular iterative PKS
+Type II polyketide synthase (aromatic)	secondary	actinomycetes	textbook		Iterative minimal PKS
+Type III polyketide synthase	secondary	plants/bacteria	textbook		Chalcone/stilbene synthase-like
+Lantibiotic biosynthesis	secondary	gram-positive bacteria	textbook		Nisin/subtilin-type
+Thiopeptide biosynthesis	secondary	actinomycetes	textbook		
+Lasso peptide biosynthesis	secondary	actinomycetes/Proteobacteria	textbook		
+Sactipeptide biosynthesis	secondary	bacilli/clostridia	textbook		Thioether-linked
+Violacein biosynthesis	secondary	Chromobacterium/Janthinobacterium	textbook		
+Indigoidine biosynthesis	secondary	Streptomyces/Erwinia	textbook		
+Prodigiosin biosynthesis	secondary	Serratia/Streptomyces	textbook		
+Staphyloxanthin biosynthesis	secondary	Staphylococcus aureus	textbook		Triterpenoid carotenoid
+Phenazine biosynthesis	secondary	Pseudomonas/Streptomyces	textbook		Pyocyanin precursor
+Penicillin/cephalosporin biosynthesis	secondary	Penicillium/Cephalosporium/Streptomyces	textbook		Beta-lactam core via ACV tripeptide
+Tetracycline biosynthesis	secondary	Streptomyces	textbook		Type II PKS
+Erythromycin biosynthesis	secondary	Saccharopolyspora erythraea	textbook		Modular type I PKS (DEBS)
+Streptomycin biosynthesis	secondary	Streptomyces griseus	textbook		Aminoglycoside
+Vancomycin biosynthesis	secondary	Amycolatopsis	textbook		Glycopeptide NRPS
+Bacitracin biosynthesis	secondary	Bacillus licheniformis	textbook		
+Actinorhodin biosynthesis	secondary	Streptomyces coelicolor	textbook		
+Melanin biosynthesis (pyomelanin/DHN)	secondary	bacteria/fungi	textbook		From homogentisate or DHN
+Siderophore biosynthesis (NIS pathway, generic)	siderophore	bacteria	textbook		NRPS-independent citrate-hydroxamate
+N-acyl homoserine lactone (AHL) biosynthesis	signalling	Proteobacteria	textbook		LuxI-type synthases; quorum sensing
+Autoinducer-2 (DPD) biosynthesis	signalling	universal	textbook		LuxS; SAM -> SRH -> DPD
+Autoinducing peptide processing	signalling	gram-positive bacteria	textbook		agr-type; thiolactone/lactone
+Cyclic-di-GMP biosynthesis	signalling	bacteria	textbook		GGDEF/EAL domains
+Cyclic-di-AMP biosynthesis	signalling	gram-positive bacteria/archaea	textbook		DacA
+(p)ppGpp biosynthesis (stringent response)	signalling	bacteria	textbook		RelA/SpoT
+AHL degradation (quorum quenching)	signalling	bacteria	textbook		Lactonase/acylase
+Cyclic-di-GMP degradation	signalling	bacteria	textbook		EAL/HD-GYP phosphodiesterases
+Polyhydroxyalkanoate (PHA/PHB) biosynthesis	storage	bacteria	textbook		PhaC-mediated
+Polyhydroxyalkanoate degradation	storage	bacteria	textbook		Intracellular PhaZ depolymerase
+Glycogen biosynthesis (bacterial)	storage	bacteria	textbook		GlgA via ADP-glucose
+Starch biosynthesis (cyanobacteria/plants)	storage	cyanobacteria/plants	textbook		ADP-glucose pathway
+Cyanophycin biosynthesis	storage	cyanobacteria	textbook		Arg-Asp copolymer
+Magnetosome biomineralization	storage	Magnetospirillum	textbook		Mam proteins; magnetite
+Gas vesicle protein assembly	storage	cyanobacteria/haloarchaea	textbook		GvpA/C
+Colanic acid biosynthesis	exopolysaccharide	enterobacteria	textbook		Wca cluster
+Alginate biosynthesis (bacterial)	exopolysaccharide	Pseudomonas/Azotobacter	textbook		Alg cluster
+Xanthan biosynthesis	exopolysaccharide	Xanthomonas	textbook		
+Cellulose biosynthesis (bacterial)	exopolysaccharide	Gluconacetobacter/E. coli	textbook		BcsA/BcsB
+Curdlan biosynthesis	exopolysaccharide	Agrobacterium	textbook		Beta-1,3-glucan
+Dextran biosynthesis	exopolysaccharide	lactic acid bacteria	textbook		Dextransucrase
+Levan biosynthesis	exopolysaccharide	Bacillus/Zymomonas	textbook		Levansucrase
+Polysialic acid (K1 capsule) biosynthesis	exopolysaccharide	E. coli K1/N. meningitidis	textbook		
+Succinoglycan biosynthesis	exopolysaccharide	Sinorhizobium	textbook		
+S-adenosylmethionine cycle	cofactor_biosynthesis	universal	textbook		SAM/SAH/homocysteine/methionine
+Glutathione biosynthesis	cofactor_biosynthesis	bacteria/eukarya	textbook		Gamma-Glu-Cys-Gly
+Glutathione redox cycle	cofactor_biosynthesis	universal	textbook		GSH/GSSG; peroxidase coupling
+Mycothiol biosynthesis	cofactor_biosynthesis	actinomycetes	textbook		Alternative to GSH
+Bacillithiol biosynthesis	cofactor_biosynthesis	firmicutes	textbook		GlcN-Mal-Cys
+Ergothioneine biosynthesis	cofactor_biosynthesis	mycobacteria/fungi	textbook		
+4'-phosphopantetheine transfer (ACP activation)	cofactor_biosynthesis	universal	textbook		AcpS/Sfp family
+Iron-sulfur cluster biosynthesis (Isc)	cofactor_biosynthesis	bacteria/mitochondria	textbook		Housekeeping cluster biogenesis
+Iron-sulfur cluster biosynthesis (Suf)	cofactor_biosynthesis	bacteria/plastids	textbook		Stress/alternative
+Iron-sulfur cluster biosynthesis (Nif)	cofactor_biosynthesis	diazotrophs	textbook		Nitrogenase-specific
+Archaeosine biosynthesis	cofactor_biosynthesis	archaea	textbook		tRNA position 15 modification
+Bacterioruberin biosynthesis	isoprenoid	haloarchaea	textbook		C50 carotenoid
+Bacteriorhodopsin-mediated proton pumping	energy	haloarchaea	textbook		Light-driven H+ pump
+Halorhodopsin-mediated chloride pumping	energy	haloarchaea	textbook		Light-driven Cl- pump
+Proteorhodopsin phototrophy	energy	marine bacteria/archaea	textbook		PR-based light harvesting
+Compatible solute biosynthesis (mannosylglycerate)	osmoprotectant	thermophiles	textbook		
+Compatible solute biosynthesis (di-myo-inositol phosphate)	osmoprotectant	hyperthermophiles	textbook		DIP
+Heliobacterial photosynthesis	photosynthesis	Heliobacteriaceae	textbook		Type I anoxygenic, BChl g
+Chloroflexus-type photosynthesis	photosynthesis	Chloroflexaceae	textbook		Hybrid; uses 3-HP bicycle for C fixation
+Cholesterol degradation (bacterial)	degradation	Mycobacterium/Rhodococcus	textbook		9,10-seco-steroid pathway
+Bile acid 7alpha-dehydroxylation	degradation	gut clostridia	textbook		Primary -> secondary bile acids
+Phenol degradation	degradation	bacteria	textbook		Phenol hydroxylase -> catechol
+Cresol degradation	degradation	bacteria	textbook		
+Quinoline degradation	degradation	bacteria	textbook		
+Dibenzofuran/dibenzothiophene degradation	degradation	bacteria	textbook		
+Tetrachloroethene reductive dechlorination	degradation	Dehalococcoides	textbook		Organohalide respiration
+Chlorophenol degradation	degradation	bacteria	textbook		
+Atrazine degradation	degradation	Pseudomonas	textbook		AtzABC
+2,4-D (dichlorophenoxyacetate) degradation	degradation	Ralstonia/Cupriavidus	textbook		
+Lindane (gamma-HCH) degradation	degradation	Sphingomonas	textbook		LinABCDE
+Styrene degradation	degradation	bacteria	textbook		
+Nitrobenzene/TNT transformation	degradation	bacteria	textbook		
+PET (polyethylene terephthalate) degradation	degradation	Ideonella	textbook		PETase/MHETase
+EDTA degradation	degradation	bacteria	textbook		
+Cyanide degradation	degradation	bacteria/fungi	textbook		Cyanidase/cyanase
+Thiocyanate degradation	degradation	bacteria	textbook		
+Nitrile hydratase/nitrilase pathway	degradation	bacteria	textbook		
+Alkanesulfonate utilization	sulfur	bacteria	textbook		SsuEADCB
+Taurine assimilation	sulfur	bacteria	textbook		Taurine dioxygenase; sulfonate -> sulfite
+Sulfoquinovose degradation	sulfur	bacteria	textbook		SQ as sulfolipid headgroup
+Dimethylsulfoniopropionate (DMSP) cleavage	sulfur	marine bacteria	textbook		DddD/DddP; -> DMS
+Dimethylsulfoniopropionate (DMSP) demethylation	sulfur	marine bacteria	textbook		DmdA; -> MMPA
+Hydroxylamine oxidation	nitrogen	nitrifiers/anammox	textbook		HAO
+Cyanate utilization	nitrogen	bacteria	textbook		Cyanase
+Creatine/creatinine metabolism	nitrogen	bacteria	textbook		
+Ornithine/putrescine catabolism	nitrogen	bacteria	textbook		OAT/PutA routes
+Glycogen degradation (GlgP/GlgX)	sugar_catabolism	bacteria	textbook		
+Acyl-CoA dehydrogenase FAD cycle	lipid	universal	textbook		ETF/ETF:QO coupling
+Electron-transferring flavoprotein system	energy	universal	textbook		ETF/ETF-QO; fatty acid oxidation electrons
+Electron bifurcation (flavin-based)	energy	anaerobes	textbook		FBEB; Bcd/EtfAB, HdrABC, NfnAB
+Anaerobic ribonucleotide reductase (class III)	nucleotide_biosynthesis	strict anaerobes	textbook		Glycyl radical; O2-sensitive
+Aerobic ribonucleotide reductase (class I)	nucleotide_biosynthesis	aerobes	textbook		Fe-tyrosyl radical
+Adenosylcobalamin-dependent RNR (class II)	nucleotide_biosynthesis	diverse prokaryotes	textbook		B12-dependent
+Polyphosphate kinase (PPK1) pathway	phosphorus	bacteria	textbook		Distinct from generic polyP metabolism
+Phosphonate degradation (C-P lyase)	phosphorus	bacteria	textbook		PhnGHIJKLMNOP
