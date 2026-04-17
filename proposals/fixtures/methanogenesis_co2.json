@@ -1,0 +1,67 @@
+{
+  "schema_version": "1",
+  "proposal_id": "",
+  "created_at": "1970-01-01T00:00:00Z",
+  "model": "mock/fixture",
+  "prompt_version": "0.1.0",
+  "target": {
+    "pathway_name": "methanogenesis from CO2",
+    "organism_scope": "Methanothermobacter thermautotrophicus",
+    "medium": "H2 + CO2, minimal",
+    "notes": null
+  },
+  "reactions": [
+    {
+      "local_id": "R1",
+      "reference": {"rhea": "18857"},
+      "reversibility": "forward",
+      "equation_hint": "CO2 + 2 reduced ferredoxin -> formyl-MF + H2O + 2 oxidised ferredoxin"
+    },
+    {
+      "local_id": "R2",
+      "reference": {"rhea": "15425"},
+      "reversibility": "forward",
+      "equation_hint": "formyl-MF + H4MPT -> formyl-H4MPT + MF"
+    },
+    {
+      "local_id": "R3",
+      "reference": {
+        "chebi_ec": {
+          "ec": "1.12.98.2",
+          "substrates": ["CHEBI:58032", "CHEBI:57540"],
+          "products": ["CHEBI:58411", "CHEBI:57945"]
+        }
+      },
+      "reversibility": "reversible",
+      "equation_hint": "methylene-H4MPT + NADH -> methyl-H4MPT + NAD+"
+    },
+    {
+      "local_id": "R4",
+      "reference": {"rhea": "22416"},
+      "reversibility": "forward",
+      "equation_hint": "methyl-CoM + CoB -> CoM-S-S-CoB + methane"
+    }
+  ],
+  "enzymes": [
+    {
+      "uniprot": "P07036",
+      "catalyses": ["R4"],
+      "function": "methyl-coenzyme M reductase alpha subunit"
+    },
+    {
+      "uniprot": "P80644",
+      "catalyses": ["R1"],
+      "function": "formylmethanofuran dehydrogenase"
+    }
+  ],
+  "dag": [
+    {"from": "R1", "to": "R2"},
+    {"from": "R2", "to": "R3"},
+    {"from": "R3", "to": "R4"}
+  ],
+  "citations": [
+    {"pmid": "9195156", "note": "Thauer review of methanogenesis"},
+    {"pmid": "9461540", "note": "Ermler et al., MCR crystal structure"}
+  ],
+  "rationale": "Hydrogenotrophic methanogenesis proceeds via the Wolfe cycle: CO2 is activated on methanofuran, transferred through the H4MPT carrier to methyl-CoM, and finally reduced to methane by methyl-CoM reductase. The cited UniProt accessions are the canonical catalysts in M. thermautotrophicus."
+}

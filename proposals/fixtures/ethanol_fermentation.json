@@ -1,0 +1,39 @@
+{
+  "schema_version": "1",
+  "proposal_id": "",
+  "created_at": "1970-01-01T00:00:00Z",
+  "model": "mock/fixture",
+  "prompt_version": "0.1.0",
+  "target": {
+    "pathway_name": "ethanol fermentation from pyruvate",
+    "organism_scope": "Saccharomyces cerevisiae",
+    "medium": "anaerobic + D-glucose",
+    "notes": "Pyruvate-to-ethanol branch that regenerates NAD+ for glycolysis under fermentative conditions. Follows downstream of glycolysis."
+  },
+  "reactions": [
+    {
+      "local_id": "R1",
+      "reference": {"rhea": "11628"},
+      "reversibility": "forward",
+      "equation_hint": "pyruvate + H+ -> acetaldehyde + CO2 (pyruvate decarboxylase)"
+    },
+    {
+      "local_id": "R2",
+      "reference": {"rhea": "10736"},
+      "reversibility": "reversible",
+      "equation_hint": "acetaldehyde + NADH + H+ <-> ethanol + NAD+ (alcohol dehydrogenase)"
+    }
+  ],
+  "enzymes": [
+    {"uniprot": "P06169", "catalyses": ["R1"], "function": "pyruvate decarboxylase isozyme 1 (Pdc1)"},
+    {"uniprot": "P00330", "catalyses": ["R2"], "function": "alcohol dehydrogenase 1 (Adh1)"}
+  ],
+  "dag": [
+    {"from": "R1", "to": "R2"}
+  ],
+  "citations": [
+    {"pmid": "22411467", "note": "Hohmann: yeast ethanol fermentation and the regulation of alcohol production."},
+    {"pmid": "9284344", "note": "Pronk et al.: pyruvate metabolism in S. cerevisiae."}
+  ],
+  "rationale": "Two-step fermentative reduction of pyruvate to ethanol. R1 (pyruvate decarboxylase, PDC1) is the committed step that diverts pyruvate from oxidative metabolism. R2 (alcohol dehydrogenase, ADH1) consumes NADH, closing the redox loop with glycolysis' GAPDH step. Under anaerobic conditions this pathway sustains ATP production by keeping NAD+ available."
+}

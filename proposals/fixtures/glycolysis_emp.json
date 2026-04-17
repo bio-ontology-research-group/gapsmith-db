@@ -1,0 +1,104 @@
+{
+  "schema_version": "1",
+  "proposal_id": "",
+  "created_at": "1970-01-01T00:00:00Z",
+  "model": "mock/fixture",
+  "prompt_version": "0.1.0",
+  "target": {
+    "pathway_name": "glycolysis (Embden-Meyerhof-Parnas)",
+    "organism_scope": "Escherichia coli K-12",
+    "medium": "minimal + D-glucose",
+    "notes": "Canonical 10-step glycolysis from D-glucose to pyruvate. Net yield per glucose: 2 ATP, 2 NADH, 2 pyruvate."
+  },
+  "reactions": [
+    {
+      "local_id": "R1",
+      "reference": {"rhea": "17825"},
+      "reversibility": "forward",
+      "equation_hint": "D-glucose + ATP -> D-glucose 6-phosphate + ADP (hexokinase / glucokinase)"
+    },
+    {
+      "local_id": "R2",
+      "reference": {"rhea": "11816"},
+      "reversibility": "reversible",
+      "equation_hint": "D-glucose 6-phosphate <-> D-fructose 6-phosphate (phosphoglucose isomerase)"
+    },
+    {
+      "local_id": "R3",
+      "reference": {"rhea": "16109"},
+      "reversibility": "forward",
+      "equation_hint": "D-fructose 6-phosphate + ATP -> D-fructose 1,6-bisphosphate + ADP (phosphofructokinase)"
+    },
+    {
+      "local_id": "R4",
+      "reference": {"rhea": "14729"},
+      "reversibility": "reversible",
+      "equation_hint": "D-fructose 1,6-bisphosphate <-> DHAP + D-glyceraldehyde 3-phosphate (aldolase)"
+    },
+    {
+      "local_id": "R5",
+      "reference": {"rhea": "18585"},
+      "reversibility": "reversible",
+      "equation_hint": "DHAP <-> D-glyceraldehyde 3-phosphate (triose phosphate isomerase)"
+    },
+    {
+      "local_id": "R6",
+      "reference": {"rhea": "10300"},
+      "reversibility": "reversible",
+      "equation_hint": "G3P + NAD+ + Pi <-> 1,3-bisphosphoglycerate + NADH + H+ (GAPDH)"
+    },
+    {
+      "local_id": "R7",
+      "reference": {"rhea": "14801"},
+      "reversibility": "reversible",
+      "equation_hint": "1,3-bisphosphoglycerate + ADP <-> 3-phosphoglycerate + ATP (phosphoglycerate kinase)"
+    },
+    {
+      "local_id": "R8",
+      "reference": {"rhea": "15901"},
+      "reversibility": "reversible",
+      "equation_hint": "3-phosphoglycerate <-> 2-phosphoglycerate (phosphoglycerate mutase)"
+    },
+    {
+      "local_id": "R9",
+      "reference": {"rhea": "10164"},
+      "reversibility": "reversible",
+      "equation_hint": "2-phosphoglycerate <-> phosphoenolpyruvate + H2O (enolase)"
+    },
+    {
+      "local_id": "R10",
+      "reference": {"rhea": "18157"},
+      "reversibility": "forward",
+      "equation_hint": "phosphoenolpyruvate + ADP -> pyruvate + ATP (pyruvate kinase)"
+    }
+  ],
+  "enzymes": [
+    {"uniprot": "P0A6V8", "catalyses": ["R1"], "function": "glucokinase (Glk)"},
+    {"uniprot": "P0A6T1", "catalyses": ["R2"], "function": "glucose-6-phosphate isomerase (Pgi)"},
+    {"uniprot": "P0A796",  "catalyses": ["R3"], "function": "6-phosphofructokinase isozyme 1 (PfkA)"},
+    {"uniprot": "P0AB71", "catalyses": ["R4"], "function": "fructose-bisphosphate aldolase class II (FbaA)"},
+    {"uniprot": "P0A858", "catalyses": ["R5"], "function": "triose-phosphate isomerase (TpiA)"},
+    {"uniprot": "P0A9B2", "catalyses": ["R6"], "function": "glyceraldehyde-3-phosphate dehydrogenase A (GapA)"},
+    {"uniprot": "P0A799", "catalyses": ["R7"], "function": "phosphoglycerate kinase (Pgk)"},
+    {"uniprot": "P62707", "catalyses": ["R8"], "function": "2,3-bisphosphoglycerate-dependent phosphoglycerate mutase (GpmA)"},
+    {"uniprot": "P0A6P9", "catalyses": ["R9"], "function": "enolase (Eno)"},
+    {"uniprot": "P0AD61", "catalyses": ["R10"], "function": "pyruvate kinase I (PykF)"}
+  ],
+  "dag": [
+    {"from": "R1", "to": "R2"},
+    {"from": "R2", "to": "R3"},
+    {"from": "R3", "to": "R4"},
+    {"from": "R4", "to": "R5"},
+    {"from": "R4", "to": "R6"},
+    {"from": "R5", "to": "R6"},
+    {"from": "R6", "to": "R7"},
+    {"from": "R7", "to": "R8"},
+    {"from": "R8", "to": "R9"},
+    {"from": "R9", "to": "R10"}
+  ],
+  "citations": [
+    {"pmid": "2144523", "note": "Fothergill-Gilmore & Michels: evolution of glycolysis."},
+    {"pmid": "16430858", "note": "Plaxton: regulation of glycolysis in plants (framework also applies to bacteria)."}
+  ],
+  "rationale": "Canonical Embden-Meyerhof-Parnas glycolysis as described in E. coli K-12. Reactions R4 (aldolase) and R5 (TPI) fork because the aldolase product DHAP is converted to a second G3P by TPI; both feed R6 (GAPDH). Reversibility follows the standard physiological annotation: hexokinase, PFK, and pyruvate kinase are effectively irreversible under cellular conditions; the rest run near equilibrium."
+}

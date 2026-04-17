@@ -21,8 +21,12 @@ data/*/*
 data/*/.tmp
 data/*/MANIFEST.json
 
-# Proposals, curator state, LLM cache
-proposals/
+# Proposals, curator state, LLM cache. Hand-authored fixtures under
+# proposals/fixtures/ are committed (the mock proposer and CI depend
+# on them); the rest of proposals/ (pending/, for_curation/, rejected/,
+# decisions.log.jsonl) is runtime state.
+proposals/*
+!proposals/fixtures/
 corpus/
 .cache/
 .openrouter/

@@ -1,0 +1,39 @@
+{
+  "schema_version": "1",
+  "proposal_id": "",
+  "created_at": "1970-01-01T00:00:00Z",
+  "model": "mock/fixture",
+  "prompt_version": "0.1.0",
+  "target": {
+    "pathway_name": "L-glutamate biosynthesis (GS/GOGAT cycle)",
+    "organism_scope": "Escherichia coli K-12",
+    "medium": "nitrogen-limited minimal (low NH4+)",
+    "notes": "Primary nitrogen assimilation route under nitrogen limitation: glutamine synthetase (GS) fixes NH4+ onto L-glutamate; glutamate synthase (GOGAT) regenerates two L-glutamate from L-glutamine + 2-oxoglutarate with NADPH."
+  },
+  "reactions": [
+    {
+      "local_id": "R1",
+      "reference": {"rhea": "16169"},
+      "reversibility": "forward",
+      "equation_hint": "L-glutamate + NH3 + ATP -> L-glutamine + ADP + Pi (glutamine synthetase)"
+    },
+    {
+      "local_id": "R2",
+      "reference": {"rhea": "15501"},
+      "reversibility": "reversible",
+      "equation_hint": "L-glutamine + 2-oxoglutarate + NADPH -> 2 L-glutamate + NADP+ (glutamate synthase, NADPH-dependent)"
+    }
+  ],
+  "enzymes": [
+    {"uniprot": "P0A9C5", "catalyses": ["R1"], "function": "glutamine synthetase (GlnA)"},
+    {"uniprot": "P09831", "catalyses": ["R2"], "function": "glutamate synthase large subunit (GltB)"}
+  ],
+  "dag": [
+    {"from": "R1", "to": "R2"}
+  ],
+  "citations": [
+    {"pmid": "10555147", "note": "Reitzer: nitrogen assimilation in Escherichia coli and Salmonella."},
+    {"pmid": "12471237", "note": "Vanoni & Curti: glutamate synthase structure and mechanism."}
+  ],
+  "rationale": "Under low ammonium, E. coli switches from glutamate dehydrogenase (GDH, high Km for NH4+) to the ATP-dependent GS/GOGAT cycle. GS (R1) uses ATP to condense NH4+ onto glutamate, producing glutamine; GOGAT (R2) splits glutamine with 2-oxoglutarate and NADPH, yielding two glutamates and regenerating the cycle. Net result: one 2-oxoglutarate + one NH4+ + one ATP + one NADPH -> one glutamate."
+}
