@@ -1,0 +1,25 @@
+name = "KEGG"
+upstream_url = "https://www.kegg.jp/"
+licence = "Proprietary (academic licence required for bulk access)"
+licence_url = "https://www.kegg.jp/kegg/legal.html"
+attribution = "Kanehisa M, Goto S. KEGG: Kyoto Encyclopedia of Genes and Genomes. Nucleic Acids Res. 28:27-30 (2000). Use subject to KEGG licence terms."
+
+pinned_release = ""
+pinned_date = ""
+sha256 = ""
+
+artefacts = []
+
+notes = """
+KEGG REST terms restrict bulk automated pulls. The fetcher is intentionally
+gated and does not run in CI. Public release artefacts of gapsmith-db do not
+include KEGG-derived content. If you hold a KEGG academic licence and wish to
+include KEGG data locally:
+
+1. Populate data/kegg/ manually with the artefacts your licence covers.
+2. Record the pin + sha256 in this file.
+3. Run the ingest step (not fetch); the ingest pipeline will treat manually-
+   populated data as if it had been fetched via the normal path.
+
+See LICENSING.md for policy reasoning on restrictively-licensed sources.
+"""
