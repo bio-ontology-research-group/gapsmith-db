@@ -6,17 +6,25 @@ use crate::Result;
 use crate::fetch::{ExtractMode, FetchPlan, FetchStep};
 use crate::source::{SourceId, SourceSpec};
 
+// Rhea used to ship `rhea-reactions.tsv`; since release ~135 the human-
+// readable equation table has been dropped in favour of the RDF release.
+// The Phase-2 parser only needs rhea2ec + rhea-directions (plus uniprot
+// and reactome mappings for xref-building).
 const TSV_FILES: &[&str] = &[
-    "rhea-reactions.tsv",
     "rhea2ec.tsv",
     "rhea2uniprot_sprot.tsv",
     "rhea-directions.tsv",
+    "rhea2reactome.tsv",
 ];
 
 pub fn plan(spec: &SourceSpec, dry_run: bool) -> Result<FetchPlan> {
+    // The Rhea release number is metadata only; the FTP layout serves a
+    // single live snapshot at /databases/rhea/{tsv,rdf}/ with no release
+    // number in the path. Per-file sha256 pins in SOURCE.toml tie a build
+    // to a specific snapshot.
     let release = spec.require_release(dry_run)?;
 
-    let base = format!("https://ftp.expasy.org/databases/rhea/{release}");
+    let base = "https://ftp.expasy.org/databases/rhea";
     let mut steps: Vec<FetchStep> = TSV_FILES
         .iter()
         .map(|name| FetchStep {

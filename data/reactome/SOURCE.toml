@@ -5,10 +5,12 @@ licence = "Creative Commons Attribution 4.0 International (CC-BY-4.0)"
 licence_url = "https://reactome.org/license"
 attribution = "Milacic M et al. The Reactome Pathway Knowledgebase 2024. Nucleic Acids Res. 52(D1):D672-D678 (CC-BY-4.0)"
 
-# Pin policy: Reactome release number (quarterly). Adjust to the release you
-# verify at https://reactome.org/about/news.
-pinned_release = "91"
-pinned_date = ""
+# Pin policy: Reactome ships only a `current` download path (numbered
+# release folders were discontinued). Track the release via `pinned_date`
+# (the Last-Modified header of the artefacts) and lock the per-file
+# sha256 pins below.
+pinned_release = "current"
+pinned_date = "2026-03-23"
 sha256 = ""
 
 artefacts = [
@@ -19,10 +21,10 @@ artefacts = [
 ]
 
 [file_hashes]
-"ReactomePathways.txt" = ""
-"ReactomePathwaysRelation.txt" = ""
-"ChEBI2Reactome_All_Levels.txt" = ""
-"UniProt2Reactome_All_Levels.txt" = ""
+"ReactomePathways.txt" = "eac3ac074b3849a6d928260f4f71920f346584b0114afa7b60fcc8e40eefd9ec"
+"ReactomePathwaysRelation.txt" = "72e2da17ef5806d287a0d932cd6d161fea62ef7a567b6e95601b67463c07170e"
+"ChEBI2Reactome_All_Levels.txt" = "349264beeff3f5d020d37d278a8b6a69a7f648171514e8d8fd595072d9ade0e4"
+"UniProt2Reactome_All_Levels.txt" = "3796b3368f673bea7b641ff80a2a2eb08034625b94d0cccdc88ce1505b03b438"
 
 notes = """
 Lowest-level pathway definitions. Organism filter: keep open/model organisms only;

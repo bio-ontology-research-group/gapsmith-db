@@ -5,10 +5,10 @@ licence = "Creative Commons Attribution 4.0 International (CC-BY-4.0)"
 licence_url = "https://www.uniprot.org/help/license"
 attribution = "The UniProt Consortium. UniProt: the Universal Protein Knowledgebase in 2023. Nucleic Acids Res. 51(D1):D523-D531 (CC-BY-4.0)"
 
-# Pin policy: UniProt release tag (bimonthly). Adjust to the release you verify
-# at https://www.uniprot.org/release-notes.
-pinned_release = "2025_01"
-pinned_date = ""
+# Pin policy: UniProt release tag (bimonthly). Verify via
+#   curl https://ftp.uniprot.org/pub/databases/uniprot/relnotes.txt
+pinned_release = "2026_01"
+pinned_date = "2026-01-28"
 sha256 = ""
 
 # REST query for the EC-annotated Swiss-Prot subset. Concatenated into one
@@ -19,7 +19,7 @@ artefacts = [
 ]
 
 [file_hashes]
-"swissprot_ec.json" = ""
+"swissprot_ec.json" = "89af7550d83eba1f65f838a23e289b2d7ac86239f3bec73c39469e6396487e4c"
 
 notes = """
 Swiss-Prot EC-annotated reviewed subset. Drives the UniProtExistence verifier.

@@ -1,25 +1,35 @@
-name = "IntEnz"
-upstream_url = "https://www.ebi.ac.uk/intenz/"
-ftp_url = "https://ftp.ebi.ac.uk/pub/databases/intenz/"
+name = "ENZYME (ExPASy nomenclature)"
+upstream_url = "https://enzyme.expasy.org/"
+ftp_url = "https://ftp.expasy.org/databases/enzyme/"
 licence = "Creative Commons Attribution 4.0 International (CC-BY-4.0)"
-licence_url = "https://www.ebi.ac.uk/intenz/"
-attribution = "Fleischmann A et al. IntEnz, the integrated relational enzyme database. Nucleic Acids Res. 32(Database issue):D434-D437 (CC-BY-4.0)"
+licence_url = "https://enzyme.expasy.org/"
+attribution = "Bairoch A. The ENZYME database in 2000. Nucleic Acids Res. 28(1):304-305 (CC-BY-4.0)"
 
-# Pin policy: IntEnz publishes to a single "current" FTP path; tag by date.
-# The SHA256 pin is what actually ties the build to a specific snapshot.
+# Pin policy: ExPASy ENZYME publishes a single "current" FTP snapshot; tag
+# by date. The SHA256 pins are what actually tie the build to a snapshot.
+#
+# This source was previously labelled "IntEnz" and pointed at
+# ftp.ebi.ac.uk/pub/databases/intenz/, which was last updated in 2022 and
+# now returns 404/403 for the flat files. ExPASy ENZYME is the live mirror
+# of the same IUBMB EC nomenclature and is the canonical source.
+#
+# The `data/` directory name is still `intenz/` to avoid a workspace-wide
+# SourceId rename; treat "intenz" as a legacy key for ENZYME.
 pinned_release = ""
-pinned_date = "2024-11-01"
+pinned_date = "2026-01-28"
 sha256 = ""
 
 artefacts = [
-    "xml/intenz.xml.gz",
-    "flat/enzyme.dat",
+    "enzyme.dat",
+    "enzclass.txt",
 ]
 
 [file_hashes]
-"intenz.xml.gz" = ""
-"enzyme.dat" = ""
+"enzyme.dat" = "6df8cb885aebe63e90a6780935da544678c10f663eaf87f55e08696a52915256"
+"enzclass.txt" = "7f02aca67c0e98fb98337686c0307941f3377d9108198ee7becb62e8baf7911e"
 
 notes = """
 Curated EC nomenclature. Feeds the EcValidity verifier (four-level existence).
+Source of truth switched from ftp.ebi.ac.uk/pub/databases/intenz/ (stale
+since 2022) to ftp.expasy.org/databases/enzyme/ on 2026-04-17.
 """

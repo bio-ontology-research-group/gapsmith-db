@@ -1,0 +1,7 @@
+{
+  "atp_flux": 0.0,
+  "epsilon": 1e-6,
+  "model_sha256": "sha256:regenerated-per-run",
+  "pinned_at": "v0.0.0-ci-fixture-2026-04-17",
+  "note": "Baseline for the small ingest fixture in .github/workflows/ci.yml (glucose + ATP hydrolysis). Flux should be 0 under closed exchanges because the reactions are stoichiometrically balanced and the synthesised ATPM cannot run without exogenous ATP. Regenerate via: gapsmith-db universal pin-atp-cycle --model ci-data/universal.xml --pinned-at <tag>. cobra's SBML writer is not byte-stable, so model_sha256 is informational only; the flux is the regression signal."
+}

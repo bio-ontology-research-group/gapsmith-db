@@ -7,27 +7,31 @@ use crate::fetch::{ExtractMode, FetchPlan, FetchStep};
 use crate::source::{SourceId, SourceSpec};
 
 pub fn plan(spec: &SourceSpec, dry_run: bool) -> Result<FetchPlan> {
+    // ChEBI rel245+ renamed `Flat_file_tab_delimited/` to `flat_files/`
+    // and gzipped `chemical_data.tsv`. The release-numbered archive tree
+    // preserves both layouts for their historical releases, but new pins
+    // should track the current layout.
     let release = spec.require_release(dry_run)?;
 
     let archive = format!("https://ftp.ebi.ac.uk/pub/databases/chebi/archive/rel{release}");
 
     let steps = vec![
         FetchStep {
-            url: format!("{archive}/Flat_file_tab_delimited/compounds.tsv.gz"),
+            url: format!("{archive}/flat_files/compounds.tsv.gz"),
             relative_path: PathBuf::from("compounds.tsv"),
             expected_sha256: spec.file_hash("compounds.tsv.gz").map(str::to_string),
             extract: ExtractMode::Gzip,
             label: "compounds.tsv.gz".into(),
         },
         FetchStep {
-            url: format!("{archive}/Flat_file_tab_delimited/chemical_data.tsv"),
+            url: format!("{archive}/flat_files/chemical_data.tsv.gz"),
             relative_path: PathBuf::from("chemical_data.tsv"),
-            expected_sha256: spec.file_hash("chemical_data.tsv").map(str::to_string),
-            extract: ExtractMode::Raw,
-            label: "chemical_data.tsv".into(),
+            expected_sha256: spec.file_hash("chemical_data.tsv.gz").map(str::to_string),
+            extract: ExtractMode::Gzip,
+            label: "chemical_data.tsv.gz".into(),
         },
         FetchStep {
-            url: format!("{archive}/Flat_file_tab_delimited/names.tsv.gz"),
+            url: format!("{archive}/flat_files/names.tsv.gz"),
             relative_path: PathBuf::from("names.tsv"),
             expected_sha256: spec.file_hash("names.tsv.gz").map(str::to_string),
             extract: ExtractMode::Gzip,

@@ -9,6 +9,7 @@ mod fetch_cmd;
 mod ingest_cmd;
 mod propose_cmd;
 mod release_cmd;
+mod universal_cmd;
 mod verify_cmd;
 
 #[derive(Parser, Debug)]
@@ -36,6 +37,8 @@ enum Command {
     Curate(CurateArgs),
     /// Build a release tarball (TSV + binary DB + MANIFEST + RECEIPT).
     Release(ReleaseArgs),
+    /// Universal SBML model: build / pin-atp-cycle / check-atp-cycle.
+    Universal(universal_cmd::UniversalArgs),
 }
 
 #[derive(clap::Args, Debug)]
@@ -270,5 +273,6 @@ async fn main() -> anyhow::Result<()> {
         Command::Propose(args) => propose_cmd::run(args),
         Command::Curate(args) => curate_cmd::run(args),
         Command::Release(args) => release_cmd::run(args),
+        Command::Universal(args) => universal_cmd::run(args),
     }
 }

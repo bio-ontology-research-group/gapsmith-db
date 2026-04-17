@@ -1,7 +1,8 @@
 # Roadmap
 
-Status as of end of Phase 5 (2026-04-17). Licence-clean by construction:
-no MetaCyc, no BioCyc (see [`LICENSING.md`](./LICENSING.md)).
+Status as of 2026-04-17 (post-Phase 5, first-real-fetch round).
+Licence-clean by construction: no MetaCyc, no BioCyc
+(see [`LICENSING.md`](./LICENSING.md)).
 
 ## (a) Implemented and reproducible now
 
@@ -9,7 +10,10 @@ no MetaCyc, no BioCyc (see [`LICENSING.md`](./LICENSING.md)).
   propose, cli}` plus a Python subtree (`python/`, uv-managed, 3.12).
 - **Data fetchers** (9 sources) with pinned commit/release + per-file SHA256,
   single shared HTTP client (retry + ETag cache + `GAPSMITH_OFFLINE`), and
-  a hard gate on KEGG (`--i-have-a-kegg-licence`).
+  a hard gate on KEGG (`--i-have-a-kegg-licence`). Pins and sha256s are
+  committed for modelseed, gapseq, rhea, chebi, reactome, uniprot, and
+  intenz (now sourcing from ExPASy ENZYME — the EBI IntEnz mirror has
+  been stale since 2022).
 - **Canonical schema** (`gapsmith-db-core`): Compound, Reaction,
   Stoichiometry, Pathway, Evidence, EcNumber, Compartment, Reversibility,
   OrganismScope. Dual serialisation: human-diffable TSV + bincode binary
@@ -31,27 +35,59 @@ no MetaCyc, no BioCyc (see [`LICENSING.md`](./LICENSING.md)).
 - **Release artefact**: `gapsmith-db release` emits a tarball with TSV +
   binary DB + MANIFEST.json + RECEIPT.json + CITATIONS.md + sidecar sha256.
 - **CI** (GitHub Actions): fmt, clippy `-D warnings`, cargo test, licence-
-  lint, ruff, python-bridge ping, end-to-end ingest → verify → propose →
-  curate → release over a fixture.
+  lint, ruff, python-bridge ping, end-to-end ingest → verify → universal
+  SBML → ATP-cycle baseline check → propose → curate → release over a
+  fixture. The licence-lint now scans only tracked files, so fetched
+  upstream artefacts (which may contain banned-source xrefs as ID
+  strings) don't trip it.
+- **Universal SBML builder**: `gapsmith-db universal build` exports the
+  ingested DB to an SBML Level 3 v1 + fbc v2 model via cobrapy. The
+  builder can synthesise an `ATPM` reaction (`--add-atpm --atpm-ids ...`)
+  so the ATP-cycle test always has a handle. Companion subcommands
+  `universal pin-atp-cycle` and `universal check-atp-cycle` record and
+  verify a regression pin at `verify/baselines/atp_cycle_*.json`.
+- **Fixture proposals** for four first-release pathway families in
+  `proposals/fixtures/`: methanogenesis (from Phase 4), glycolysis (EMP,
+  10 steps), ethanol fermentation (2 steps), glutamate biosynthesis
+  (GS/GOGAT). Each hand-authored with canonical Rhea IDs, Swiss-Prot
+  enzyme accessions, DAG edges, and literature PMIDs.
+- **Corpus ingest script**: `python/src/gapsmith_bridge/corpus_ingest.py`
+  fetches Europe PMC OA papers, extracts paragraph-sized passages,
+  embeds with sentence-transformers
+  (`NeuML/pubmedbert-base-embeddings` default), and upserts into Qdrant.
+  The embedder is invoked through the same Python bridge used by the
+  verifiers (`--action embed`).
+- **QdrantBackend** (`gapsmith-db-propose`): wired end-to-end — `search`
+  embeds the query through the bridge, posts to
+  `/collections/<name>/points/search`, maps payloads to `Passage`, and
+  applies the `DomainFilter` as a belt-and-braces guard.
 
 ## (b) Stubbed (the shape is right; the innards are minimal)
 
-- **Qdrant retrieval**: HTTP-protocol skeleton in place; `search` returns
-  a "wire the embedder" error. Needs: embedder choice, corpus-ingest
-  script (Europe PMC OA + bioRxiv), and end-to-end integration test.
 - **DL consistency checker**: emits the OWL signature from ChEBI roles +
   a TODO diagnostic. Needs an OWL reasoner (ELK or HermiT via a small
   Python helper) and GO-BP integration.
-- **Universal metabolic model** (for ATP-cycle + pathway-flux verifiers):
-  no model file bundled yet. Once built from the ingested DB, the
-  ATP-cycle regression value can be pinned per plan.md.
+- **Real universal metabolic model**: the CI fixture now exercises the
+  universal builder + ATP-cycle regression end-to-end, but only on a
+  toy 2-reaction DB. Once MNXref + ChEBI have been ingested at scale,
+  build a production universal and re-pin. The baseline file at
+  `verify/baselines/atp_cycle_ci_fixture.json` is the template.
+- **MNXref fetch**: sizes are 1.5 GB+ across four files; the first
+  fetch in-session hit "error decoding response body" twice, likely a
+  CDN/connection reset on sustained long downloads. Pins in
+  `data/mnxref/SOURCE.toml` are resolved (4.5) but per-file sha256s
+  are still blank pending a successful run.
 - **Rhea RDF ingest**: Phase 2 parses the TSV tables only; the RDF ship
   has the hook in `SOURCE.toml` but no parser.
 - **UniProt cursor walk**: Phase 1 emits page 1 to `swissprot_ec.json`;
   subsequent pages need the cursor-walk implementation to concatenate.
-- **IntEnz + Reactome ingestion into the canonical schema** (their
-  parsers exist in `gapsmith-db-ingest::parse` but are not yet called
-  from the default ingest pipeline).
+- **IntEnz/ENZYME + Reactome ingestion into the canonical schema**
+  (their parsers exist in `gapsmith-db-ingest::parse` but are not yet
+  called from the default ingest pipeline).
+- **Corpus + Qdrant deployment**: the ingest script and search path
+  both exist and pass unit tests; no Qdrant collection has been
+  populated in this session — requires the operator to stand up Qdrant
+  and run `corpus_ingest` against a concrete pathway-family query.
 - **GPG signing for release artefacts**: sidecar sha256 is written;
   detached GPG signature is a follow-up (no hard key dependency
   introduced until the release process is defined).

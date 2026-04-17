@@ -5,10 +5,14 @@ single JSON payload from stdin, writes a single JSON response to stdout,
 exits 0 on success. See crates/gapsmith-db-verify/src/py_bridge.rs.
 
 Actions:
-- `ping`       -> { "ok": true }
-- `thermo`     -> per-reaction ΔG via eQuilibrator.
-- `atp_cycle`  -> universal-model ATP cycle test via cobra.
-- `pathway_flux` -> FBA on a named pathway.
+- `ping`            -> { "ok": true }
+- `thermo`          -> per-reaction ΔG via eQuilibrator.
+- `atp_cycle`       -> universal-model ATP cycle test via cobra.
+- `pathway_flux`    -> FBA on a named pathway.
+- `build_universal` -> assemble a cobra universal model from a JSON payload
+                       and write SBML (+ optional ATPM reaction).
+- `embed`           -> encode a single query string via sentence-transformers
+                       for the retrieval backend.
 
 The thermo / cobra imports are lazy so `--action ping` works even when
 those heavy dependencies haven't been installed yet.
@@ -187,11 +191,115 @@ def action_pathway_flux(payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def action_build_universal(payload: dict[str, Any]) -> dict[str, Any]:
+    """Assemble a cobra universal model from a JSON payload and write SBML.
+
+    Payload schema:
+        {
+          "compounds":   [{"id", "name"?, "formula"?, "charge"?, "compartment"?}, ...],
+          "reactions":   [{"id", "name"?, "lb", "ub", "metabolites": {cpd_id: coef}}, ...],
+          "out_path":    "<sbml path>",
+          "add_atpm":    bool,                        # default false
+          "atpm_ids":    {"atp", "adp", "pi", "h2o", "h"}?,  # required if add_atpm
+          "atpm_lb":     float,                       # default 0.0
+          "atpm_ub":     float                        # default 1000.0
+        }
+
+    Returns:
+        {"model_path", "num_reactions", "num_metabolites", "atpm_added"}
+    """
+    try:
+        import cobra  # noqa: PLC0415
+    except ImportError as e:
+        return {
+            "model_path": "",
+            "num_reactions": 0,
+            "num_metabolites": 0,
+            "atpm_added": False,
+            "note": f"cobra not installed: {e}",
+        }
+
+    model = cobra.Model("gapsmith_universal")
+    mets: dict[str, cobra.Metabolite] = {}
+    for c in payload.get("compounds", []):
+        m = cobra.Metabolite(
+            id=c["id"],
+            name=c.get("name") or c["id"],
+            formula=c.get("formula"),
+            charge=c.get("charge"),
+            compartment=c.get("compartment", "c"),
+        )
+        mets[c["id"]] = m
+    model.add_metabolites(list(mets.values()))
+
+    rxns: list[cobra.Reaction] = []
+    for r in payload.get("reactions", []):
+        rxn = cobra.Reaction(r["id"])
+        rxn.name = r.get("name") or r["id"]
+        rxn.lower_bound = float(r.get("lb", -1000.0))
+        rxn.upper_bound = float(r.get("ub", 1000.0))
+        coeffs = {}
+        for cpd_id, coef in r.get("metabolites", {}).items():
+            if cpd_id not in mets:
+                continue
+            coeffs[mets[cpd_id]] = float(coef)
+        rxn.add_metabolites(coeffs)
+        rxns.append(rxn)
+    model.add_reactions(rxns)
+
+    atpm_added = False
+    if payload.get("add_atpm", False):
+        ids = payload.get("atpm_ids") or {}
+        need = ["atp", "adp", "pi", "h2o", "h"]
+        missing = [k for k in need if k not in ids or ids[k] not in mets]
+        if not missing:
+            atpm = cobra.Reaction("ATPM")
+            atpm.name = "ATP maintenance (gapsmith synthesized)"
+            atpm.lower_bound = float(payload.get("atpm_lb", 0.0))
+            atpm.upper_bound = float(payload.get("atpm_ub", 1000.0))
+            atpm.add_metabolites(
+                {
+                    mets[ids["atp"]]: -1.0,
+                    mets[ids["h2o"]]: -1.0,
+                    mets[ids["adp"]]: 1.0,
+                    mets[ids["pi"]]: 1.0,
+                    mets[ids["h"]]: 1.0,
+                }
+            )
+            model.add_reactions([atpm])
+            atpm_added = True
+
+    out_path = payload["out_path"]
+    cobra.io.write_sbml_model(model, out_path)
+    return {
+        "model_path": out_path,
+        "num_reactions": len(model.reactions),
+        "num_metabolites": len(model.metabolites),
+        "atpm_added": atpm_added,
+    }
+
+
+def action_embed(payload: dict[str, Any]) -> dict[str, Any]:
+    """Encode a single text with sentence-transformers.
+
+    Payload: `{"text": "...", "model": "<HF model id>"}`.
+    Returns: `{"vector": [...], "model": "...", "dim": N}`. On missing
+    dependency, returns an empty vector and a `note`.
+    """
+    from gapsmith_bridge.corpus_ingest import (  # noqa: PLC0415
+        action_embed as _embed,
+    )
+
+    return _embed(payload)
+
+
 ACTIONS = {
     "ping": action_ping,
     "thermo": action_thermo,
     "atp_cycle": action_atp_cycle,
     "pathway_flux": action_pathway_flux,
+    "build_universal": action_build_universal,
+    "embed": action_embed,
 }
 
 

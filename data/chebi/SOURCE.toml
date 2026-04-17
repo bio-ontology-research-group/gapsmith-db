@@ -5,24 +5,28 @@ licence = "Creative Commons Attribution 4.0 International (CC-BY-4.0)"
 licence_url = "https://www.ebi.ac.uk/chebi/aboutChebiForward.do"
 attribution = "Hastings J et al. ChEBI in 2016. Nucleic Acids Res. 44(D1):D1214-D1219 (CC-BY-4.0)"
 
-# Pin policy: ChEBI release number (monthly). Adjust to the release you verify
-# at https://ftp.ebi.ac.uk/pub/databases/chebi/archive/.
-pinned_release = "238"
-pinned_date = ""
+# Pin policy: ChEBI release number (monthly). Verify at
+# https://ftp.ebi.ac.uk/pub/databases/chebi/archive/.
+#
+# Note: rel245+ renamed `Flat_file_tab_delimited/` to `flat_files/` and
+# now ships `chemical_data.tsv` gzipped (`chemical_data.tsv.gz`). The
+# fetcher mirrors that layout.
+pinned_release = "250"
+pinned_date = "2026-04-01"
 sha256 = ""
 
 artefacts = [
-    "Flat_file_tab_delimited/compounds.tsv.gz",
-    "Flat_file_tab_delimited/chemical_data.tsv",
-    "Flat_file_tab_delimited/names.tsv.gz",
+    "flat_files/compounds.tsv.gz",
+    "flat_files/chemical_data.tsv.gz",
+    "flat_files/names.tsv.gz",
     "ontology/chebi.obo.gz",
 ]
 
 [file_hashes]
-"compounds.tsv.gz" = ""
-"chemical_data.tsv" = ""
-"names.tsv.gz" = ""
-"chebi.obo.gz" = ""
+"compounds.tsv.gz" = "c22df28a9ad1f705c90877de1997fa3c19a76909c1e016db678da3ce348014fb"
+"chemical_data.tsv.gz" = "6ff49ea820a186c4a448b7967e6849177170367ea9c9f810088717bd90424eed"
+"names.tsv.gz" = "8a654ee08210a952b98f8d7fc2bc9c3a35fc03cab0f81ed07c3c476b04bb3545"
+"chebi.obo.gz" = "7e77af1e13b665502976b5c6b31b127c0e585dedb58832776c40ee2e1dd2c881"
 
 notes = """
 Source of truth for compound formulae, charges, roles, and InChI/InChIKey.

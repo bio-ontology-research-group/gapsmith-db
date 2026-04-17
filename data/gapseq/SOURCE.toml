@@ -4,16 +4,15 @@ licence = "GPL-3.0-or-later"
 licence_url = "https://github.com/jotech/gapseq/blob/master/LICENSE"
 attribution = "Zimmermann J, Kaleta C, Waschina S. gapseq: informed prediction of bacterial metabolic pathways and reconstruction of accurate metabolic models. Genome Biol. 22:81 (2021) (GPL-3.0-or-later)"
 
-# Pin policy: Git commit. `master` is the initial suggestion — resolve to an
-# exact 40-char SHA on first fetch:
+# Pin policy: Git commit. Resolved HEAD was captured on `pinned_date` via:
 #
 #   git ls-remote https://github.com/jotech/gapseq.git HEAD
 #
-# then replace `pinned_commit` with the SHA. The `sha256` below will be
-# printed by the fetch engine on first run; commit it too.
-pinned_commit = "master"
-pinned_date = ""
-sha256 = ""
+# `sha256` is filled on first fetch (RecordedFirstHash path in the engine);
+# commit the hash it prints to lock this pin.
+pinned_commit = "c64db99bbee188964b5cf9749e4f64a7fb77243c"
+pinned_date = "2026-04-17"
+sha256 = "205196d5161384376fefd7bb5878f30b21898007f368b4e861fcf47e49a20660"
 
 artefacts = [
     "dat/seed_reactions_corrected.tsv",

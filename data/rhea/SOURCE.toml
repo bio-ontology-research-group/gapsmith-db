@@ -5,26 +5,29 @@ licence = "Creative Commons Attribution 4.0 International (CC-BY-4.0)"
 licence_url = "https://www.rhea-db.org/help/license-disclaimer"
 attribution = "Bansal P et al. Rhea, the reaction knowledgebase in 2022. Nucleic Acids Res. 50(D1):D693-D700 (CC-BY-4.0)"
 
-# Pin policy: Rhea release number. Rhea publishes quarterly. Adjust to the
-# release you verify at https://www.rhea-db.org/help/release-notes.
-pinned_release = "134"
-pinned_date = ""
+# Pin policy: Rhea release number. Verify via
+#   curl https://ftp.expasy.org/databases/rhea/rhea-release.properties
+# The FTP layout serves a single live snapshot (no release number in the
+# path), so the release string is metadata; per-file sha256 pins below are
+# what actually tie a build to a specific snapshot.
+pinned_release = "140"
+pinned_date = "2026-01-21"
 sha256 = ""
 
 artefacts = [
-    "tsv/rhea-reactions.tsv",
     "tsv/rhea2ec.tsv",
     "tsv/rhea2uniprot_sprot.tsv",
     "tsv/rhea-directions.tsv",
+    "tsv/rhea2reactome.tsv",
     "rdf/rhea.rdf.gz",
 ]
 
 [file_hashes]
-"rhea-reactions.tsv" = ""
-"rhea2ec.tsv" = ""
-"rhea2uniprot_sprot.tsv" = ""
-"rhea-directions.tsv" = ""
-"rhea.rdf.gz" = ""
+"rhea2ec.tsv" = "5a90d95d4aab686b4a0c46db6495b89c6431696f4bb351a5a63e4c84a3187d44"
+"rhea2uniprot_sprot.tsv" = "89efa346087108e8b0abbeb3d8739a15d1979951bcfa9b42fa01d8786c5d827e"
+"rhea-directions.tsv" = "a10e61027681de822fd2ad91d0c2a7b66c92a55ee770974c1816b4c335ef771b"
+"rhea2reactome.tsv" = "9883d0390ff0fa0cbd0d7d0ad56284ba70100005d7353117a7206ca6e7bb68d4"
+"rhea.rdf.gz" = "09078dd482eeb33a141c0812aa9ae437248e532cc8e758742b6266cb0bb9b301"
 
 notes = """
 Canonical ChEBI-based reaction references. Prefer Rhea IDs over SEED where

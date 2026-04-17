@@ -20,6 +20,10 @@ dev = [
     "pytest-xdist>=3",
     "ruff>=0.6",
 ]
+retrieval = [
+    "sentence-transformers>=3.0",
+    "qdrant-client>=1.11",
+]
 
 [build-system]
 requires = ["hatchling"]

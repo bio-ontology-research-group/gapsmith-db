@@ -20,6 +20,7 @@ pub mod pmid_existence;
 pub mod py_bridge;
 pub mod thermo;
 pub mod uniprot_existence;
+pub mod universal_model;
 
 pub use atom_balance::AtomBalance;
 pub use atp_cycle::AtpCycleTest;
@@ -34,6 +35,7 @@ pub use pathway_flux::PathwayFluxTest;
 pub use pmid_existence::PmidExistence;
 pub use thermo::ThermodynamicFeasibility;
 pub use uniprot_existence::UniProtExistence;
+pub use universal_model::{AtpBaseline, AtpmIds, BuildOptions, BuildOutcome, build_universal};
 
 use thiserror::Error;
 
