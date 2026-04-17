@@ -13,6 +13,25 @@ use gapsmith_db_core::{EcNumber, Pmid};
 
 pub const SCHEMA_VERSION: &str = "1";
 
+fn epoch() -> DateTime<Utc> {
+    DateTime::<Utc>::from_timestamp(0, 0).unwrap_or_else(Utc::now)
+}
+
+/// Deserialize a `DateTime<Utc>` that tolerates empty strings and null as
+/// "unset" (→ epoch). Callers overwrite the field afterwards.
+fn lenient_datetime<'de, D>(d: D) -> std::result::Result<DateTime<Utc>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+{
+    let raw: Option<String> = Option::deserialize(d)?;
+    match raw.as_deref() {
+        None | Some("") => Ok(epoch()),
+        Some(s) => DateTime::parse_from_rfc3339(s)
+            .map(|dt| dt.with_timezone(&Utc))
+            .map_err(serde::de::Error::custom),
+    }
+}
+
 /// The target of a proposal: which pathway we are trying to recover,
 /// for which organism scope, and under which medium assumptions.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -83,7 +102,12 @@ pub struct Proposal {
     pub schema_version: String,
     /// Content hash ("sha256:..."). Always derived; any value on load is
     /// re-verified.
+    #[serde(default)]
     pub proposal_id: String,
+    /// `deserialize_with` tolerates empty strings / absent fields (LLMs
+    /// often emit `"created_at": ""` as a placeholder; the proposer
+    /// overwrites immediately after parse).
+    #[serde(default = "epoch", deserialize_with = "lenient_datetime")]
     pub created_at: DateTime<Utc>,
     /// Model identifier (OpenRouter slug or the fixture name).
     pub model: String,

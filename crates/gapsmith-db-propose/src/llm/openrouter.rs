@@ -46,7 +46,11 @@ impl OpenRouterConfig {
             endpoint: None,
             api_key_env: None,
             temperature: Some(0.2),
-            max_tokens: Some(8192),
+            // Generous cap: thinking models (Qwen3-plus, DeepSeek-R1, …)
+            // count hidden reasoning tokens against `max_tokens`, so the
+            // budget has to cover both reasoning (capped separately) and
+            // the rendered JSON content.
+            max_tokens: Some(16384),
             referer: None,
             title: None,
         }
@@ -83,6 +87,18 @@ struct ChatRequest<'a> {
     #[serde(skip_serializing_if = "Option::is_none")]
     max_tokens: Option<u32>,
     response_format: ResponseFormat,
+    /// Thinking-model controls. `max_tokens` caps hidden reasoning so
+    /// the overall `max_tokens` budget has room for the rendered JSON
+    /// content. Without this cap, thinking models truncate the content
+    /// mid-object. `exclude` keeps the response JSON slim (we don't
+    /// deserialise the reasoning field anyway).
+    reasoning: ReasoningControl,
+}
+
+#[derive(Debug, Serialize)]
+struct ReasoningControl {
+    exclude: bool,
+    max_tokens: u32,
 }
 
 #[derive(Debug, Serialize)]
@@ -137,6 +153,10 @@ impl LlmBackend for OpenRouterBackend {
             response_format: ResponseFormat {
                 kind: "json_object",
             },
+            reasoning: ReasoningControl {
+                exclude: true,
+                max_tokens: 2048,
+            },
         };
         let client = reqwest::blocking::Client::builder()
             .timeout(Duration::from_secs(180))
@@ -151,11 +171,12 @@ impl LlmBackend for OpenRouterBackend {
         if let Some(t) = &self.config.title {
             rb = rb.header("X-Title", t);
         }
-        let resp = rb
-            .json(&req)
-            .send()?
-            .error_for_status()
-            .map_err(|e| ProposeError::Llm(format!("openrouter http: {e}")))?;
+        let resp = rb.json(&req).send()?;
+        if !resp.status().is_success() {
+            let status = resp.status();
+            let body = resp.text().unwrap_or_default();
+            return Err(ProposeError::Llm(format!("openrouter {status}: {body}")));
+        }
         let parsed: ChatResponse = resp.json()?;
         let content = parsed
             .choices
@@ -164,7 +185,25 @@ impl LlmBackend for OpenRouterBackend {
             .map(|c| c.message.content)
             .ok_or_else(|| ProposeError::Llm("openrouter returned no choices".into()))?;
         let mut proposal: Proposal = parse_proposal_content(&content).map_err(|e| {
-            ProposeError::Llm(format!("openrouter response not valid Proposal JSON: {e}"))
+            // Dump the full raw content to a temp file so the operator
+            // can diagnose truncation / prompt-induced garbage without
+            // blowing out log lines.
+            let ts = chrono::Utc::now().format("%Y%m%dT%H%M%S%3fZ");
+            let dump = std::env::temp_dir().join(format!("openrouter_bad_{ts}.json"));
+            let _ = std::fs::write(&dump, &content);
+            let tail: String = content
+                .chars()
+                .rev()
+                .take(200)
+                .collect::<String>()
+                .chars()
+                .rev()
+                .collect();
+            ProposeError::Llm(format!(
+                "openrouter response not valid Proposal JSON: {e}; content_len={}; dumped={}; tail={tail:?}",
+                content.len(),
+                dump.display(),
+            ))
         })?;
         proposal.model.clone_from(&self.config.model);
         Ok(proposal.hashed())
