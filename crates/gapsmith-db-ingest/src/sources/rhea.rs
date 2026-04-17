@@ -22,7 +22,7 @@ pub fn plan(spec: &SourceSpec, dry_run: bool) -> Result<FetchPlan> {
         .map(|name| FetchStep {
             url: format!("{base}/tsv/{name}"),
             relative_path: PathBuf::from(name),
-            expected_sha256: None,
+            expected_sha256: spec.file_hash(name).map(str::to_string),
             extract: ExtractMode::Raw,
             label: (*name).to_string(),
         })
@@ -31,7 +31,7 @@ pub fn plan(spec: &SourceSpec, dry_run: bool) -> Result<FetchPlan> {
     steps.push(FetchStep {
         url: format!("{base}/rdf/rhea.rdf.gz"),
         relative_path: PathBuf::from("rhea.rdf"),
-        expected_sha256: spec.pinned_hash().map(str::to_string),
+        expected_sha256: spec.file_hash("rhea.rdf.gz").map(str::to_string),
         extract: ExtractMode::Gzip,
         label: "rhea.rdf.gz".into(),
     });

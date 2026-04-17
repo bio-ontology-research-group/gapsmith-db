@@ -15,14 +15,14 @@ pub fn plan(spec: &SourceSpec, dry_run: bool) -> Result<FetchPlan> {
         FetchStep {
             url: format!("{base}/xml/intenz.xml.gz"),
             relative_path: PathBuf::from("intenz.xml"),
-            expected_sha256: spec.pinned_hash().map(str::to_string),
+            expected_sha256: spec.file_hash("intenz.xml.gz").map(str::to_string),
             extract: ExtractMode::Gzip,
             label: "intenz.xml.gz".into(),
         },
         FetchStep {
             url: format!("{base}/flat/enzyme.dat"),
             relative_path: PathBuf::from("enzyme.dat"),
-            expected_sha256: None,
+            expected_sha256: spec.file_hash("enzyme.dat").map(str::to_string),
             extract: ExtractMode::Raw,
             label: "enzyme.dat".into(),
         },

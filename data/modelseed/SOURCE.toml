@@ -5,8 +5,14 @@ licence = "Creative Commons Attribution 4.0 International (CC-BY-4.0)"
 licence_url = "https://github.com/ModelSEED/ModelSEEDDatabase/blob/master/LICENSE"
 attribution = "Seaver SMD et al., ModelSEEDDatabase, https://github.com/ModelSEED/ModelSEEDDatabase (CC-BY-4.0)"
 
-# Pin policy: Git commit. Fill on first fetch.
-pinned_commit = ""
+# Pin policy: Git commit. `master` is the initial suggestion — resolve to an
+# exact 40-char SHA on first fetch:
+#
+#   git ls-remote https://github.com/ModelSEED/ModelSEEDDatabase.git HEAD
+#
+# then replace `pinned_commit` with the SHA. The `sha256` below will be
+# printed by the fetch engine on first run; commit it too.
+pinned_commit = "master"
 pinned_date = ""
 sha256 = ""
 

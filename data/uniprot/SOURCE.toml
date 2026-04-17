@@ -5,16 +5,24 @@ licence = "Creative Commons Attribution 4.0 International (CC-BY-4.0)"
 licence_url = "https://www.uniprot.org/help/license"
 attribution = "The UniProt Consortium. UniProt: the Universal Protein Knowledgebase in 2023. Nucleic Acids Res. 51(D1):D523-D531 (CC-BY-4.0)"
 
-pinned_release = ""
+# Pin policy: UniProt release tag (bimonthly). Adjust to the release you verify
+# at https://www.uniprot.org/release-notes.
+pinned_release = "2025_01"
 pinned_date = ""
 sha256 = ""
 
-# Fetched as sharded raw JSON via the REST API; query the EC-annotated Swiss-Prot subset.
+# REST query for the EC-annotated Swiss-Prot subset. Concatenated into one
+# JSON file (swissprot_ec.json) across cursor pages.
 query = "reviewed:true AND (ec:*)"
 artefacts = [
-    "shards/*.json.gz",
+    "swissprot_ec.json",
 ]
+
+[file_hashes]
+"swissprot_ec.json" = ""
 
 notes = """
 Swiss-Prot EC-annotated reviewed subset. Drives the UniProtExistence verifier.
+Stored as a single concatenated JSON (no shards); pagination is a fetch-time
+implementation detail.
 """

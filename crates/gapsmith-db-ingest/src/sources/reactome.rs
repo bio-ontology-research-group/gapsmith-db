@@ -22,7 +22,7 @@ pub fn plan(spec: &SourceSpec, dry_run: bool) -> Result<FetchPlan> {
         .map(|name| FetchStep {
             url: format!("{base}/{name}"),
             relative_path: PathBuf::from(name),
-            expected_sha256: None,
+            expected_sha256: spec.file_hash(name).map(str::to_string),
             extract: ExtractMode::Raw,
             label: (*name).to_string(),
         })

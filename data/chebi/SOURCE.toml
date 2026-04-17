@@ -5,7 +5,9 @@ licence = "Creative Commons Attribution 4.0 International (CC-BY-4.0)"
 licence_url = "https://www.ebi.ac.uk/chebi/aboutChebiForward.do"
 attribution = "Hastings J et al. ChEBI in 2016. Nucleic Acids Res. 44(D1):D1214-D1219 (CC-BY-4.0)"
 
-pinned_release = ""
+# Pin policy: ChEBI release number (monthly). Adjust to the release you verify
+# at https://ftp.ebi.ac.uk/pub/databases/chebi/archive/.
+pinned_release = "238"
 pinned_date = ""
 sha256 = ""
 
@@ -15,6 +17,12 @@ artefacts = [
     "Flat_file_tab_delimited/names.tsv.gz",
     "ontology/chebi.obo.gz",
 ]
+
+[file_hashes]
+"compounds.tsv.gz" = ""
+"chemical_data.tsv" = ""
+"names.tsv.gz" = ""
+"chebi.obo.gz" = ""
 
 notes = """
 Source of truth for compound formulae, charges, roles, and InChI/InChIKey.

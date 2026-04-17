@@ -4,7 +4,14 @@ licence = "GPL-3.0-or-later"
 licence_url = "https://github.com/jotech/gapseq/blob/master/LICENSE"
 attribution = "Zimmermann J, Kaleta C, Waschina S. gapseq: informed prediction of bacterial metabolic pathways and reconstruction of accurate metabolic models. Genome Biol. 22:81 (2021) (GPL-3.0-or-later)"
 
-pinned_commit = ""
+# Pin policy: Git commit. `master` is the initial suggestion — resolve to an
+# exact 40-char SHA on first fetch:
+#
+#   git ls-remote https://github.com/jotech/gapseq.git HEAD
+#
+# then replace `pinned_commit` with the SHA. The `sha256` below will be
+# printed by the fetch engine on first run; commit it too.
+pinned_commit = "master"
 pinned_date = ""
 sha256 = ""
 
@@ -19,11 +26,7 @@ artefacts = [
 gpl_obligation = true
 
 notes = """
-gapseq is GPLv3. The `dat/` corrections are incorporated for quality parity.
-GPLv3 obligation: any downstream release that distributes gapsmith-db together
-with gapseq dat/ derivatives MUST comply with GPLv3 for that combined work
-(source availability, copyleft on modifications). See LICENSING.md.
-
-If the release policy demands permissive-only, replace with independently
-derived corrections and drop gapseq as a source.
+gapseq is GPLv3. Since gapsmith-db is also GPL-3.0-or-later (see ADR 0003),
+combined works raise no additional licence split. The dat/ corrections are
+incorporated for quality parity.
 """

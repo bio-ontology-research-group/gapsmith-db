@@ -16,16 +16,13 @@ const FILES: &[&str] = &[
 pub fn plan(spec: &SourceSpec, dry_run: bool) -> Result<FetchPlan> {
     let release = spec.require_release(dry_run)?;
 
-    // The pinned SHA256 in SOURCE.toml, if present, is the hash of the
-    // concatenated per-file hashes. Individual-file pins belong in a future
-    // MANIFEST.lock. For now, first-file fetches use no per-file expected
-    // hash; the engine records the aggregate hash.
+    // Per-file hashes live in the `[file_hashes]` table of SOURCE.toml.
     let steps = FILES
         .iter()
         .map(|name| FetchStep {
             url: format!("https://www.metanetx.org/ftp/{release}/{name}"),
             relative_path: PathBuf::from(name),
-            expected_sha256: None,
+            expected_sha256: spec.file_hash(name).map(str::to_string),
             extract: ExtractMode::Raw,
             label: (*name).to_string(),
         })

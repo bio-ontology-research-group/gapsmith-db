@@ -5,14 +5,20 @@ licence = "Creative Commons Attribution 4.0 International (CC-BY-4.0)"
 licence_url = "https://www.ebi.ac.uk/intenz/"
 attribution = "Fleischmann A et al. IntEnz, the integrated relational enzyme database. Nucleic Acids Res. 32(Database issue):D434-D437 (CC-BY-4.0)"
 
+# Pin policy: IntEnz publishes to a single "current" FTP path; tag by date.
+# The SHA256 pin is what actually ties the build to a specific snapshot.
 pinned_release = ""
-pinned_date = ""
+pinned_date = "2024-11-01"
 sha256 = ""
 
 artefacts = [
     "xml/intenz.xml.gz",
     "flat/enzyme.dat",
 ]
+
+[file_hashes]
+"intenz.xml.gz" = ""
+"enzyme.dat" = ""
 
 notes = """
 Curated EC nomenclature. Feeds the EcValidity verifier (four-level existence).

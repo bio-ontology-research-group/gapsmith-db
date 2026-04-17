@@ -5,7 +5,8 @@ licence = "Creative Commons Attribution 4.0 International (CC-BY-4.0)"
 licence_url = "https://www.metanetx.org/mnxdoc/mnxref.html"
 attribution = "Moretti S et al. MetaNetX/MNXref: unified namespace for metabolites and biochemical reactions. Nucleic Acids Res. 49(D1):D570-D574 (CC-BY-4.0)"
 
-pinned_release = ""
+# Pin policy: MetaNetX release. Adjust to the release you verify upstream.
+pinned_release = "4_4"
 pinned_date = ""
 sha256 = ""
 
@@ -15,6 +16,13 @@ artefacts = [
     "chem_prop.tsv",
     "reac_prop.tsv",
 ]
+
+# Per-file pins. The engine prints computed hashes on first fetch; commit them.
+[file_hashes]
+"chem_xref.tsv" = ""
+"reac_xref.tsv" = ""
+"chem_prop.tsv" = ""
+"reac_prop.tsv" = ""
 
 notes = """
 Cross-reference backbone. Used as the second dedup key (after InChIKey) when

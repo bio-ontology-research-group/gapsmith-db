@@ -1,9 +1,9 @@
 //! UniProtKB/Swiss-Prot — EC-annotated reviewed subset via the REST API.
 //!
-//! UniProt exposes a cursor-paginated search endpoint. Shard URLs are
-//! generated from the cursor returned in the `Link` header. For the
-//! Phase-1 scaffold we emit a single step that points at page 1; the
-//! actual cursor walk is implemented when the ingest pipeline is wired.
+//! UniProt exposes a cursor-paginated search endpoint. The Phase-1 plan
+//! emits a single step pointing at page 1 and targets `swissprot_ec.json`.
+//! When the cursor-walk is implemented it concatenates additional pages
+//! into the same file (one big JSON; per user preference).
 
 use std::path::PathBuf;
 
@@ -24,10 +24,10 @@ pub fn plan(spec: &SourceSpec, dry_run: bool) -> Result<FetchPlan> {
 
     let step = FetchStep {
         url,
-        relative_path: PathBuf::from("shards/page_001.json"),
-        expected_sha256: None,
+        relative_path: PathBuf::from("swissprot_ec.json"),
+        expected_sha256: spec.file_hash("swissprot_ec.json").map(str::to_string),
         extract: ExtractMode::Raw,
-        label: "uniprot page 1".into(),
+        label: "swissprot_ec.json (page 1; cursor-walk concatenated into one file)".into(),
     };
 
     Ok(FetchPlan {

@@ -1,5 +1,6 @@
 //! `SOURCE.toml` parsing. One of these lives in every `data/<name>/` directory.
 
+use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
 
 use serde::{Deserialize, Serialize};
@@ -87,6 +88,13 @@ pub struct SourceSpec {
     #[serde(default)]
     pub artefacts: Vec<String>,
 
+    /// Per-file SHA256 pins, keyed by the artefact filename as it appears on
+    /// disk under `data/<source>/`. Multi-file sources should prefer this
+    /// over the top-level `sha256` so that upstream drift is diagnosable at
+    /// file-level granularity.
+    #[serde(default)]
+    pub file_hashes: BTreeMap<String, String>,
+
     #[serde(default)]
     pub notes: Option<String>,
 
@@ -138,6 +146,15 @@ impl SourceSpec {
     #[must_use]
     pub fn pinned_hash(&self) -> Option<&str> {
         self.sha256.as_deref().filter(|s| !s.is_empty())
+    }
+
+    /// Per-file SHA256 lookup. Empty strings are treated as unset.
+    #[must_use]
+    pub fn file_hash(&self, name: &str) -> Option<&str> {
+        self.file_hashes
+            .get(name)
+            .map(String::as_str)
+            .filter(|s| !s.is_empty())
     }
 
     /// Require a `pinned_commit`. In dry-run mode, a placeholder is returned
@@ -233,6 +250,7 @@ mod tests {
             pinned_date: None,
             sha256: None,
             artefacts: vec![],
+            file_hashes: BTreeMap::new(),
             notes: None,
             ftp_url: None,
             rest_url: None,
@@ -262,5 +280,24 @@ gpl_obligation = true
         assert_eq!(spec.gpl_obligation, Some(true));
         assert_eq!(spec.pin(), None);
         assert!(spec.pinned_hash().is_none());
+    }
+
+    #[test]
+    fn per_file_hashes_roundtrip() {
+        let text = r#"
+name = "x"
+upstream_url = "u"
+licence = "CC-BY-4.0"
+attribution = "a"
+pinned_release = "1"
+
+[file_hashes]
+"chem_xref.tsv" = "abc"
+"reac_xref.tsv" = ""
+"#;
+        let spec: SourceSpec = toml::from_str(text).unwrap();
+        assert_eq!(spec.file_hash("chem_xref.tsv"), Some("abc"));
+        assert_eq!(spec.file_hash("reac_xref.tsv"), None);
+        assert_eq!(spec.file_hash("missing"), None);
     }
 }

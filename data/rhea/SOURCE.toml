@@ -5,8 +5,9 @@ licence = "Creative Commons Attribution 4.0 International (CC-BY-4.0)"
 licence_url = "https://www.rhea-db.org/help/license-disclaimer"
 attribution = "Bansal P et al. Rhea, the reaction knowledgebase in 2022. Nucleic Acids Res. 50(D1):D693-D700 (CC-BY-4.0)"
 
-# Pin policy: Rhea release number.
-pinned_release = ""
+# Pin policy: Rhea release number. Rhea publishes quarterly. Adjust to the
+# release you verify at https://www.rhea-db.org/help/release-notes.
+pinned_release = "134"
 pinned_date = ""
 sha256 = ""
 
@@ -14,9 +15,16 @@ artefacts = [
     "tsv/rhea-reactions.tsv",
     "tsv/rhea2ec.tsv",
     "tsv/rhea2uniprot_sprot.tsv",
+    "tsv/rhea-directions.tsv",
     "rdf/rhea.rdf.gz",
-    "chebi/rhea2chebi.tsv",
 ]
+
+[file_hashes]
+"rhea-reactions.tsv" = ""
+"rhea2ec.tsv" = ""
+"rhea2uniprot_sprot.tsv" = ""
+"rhea-directions.tsv" = ""
+"rhea.rdf.gz" = ""
 
 notes = """
 Canonical ChEBI-based reaction references. Prefer Rhea IDs over SEED where
