@@ -15,6 +15,7 @@
 //!    verifier report inlined.
 #![cfg_attr(test, allow(clippy::unwrap_used, clippy::expect_used, clippy::panic))]
 
+pub mod decision;
 pub mod domain_filter;
 pub mod llm;
 pub mod prompt;
@@ -23,6 +24,9 @@ pub mod retrieval;
 pub mod router;
 pub mod schema;
 
+pub use decision::{
+    ChainIssue, ChainVerification, Decision, DecisionAction, DecisionLog, GENESIS_HASH,
+};
 pub use domain_filter::DomainFilter;
 pub use llm::{FixtureBackend, LlmBackend, OpenRouterBackend};
 pub use prompt::{PROMPT_VERSION, PromptContext, PromptTemplate};

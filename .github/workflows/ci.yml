@@ -1,0 +1,149 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
+
+jobs:
+  rust:
+    name: cargo fmt / clippy / test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - name: cargo fmt --check
+        run: cargo fmt --all -- --check
+      - name: cargo clippy -D warnings
+        run: cargo clippy --workspace --all-targets -- -D warnings
+      - name: cargo test
+        run: cargo test --workspace --all-targets
+
+  licence-lint:
+    name: licence lint + domain-filter smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: enforce no MetaCyc/BioCyc in code/data/prompts
+        run: cargo test -p gapsmith-db-ingest --test licence_lint
+      - name: domain-filter unit tests
+        run: cargo test -p gapsmith-db-propose --lib domain_filter
+
+  python:
+    name: python bridge lint + test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: install uv
+        uses: astral-sh/setup-uv@v3
+      - name: ruff
+        working-directory: python
+        run: uv run --with ruff ruff check .
+      - name: ping the bridge
+        working-directory: python
+        run: |
+          echo '{}' | uv run python -m gapsmith_bridge.verify --action ping
+
+  end-to-end:
+    name: ingest + verify + propose + curate + release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: build
+        run: cargo build --release --workspace
+      - name: fixture data
+        run: |
+          mkdir -p ci-data/chebi ci-data/modelseed/Biochemistry
+          cat > ci-data/modelseed/Biochemistry/compounds.tsv <<'EOF'
+          id	name	formula	charge	inchikey	mass	is_obsolete	aliases
+          cpd00001	H2O	H2O	0	XLYOFNOQVPJJNP-UHFFFAOYSA-N	18.015	0
+          cpd00007	O2	O2	0	MYMOFIZGZYHOMD-UHFFFAOYSA-N	31.998	0
+          cpd00011	CO2	CO2	0	CURLTUGMZLYLDI-UHFFFAOYSA-N	44.009	0
+          cpd00027	glucose	C6H12O6	0	WQZGKKKJIJFFOK-GASJEMHNSA-N	180.063	0
+          EOF
+          cat > ci-data/modelseed/Biochemistry/reactions.tsv <<'EOF'
+          id	name	direction	stoichiometry	ec_numbers	is_obsolete	is_transport	aliases
+          rxn_balanced	glucose oxidation	>	-1:cpd00027:0:c:glucose;-6:cpd00007:0:c:O2;6:cpd00011:0:c:CO2;6:cpd00001:0:c:water	1.1.1.1	0	0
+          EOF
+      - name: ingest
+        run: |
+          ./target/release/gapsmith-db ingest \
+            --data-root ci-data \
+            --out-binary ci-data/db.gapsmith \
+            --out-tsv ci-data/tsv
+      - name: verify (allow warnings from missing snapshots)
+        run: |
+          ./target/release/gapsmith-db verify \
+            --db ci-data/db.gapsmith \
+            --report ci-data/report.json \
+            --allow-errors \
+            --only atom_balance --only charge_balance
+      - name: verify fails on malformed fixture
+        run: |
+          # inject an unbalanced reaction; atom_balance should flag it Error.
+          cat > ci-data/modelseed/Biochemistry/reactions.tsv <<'EOF'
+          id	name	direction	stoichiometry	ec_numbers	is_obsolete	is_transport	aliases
+          rxn_bad	impossible	>	-1:cpd00027:0:c:glucose;1:cpd00001:0:c:water	9.9.9.9	0	0
+          EOF
+          ./target/release/gapsmith-db ingest --data-root ci-data --out-binary ci-data/db.gapsmith
+          if ./target/release/gapsmith-db verify --db ci-data/db.gapsmith --only atom_balance --report ci-data/bad.json; then
+            echo "ERROR: verifier did not reject the decoy" >&2
+            exit 1
+          fi
+      - name: propose (mock)
+        run: |
+          ./target/release/gapsmith-db propose \
+            --mock \
+            --proposals-dir ci-data/proposals \
+            --fixture-dir proposals/fixtures \
+            --query "methanogenesis from CO2"
+      - name: curator accept + chain verify
+        run: |
+          PID=$(basename "$(ls ci-data/proposals/pending/*.json | head -1)" .json)
+          ./target/release/gapsmith-db curate accept "$PID" \
+            --proposals-dir ci-data/proposals \
+            --curator ci-bot \
+            --comment "CI auto-accept"
+          ./target/release/gapsmith-db curate verify-chain \
+            --proposals-dir ci-data/proposals
+      - name: rebuild TSV after decoy swap (for release)
+        run: |
+          cat > ci-data/modelseed/Biochemistry/reactions.tsv <<'EOF'
+          id	name	direction	stoichiometry	ec_numbers	is_obsolete	is_transport	aliases
+          rxn_balanced	glucose oxidation	>	-1:cpd00027:0:c:glucose;-6:cpd00007:0:c:O2;6:cpd00011:0:c:CO2;6:cpd00001:0:c:water	1.1.1.1	0	0
+          EOF
+          ./target/release/gapsmith-db ingest \
+            --data-root ci-data \
+            --out-binary ci-data/db.gapsmith \
+            --out-tsv ci-data/tsv
+      - name: release tarball
+        run: |
+          ./target/release/gapsmith-db release \
+            --db ci-data/db.gapsmith \
+            --tsv-dir ci-data/tsv \
+            --data-root ci-data \
+            --proposals-dir ci-data/proposals \
+            --out ci-data/gapsmith-db-ci.tar.gz
+          test -f ci-data/gapsmith-db-ci.tar.gz
+          test -f ci-data/gapsmith-db-ci.tar.gz.sha256
+      - name: upload release artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-release
+          path: |
+            ci-data/gapsmith-db-ci.tar.gz
+            ci-data/gapsmith-db-ci.tar.gz.sha256
+            ci-data/report.json

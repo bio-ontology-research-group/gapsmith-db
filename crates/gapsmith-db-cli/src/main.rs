@@ -4,9 +4,11 @@ use std::path::PathBuf;
 
 use clap::{Parser, Subcommand};
 
+mod curate_cmd;
 mod fetch_cmd;
 mod ingest_cmd;
 mod propose_cmd;
+mod release_cmd;
 mod verify_cmd;
 
 #[derive(Parser, Debug)]
@@ -30,8 +32,84 @@ enum Command {
     Verify(VerifyArgs),
     /// Run the LLM proposer (or the Phase-4 mock).
     Propose(ProposeArgs),
-    /// Curator CLI: list, diff, accept/reject proposals (Phase 5).
-    Curate,
+    /// Curator tools: list/show/accept/reject/log/verify-chain.
+    Curate(CurateArgs),
+    /// Build a release tarball (TSV + binary DB + MANIFEST + RECEIPT).
+    Release(ReleaseArgs),
+}
+
+#[derive(clap::Args, Debug)]
+pub struct CurateArgs {
+    #[command(subcommand)]
+    pub action: CurateAction,
+}
+
+#[derive(Subcommand, Debug)]
+pub enum CurateAction {
+    List(CurateListArgs),
+    Show(CurateShowArgs),
+    Accept(CurateDecideArgs),
+    Reject(CurateDecideArgs),
+    Log(CurateLogArgs),
+    VerifyChain(CurateVerifyArgs),
+}
+
+#[derive(clap::Args, Debug)]
+pub struct CurateListArgs {
+    #[arg(long, default_value = "proposals")]
+    pub proposals_dir: PathBuf,
+    #[arg(long)]
+    pub state: Option<String>,
+}
+
+#[derive(clap::Args, Debug)]
+pub struct CurateShowArgs {
+    pub id: String,
+    #[arg(long, default_value = "proposals")]
+    pub proposals_dir: PathBuf,
+    #[arg(long)]
+    pub db: Option<PathBuf>,
+}
+
+#[derive(clap::Args, Debug)]
+pub struct CurateDecideArgs {
+    pub id: String,
+    #[arg(long, default_value = "proposals")]
+    pub proposals_dir: PathBuf,
+    #[arg(long)]
+    pub curator: String,
+    #[arg(long)]
+    pub comment: Option<String>,
+}
+
+#[derive(clap::Args, Debug)]
+pub struct CurateLogArgs {
+    #[arg(long, default_value = "proposals")]
+    pub proposals_dir: PathBuf,
+    #[arg(long)]
+    pub limit: Option<usize>,
+}
+
+#[derive(clap::Args, Debug)]
+pub struct CurateVerifyArgs {
+    #[arg(long, default_value = "proposals")]
+    pub proposals_dir: PathBuf,
+}
+
+#[derive(clap::Args, Debug)]
+pub struct ReleaseArgs {
+    #[arg(long)]
+    pub db: PathBuf,
+    #[arg(long)]
+    pub tsv_dir: PathBuf,
+    #[arg(long, default_value = "data")]
+    pub data_root: PathBuf,
+    #[arg(long, default_value = "proposals")]
+    pub proposals_dir: PathBuf,
+    #[arg(long)]
+    pub out: PathBuf,
+    #[arg(long)]
+    pub version: Option<String>,
 }
 
 #[derive(clap::Args, Debug)]
@@ -190,9 +268,7 @@ async fn main() -> anyhow::Result<()> {
         Command::Ingest(args) => ingest_cmd::run(args),
         Command::Verify(args) => verify_cmd::run(args),
         Command::Propose(args) => propose_cmd::run(args),
-        Command::Curate => {
-            tracing::warn!("subcommand not yet implemented (see plan.md)");
-            Ok(())
-        }
+        Command::Curate(args) => curate_cmd::run(args),
+        Command::Release(args) => release_cmd::run(args),
     }
 }

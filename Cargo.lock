@@ -472,13 +472,21 @@ name = "gapsmith-db-cli"
 version = "0.0.0"
 dependencies = [
  "anyhow",
+ "chrono",
  "clap",
+ "flate2",
  "gapsmith-db-core",
  "gapsmith-db-ingest",
  "gapsmith-db-propose",
  "gapsmith-db-verify",
+ "hex",
+ "serde",
  "serde_json",
+ "sha2",
+ "tar",
+ "tempfile",
  "tokio",
+ "toml",
  "tracing",
  "tracing-subscriber",
 ]
