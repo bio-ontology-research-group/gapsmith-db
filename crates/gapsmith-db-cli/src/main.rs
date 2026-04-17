@@ -6,6 +6,7 @@ use clap::{Parser, Subcommand};
 
 mod fetch_cmd;
 mod ingest_cmd;
+mod propose_cmd;
 mod verify_cmd;
 
 #[derive(Parser, Debug)]
@@ -27,8 +28,8 @@ enum Command {
     Ingest(IngestArgs),
     /// Run deterministic verifiers over the DB.
     Verify(VerifyArgs),
-    /// Run the LLM proposer (Phase 4).
-    Propose,
+    /// Run the LLM proposer (or the Phase-4 mock).
+    Propose(ProposeArgs),
     /// Curator CLI: list, diff, accept/reject proposals (Phase 5).
     Curate,
 }
@@ -95,6 +96,49 @@ pub struct VerifyArgs {
 }
 
 #[derive(clap::Args, Debug)]
+pub struct ProposeArgs {
+    /// Use the fixture-backed mock proposer (Phase-4 default).
+    #[arg(long)]
+    pub mock: bool,
+
+    /// OpenRouter model slug (required when --mock is not set).
+    #[arg(long)]
+    pub model: Option<String>,
+
+    /// Target pathway description.
+    #[arg(long)]
+    pub query: Option<String>,
+
+    /// Organism scope hint.
+    #[arg(long)]
+    pub organism: Option<String>,
+
+    /// Medium description (free text).
+    #[arg(long)]
+    pub medium: Option<String>,
+
+    /// Prompt template path.
+    #[arg(long, default_value = "prompts/pathway_proposal.md")]
+    pub prompt: PathBuf,
+
+    /// Fixture directory (used with --mock).
+    #[arg(long, default_value = "proposals/fixtures")]
+    pub fixture_dir: PathBuf,
+
+    /// Proposals output root (pending/, rejected/, for_curation/).
+    #[arg(long, default_value = "proposals")]
+    pub proposals_dir: PathBuf,
+
+    /// JSON file of retrieved passages (array of `Passage`).
+    #[arg(long)]
+    pub passages: Option<PathBuf>,
+
+    /// Top-k retrieval hits to include in the prompt.
+    #[arg(long, default_value_t = 8)]
+    pub top_k: usize,
+}
+
+#[derive(clap::Args, Debug)]
 #[allow(clippy::struct_excessive_bools)]
 struct FetchArgs {
     /// Source to fetch. Default: every declared source except KEGG.
@@ -145,7 +189,8 @@ async fn main() -> anyhow::Result<()> {
         Command::Fetch(args) => fetch_cmd::run(args).await,
         Command::Ingest(args) => ingest_cmd::run(args),
         Command::Verify(args) => verify_cmd::run(args),
-        Command::Propose | Command::Curate => {
+        Command::Propose(args) => propose_cmd::run(args),
+        Command::Curate => {
             tracing::warn!("subcommand not yet implemented (see plan.md)");
             Ok(())
         }
