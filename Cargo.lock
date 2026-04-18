@@ -537,6 +537,7 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "chrono",
+ "flate2",
  "gapsmith-db-core",
  "gapsmith-db-verify",
  "hex",

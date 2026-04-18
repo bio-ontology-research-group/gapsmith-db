@@ -177,7 +177,24 @@ impl LlmBackend for OpenRouterBackend {
             let body = resp.text().unwrap_or_default();
             return Err(ProposeError::Llm(format!("openrouter {status}: {body}")));
         }
-        let parsed: ChatResponse = resp.json()?;
+        // Some OpenRouter upstreams (notably DeepSeek) return
+        // gzip-encoded bodies without `Content-Encoding: gzip`, so
+        // reqwest's auto-decompression doesn't trigger and
+        // `resp.json()` blows up with "error decoding response
+        // body". Detect magic bytes and gunzip manually — same
+        // pattern as the UniProt REST probe.
+        let raw = resp.bytes()?;
+        let decoded: Vec<u8> = if raw.starts_with(&[0x1f, 0x8b]) {
+            use std::io::Read as _;
+            let mut out = Vec::new();
+            flate2::read::GzDecoder::new(&raw[..])
+                .read_to_end(&mut out)
+                .map_err(|e| ProposeError::Llm(format!("gunzip: {e}")))?;
+            out
+        } else {
+            raw.to_vec()
+        };
+        let parsed: ChatResponse = serde_json::from_slice(&decoded)?;
         let content = parsed
             .choices
             .into_iter()
