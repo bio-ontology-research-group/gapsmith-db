@@ -86,9 +86,17 @@ pub fn run(args: ReleaseArgs) -> anyhow::Result<()> {
     tar.append_dir_all(&stem, &root)?;
     tar.finish()?;
 
-    // Sidecar sha256.
+    // Sidecar sha256. Appended (NOT `with_extension`) so the full
+    // `.tar.gz` suffix is preserved — `with_extension("tar.gz.sha256")`
+    // would replace only the last component (`gz`) and produce
+    // `foo.tar.tar.gz.sha256`, which is exactly the failure mode CI
+    // tripped on historically.
     let checksum = sha256_file(&args.out)?;
-    let sha_path = args.out.with_extension("tar.gz.sha256");
+    let sha_path = {
+        let mut s = args.out.as_os_str().to_os_string();
+        s.push(".sha256");
+        std::path::PathBuf::from(s)
+    };
     std::fs::write(&sha_path, format!("{checksum}  {}\n", args.out.display()))?;
 
     info!(
