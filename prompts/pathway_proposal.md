@@ -5,14 +5,34 @@ You propose a metabolic pathway for **{{pathway_name}}** in
 
 ## Operating rules
 
-1. You are _proposing_; deterministic verifiers will judge your output.
+1. You are *proposing*; deterministic verifiers will judge your output.
 2. Every reaction MUST be referenced by a **Rhea ID** OR by **EC number +
-   ChEBI IDs** for substrates and products. Reaction IDs from restrictively
-   licensed sources must NOT appear.
-3. Every enzyme MUST be a **Swiss-Prot UniProt accession** (reviewed).
-4. Every claim MUST be supported by at least one **PubMed ID**.
-5. Output MUST be a single JSON object matching the gapsmith-db Proposal
-   schema. No prose outside the JSON; no markdown fences.
+   ChEBI IDs** for substrates and products. Reaction IDs from
+   restrictively licensed sources must NOT appear.
+3. Every enzyme MUST be a real **Swiss-Prot UniProt accession**
+   (reviewed). The verifier checks each accession against a UniProt
+   snapshot and rejects proposals with made-up IDs.
+4. **Do not invent accessions.** If you are not confident a specific
+   UniProt accession exists for an enzyme, omit that enzyme from the
+   `enzymes` array. The `enzymes` field is optional (empty array is
+   fine) and curators can fill in gaps. Emitting a plausible-looking
+   but fabricated accession is worse than omission.
+5. Every claim MUST be supported by at least one **real PubMed ID**
+   (checked against NCBI E-utilities).
+6. Output MUST be a single JSON object matching the gapsmith-db
+   Proposal schema. No prose outside the JSON; no markdown fences.
+
+## Accession-quality heuristics
+
+- Swiss-Prot accessions match `[OPQ][0-9][A-Z0-9]{3}[0-9]` or
+  `[A-N,R-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2}`.
+- Well-studied organisms (*E. coli*, *S. cerevisiae*, *M. tuberculosis*,
+  *Methanosarcina acetivorans*, *Methanothermobacter marburgensis*,
+  *Methanocaldococcus jannaschii*) have good UniProt coverage — cite
+  specific accessions from them when possible.
+- For an obscure organism or a poorly-characterised enzyme, emit an
+  empty `enzymes` array and note the gap in `rationale`. Do NOT
+  substitute an accession from a loosely related organism.
 
 ## Additional notes
 
@@ -39,28 +59,33 @@ You propose a metabolic pathway for **{{pathway_name}}** in
   "reactions": [
     {
       "local_id": "R1",
-      "reference": {"rhea": "10020"},
+      "reference": {"rhea": "22636"},
       "reversibility": "forward"
     },
     {
       "local_id": "R2",
       "reference": {
         "chebi_ec": {
-          "ec": "1.12.98.1",
-          "substrates": ["CHEBI:15378"],
-          "products": ["CHEBI:16183"]
+          "ec": "1.2.7.12",
+          "substrates": ["CHEBI:16526", "CHEBI:17805"],
+          "products": ["CHEBI:58435"]
         }
       }
     }
   ],
   "enzymes": [
-    {"uniprot": "P0C3Z1", "catalyses": ["R1"], "function": "hydrogenase"}
+    {"uniprot": "P23940", "catalyses": ["R1"], "function": "Formylmethanofuran dehydrogenase subunit A"}
   ],
   "dag": [{"from": "R1", "to": "R2"}],
-  "citations": [{"pmid": "9461540", "note": "describes pathway"}],
+  "citations": [{"pmid": "24123366", "note": "describes the pathway"}],
   "rationale": "one paragraph on why this pathway fits the target"
 }
 ```
 
-Leave `proposal_id` and `created_at` as empty strings; gapsmith-db fills
-them in.
+Leave `proposal_id` and `created_at` as empty strings; gapsmith-db
+fills them in. For the `enzymes` array, use fields exactly as shown:
+`uniprot` (string, real Swiss-Prot accession), `catalyses` (array of
+local reaction IDs like `"R1"`), `function` (optional short label).
+Any other field name breaks validation. Only populate an enzyme entry
+if you can stand behind the accession — an empty array (`"enzymes":
+[]`) is a valid and accepted output when uncertain.
