@@ -44,6 +44,7 @@ pub struct RetrievalArgs {
     pub top_k: usize,
 }
 
+#[derive(Clone)]
 pub enum Retrieval {
     Memory(InMemoryBackend),
     Qdrant(QdrantBackend),

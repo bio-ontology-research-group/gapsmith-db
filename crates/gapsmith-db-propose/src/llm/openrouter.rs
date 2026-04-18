@@ -247,6 +247,13 @@ impl LlmBackend for OpenRouterBackend {
             .next()
             .map(|c| c.message.content)
             .ok_or_else(|| ProposeError::Llm("openrouter returned no choices".into()))?;
+        // Forensics: keep the last content we received on disk, so if the
+        // parser wedges on a later call we have the triggering payload.
+        // Best-effort — we don't fail the call if the write fails.
+        let _ = std::fs::write(
+            std::env::temp_dir().join("openrouter_last.json"),
+            content.as_bytes(),
+        );
         let mut proposal: Proposal = parse_proposal_content(&content).map_err(|e| {
             // Dump the full raw content to a temp file so the operator
             // can diagnose truncation / prompt-induced garbage without
