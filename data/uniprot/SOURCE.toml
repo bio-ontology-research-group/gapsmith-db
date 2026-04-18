@@ -23,8 +23,8 @@ artefacts = [
 # the built-in fetcher only emits page 1 and is retained for single-page
 # sanity checks). Shape: gzipped `{"results": [{"primaryAccession":"...",
 # "secondaryAccessions":[...]}, ...]}` — slim enough for the UniProt
-# existence verifier (~280k entries, ~1.5 MB).
-"swissprot_ec.json" = ""
+# existence verifier (~575k reviewed entries, ~3.3 MB gzipped).
+"swissprot_ec.json" = "68c0bb5c27f0138eaded790ba796c2b6763252c260355956ae862c420ae7fec0"
 
 notes = """
 Swiss-Prot EC-annotated reviewed subset. Drives the UniProtExistence verifier.
