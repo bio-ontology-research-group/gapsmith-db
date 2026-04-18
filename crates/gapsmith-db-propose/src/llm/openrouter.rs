@@ -128,15 +128,9 @@ struct ChatResponseMessage {
     content: String,
 }
 
-impl LlmBackend for OpenRouterBackend {
-    fn name(&self) -> &str {
-        &self.config.model
-    }
-
-    fn complete(&self, prompt: &str) -> Result<Proposal> {
-        let api_key = self.config.api_key()?;
-        let endpoint = self.config.endpoint().to_string();
-        let req = ChatRequest {
+impl OpenRouterBackend {
+    fn build_request<'a>(&'a self, prompt: &'a str) -> ChatRequest<'a> {
+        ChatRequest {
             model: &self.config.model,
             messages: vec![
                 ChatMessage {
@@ -157,33 +151,57 @@ impl LlmBackend for OpenRouterBackend {
                 exclude: true,
                 max_tokens: 2048,
             },
-        };
-        let client = reqwest::blocking::Client::builder()
-            .timeout(Duration::from_secs(180))
-            .build()?;
+        }
+    }
+}
+
+/// POST + body-read with exponential-backoff retry on transport flakes
+/// (send errors, body-read errors, ChatResponse-shape JSON errors).
+/// Upstream 4xx/5xx status codes surface immediately with the body.
+fn post_with_retry(
+    client: &reqwest::blocking::Client,
+    endpoint: &str,
+    api_key: &str,
+    cfg: &OpenRouterConfig,
+    req: &ChatRequest<'_>,
+    max_attempts: u32,
+) -> Result<ChatResponse> {
+    let mut attempt = 0_u32;
+    loop {
+        attempt += 1;
         let mut rb = client
-            .post(&endpoint)
-            .bearer_auth(&api_key)
+            .post(endpoint)
+            .bearer_auth(api_key)
             .header("Content-Type", "application/json");
-        if let Some(r) = &self.config.referer {
+        if let Some(r) = &cfg.referer {
             rb = rb.header("HTTP-Referer", r);
         }
-        if let Some(t) = &self.config.title {
+        if let Some(t) = &cfg.title {
             rb = rb.header("X-Title", t);
         }
-        let resp = rb.json(&req).send()?;
+        let resp = match rb.json(req).send() {
+            Ok(r) => r,
+            Err(e) if attempt < max_attempts => {
+                tracing::warn!(attempt, ?e, "openrouter send failed; retrying");
+                std::thread::sleep(Duration::from_secs(2u64.pow(attempt)));
+                continue;
+            }
+            Err(e) => return Err(e.into()),
+        };
         if !resp.status().is_success() {
             let status = resp.status();
             let body = resp.text().unwrap_or_default();
             return Err(ProposeError::Llm(format!("openrouter {status}: {body}")));
         }
-        // Some OpenRouter upstreams (notably DeepSeek) return
-        // gzip-encoded bodies without `Content-Encoding: gzip`, so
-        // reqwest's auto-decompression doesn't trigger and
-        // `resp.json()` blows up with "error decoding response
-        // body". Detect magic bytes and gunzip manually — same
-        // pattern as the UniProt REST probe.
-        let raw = resp.bytes()?;
+        let raw = match resp.bytes() {
+            Ok(b) => b,
+            Err(e) if attempt < max_attempts => {
+                tracing::warn!(attempt, ?e, "openrouter body read failed; retrying");
+                std::thread::sleep(Duration::from_secs(2u64.pow(attempt)));
+                continue;
+            }
+            Err(e) => return Err(e.into()),
+        };
         let decoded: Vec<u8> = if raw.starts_with(&[0x1f, 0x8b]) {
             use std::io::Read as _;
             let mut out = Vec::new();
@@ -194,7 +212,35 @@ impl LlmBackend for OpenRouterBackend {
         } else {
             raw.to_vec()
         };
-        let parsed: ChatResponse = serde_json::from_slice(&decoded)?;
+        match serde_json::from_slice::<ChatResponse>(&decoded) {
+            Ok(p) => return Ok(p),
+            Err(e) if attempt < max_attempts => {
+                tracing::warn!(
+                    attempt,
+                    err = %e,
+                    body_len = decoded.len(),
+                    "openrouter response not valid ChatResponse JSON; retrying"
+                );
+                std::thread::sleep(Duration::from_secs(2u64.pow(attempt)));
+            }
+            Err(e) => return Err(e.into()),
+        }
+    }
+}
+
+impl LlmBackend for OpenRouterBackend {
+    fn name(&self) -> &str {
+        &self.config.model
+    }
+
+    fn complete(&self, prompt: &str) -> Result<Proposal> {
+        let req = self.build_request(prompt);
+        let api_key = self.config.api_key()?;
+        let endpoint = self.config.endpoint().to_string();
+        let client = reqwest::blocking::Client::builder()
+            .timeout(Duration::from_secs(180))
+            .build()?;
+        let parsed = post_with_retry(&client, &endpoint, &api_key, &self.config, &req, 3)?;
         let content = parsed
             .choices
             .into_iter()
