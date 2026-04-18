@@ -27,7 +27,11 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-DEFAULT_QUERY = "reviewed:true AND ec:*"
+# All reviewed Swiss-Prot entries. A tighter `ec:*` filter misses enzyme
+# subunits that lack a recommendedName EC (the EC number is typically
+# on the catalytic subunit only, not each complex member). For an
+# "accession exists" check we need the full reviewed set.
+DEFAULT_QUERY = "reviewed:true"
 DEFAULT_SIZE = 500
 # `fields=accession` alone skips secondaryAccessions, so use the default
 # response and keep only what the verifier needs during post-processing.

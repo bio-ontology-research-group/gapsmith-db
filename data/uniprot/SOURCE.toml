@@ -12,17 +12,23 @@ pinned_date = "2026-01-28"
 sha256 = ""
 
 # REST query for the EC-annotated Swiss-Prot subset. Concatenated into one
-# JSON file (swissprot_ec.json) across cursor pages.
+# gzipped JSON file (swissprot_ec.json) across cursor pages.
 query = "reviewed:true AND (ec:*)"
 artefacts = [
     "swissprot_ec.json",
 ]
 
 [file_hashes]
-"swissprot_ec.json" = "89af7550d83eba1f65f838a23e289b2d7ac86239f3bec73c39469e6396487e4c"
+# Produced by scripts/fetch_uniprot_snapshot.py (cursor-walks all pages;
+# the built-in fetcher only emits page 1 and is retained for single-page
+# sanity checks). Shape: gzipped `{"results": [{"primaryAccession":"...",
+# "secondaryAccessions":[...]}, ...]}` — slim enough for the UniProt
+# existence verifier (~280k entries, ~1.5 MB).
+"swissprot_ec.json" = ""
 
 notes = """
 Swiss-Prot EC-annotated reviewed subset. Drives the UniProtExistence verifier.
 Stored as a single concatenated JSON (no shards); pagination is a fetch-time
-implementation detail.
+implementation detail. Re-fetch with `scripts/fetch_uniprot_snapshot.py` when
+bumping pinned_release.
 """
