@@ -99,7 +99,18 @@ fn load_accessions(path: &Path) -> crate::Result<HashSet<String>> {
     let mut f = std::fs::File::open(path)?;
     let mut bytes = Vec::new();
     f.read_to_end(&mut bytes)?;
-    let v: serde_json::Value = match serde_json::from_slice(&bytes) {
+    // Transparently decompress if the snapshot is gzipped (the fetcher
+    // emits gzip to keep `data/uniprot/` manageable).
+    let decoded = if bytes.starts_with(&[0x1f, 0x8b]) {
+        use std::io::Read as _;
+        let mut gz = flate2::read::GzDecoder::new(&bytes[..]);
+        let mut out = Vec::new();
+        gz.read_to_end(&mut out)?;
+        out
+    } else {
+        bytes
+    };
+    let v: serde_json::Value = match serde_json::from_slice(&decoded) {
         Ok(v) => v,
         Err(e) => {
             warn!(error = %e, "uniprot snapshot parse failed");
@@ -111,6 +122,14 @@ fn load_accessions(path: &Path) -> crate::Result<HashSet<String>> {
         for entry in results {
             if let Some(acc) = entry.get("primaryAccession").and_then(|a| a.as_str()) {
                 out.insert(acc.to_string());
+            }
+            // Also track secondary accessions so merged entries resolve.
+            if let Some(secs) = entry.get("secondaryAccessions").and_then(|s| s.as_array()) {
+                for s in secs {
+                    if let Some(s) = s.as_str() {
+                        out.insert(s.to_string());
+                    }
+                }
             }
         }
     }

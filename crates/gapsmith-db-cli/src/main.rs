@@ -13,6 +13,7 @@ mod release_cmd;
 mod retrieval_factory;
 mod universal_cmd;
 mod verify_cmd;
+mod verify_proposals_cmd;
 
 #[derive(Parser, Debug)]
 #[command(
@@ -33,6 +34,9 @@ enum Command {
     Ingest(IngestArgs),
     /// Run deterministic verifiers over the DB.
     Verify(VerifyArgs),
+    /// Run proposal-local verifiers (EC, UniProt, PMID) against
+    /// proposals/pending/. Doesn't need the ingested DB.
+    VerifyProposals(verify_proposals_cmd::VerifyProposalsArgs),
     /// Run the LLM proposer (or the Phase-4 mock).
     Propose(ProposeArgs),
     /// Batch-run the proposer over a pathway-name catalogue (TSV seed).
@@ -269,6 +273,7 @@ async fn main() -> anyhow::Result<()> {
         Command::Fetch(args) => fetch_cmd::run(args).await,
         Command::Ingest(args) => ingest_cmd::run(args),
         Command::Verify(args) => verify_cmd::run(args),
+        Command::VerifyProposals(args) => verify_proposals_cmd::run(args),
         Command::Propose(args) => propose_cmd::run(args),
         Command::ProposeCatalogue(args) => propose_catalogue_cmd::run(args),
         Command::Curate(args) => curate_cmd::run(args),

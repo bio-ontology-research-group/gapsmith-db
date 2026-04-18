@@ -480,6 +480,8 @@ dependencies = [
  "gapsmith-db-propose",
  "gapsmith-db-verify",
  "hex",
+ "indexmap",
+ "reqwest",
  "serde",
  "serde_json",
  "sha2",
@@ -556,6 +558,7 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "chrono",
+ "flate2",
  "gapsmith-db-core",
  "indexmap",
  "reqwest",

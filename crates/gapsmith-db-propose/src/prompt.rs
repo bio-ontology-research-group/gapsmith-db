@@ -15,7 +15,7 @@ use crate::retrieval::Passage;
 /// alter model output. Keep under semantic-versioning discipline:
 /// MAJOR = schema-level changes to the required JSON shape; MINOR =
 /// instruction tweaks; PATCH = typos, reordering.
-pub const PROMPT_VERSION: &str = "0.2.1";
+pub const PROMPT_VERSION: &str = "0.3.0";
 
 #[derive(Debug, Clone, Serialize)]
 pub struct PromptContext<'a> {

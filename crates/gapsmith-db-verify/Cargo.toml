@@ -22,6 +22,7 @@ tracing = { workspace = true }
 reqwest = { workspace = true }
 tokio = { workspace = true }
 indexmap = { workspace = true }
+flate2 = { workspace = true }
 
 [dev-dependencies]
 tempfile = { workspace = true }

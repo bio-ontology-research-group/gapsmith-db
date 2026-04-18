@@ -26,6 +26,19 @@ You propose a metabolic pathway for **{{pathway_name}}** in
 
 - Swiss-Prot accessions match `[OPQ][0-9][A-Z0-9]{3}[0-9]` or
   `[A-N,R-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2}`.
+- **Do not extrapolate accession numbers.** UniProt accessions are
+  NOT assigned by biological proximity. If you recall that a gene
+  cluster in *Methanothermobacter* has accessions P23940–P23945, that
+  does NOT imply P23946 or P23947 exist — they might belong to a
+  completely different organism, or not exist at all. Emit only
+  accessions you can independently recall, not "the next slot" in an
+  apparent sequence.
+- **Prefer few confident accessions over many guesses.** A pathway
+  with 3 real UniProt entries and 5 enzyme slots left empty is more
+  useful than one with 8 plausible-looking fabrications. The verifier
+  catches and rejects fakes wholesale; curators can fill gaps in
+  minutes but must first untangle fabrications before they can add
+  real IDs.
 - Well-studied organisms (*E. coli*, *S. cerevisiae*, *M. tuberculosis*,
   *Methanosarcina acetivorans*, *Methanothermobacter marburgensis*,
   *Methanocaldococcus jannaschii*) have good UniProt coverage — cite
