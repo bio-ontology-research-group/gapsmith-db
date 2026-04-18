@@ -65,6 +65,13 @@ pub struct VerifyProposalsArgs {
     #[arg(long)]
     pub online_pmid: bool,
 
+    /// Resolve unknown UniProt accessions via UniProt REST. TrEMBL
+    /// (unreviewed) entries are demoted to Warning; Inactive or
+    /// genuinely-404 accessions remain Error. Without this flag,
+    /// anything not in the Swiss-Prot snapshot is Error.
+    #[arg(long)]
+    pub online_uniprot: bool,
+
     /// Severity threshold that rejects a proposal. Default: `error`.
     #[arg(long, default_value = "error")]
     pub severity_threshold: String,
@@ -119,6 +126,14 @@ pub fn run(args: VerifyProposalsArgs) -> anyhow::Result<()> {
         if path.extension().and_then(|e| e.to_str()) != Some("json") {
             continue;
         }
+        // Skip sidecar reports that may have leaked into pending/.
+        if path
+            .file_name()
+            .and_then(|n| n.to_str())
+            .is_some_and(|n| n.ends_with(".report.json"))
+        {
+            continue;
+        }
         if let Some(only) = args.only.as_deref() {
             let stem = path.file_stem().and_then(|s| s.to_str()).unwrap_or("");
             if !stem.starts_with(only.trim_start_matches("sha256:")) {
@@ -136,6 +151,7 @@ pub fn run(args: VerifyProposalsArgs) -> anyhow::Result<()> {
             &ec_set,
             &mut pmid_cache,
             args.online_pmid,
+            args.online_uniprot,
         );
         print_report(&proposal, &report);
 
@@ -196,16 +212,20 @@ fn verify_one(
     uniprot: &HashSet<String>,
     ec: &HashSet<String>,
     pmid_cache: &mut HashSet<String>,
-    online: bool,
+    online_pmid: bool,
+    online_uniprot: bool,
 ) -> VerifierReport {
     let start = Utc::now();
     let mut by_verifier: IndexMap<String, VerifierRun> = IndexMap::new();
 
     by_verifier.insert(VERIFIER_EC.into(), run_ec_validity(p, ec));
-    by_verifier.insert(VERIFIER_UNIPROT.into(), run_uniprot(p, uniprot));
+    by_verifier.insert(
+        VERIFIER_UNIPROT.into(),
+        run_uniprot(p, uniprot, online_uniprot),
+    );
     by_verifier.insert(
         VERIFIER_PMID.into(),
-        run_pmid_existence(p, pmid_cache, online),
+        run_pmid_existence(p, pmid_cache, online_pmid),
     );
 
     let end = Utc::now();
@@ -266,15 +286,15 @@ fn run_ec_validity(p: &Proposal, known: &HashSet<String>) -> VerifierRun {
     }
 }
 
-fn run_uniprot(p: &Proposal, known: &HashSet<String>) -> VerifierRun {
+fn run_uniprot(p: &Proposal, known: &HashSet<String>, online: bool) -> VerifierRun {
     let start = Utc::now();
     let mut diags = Vec::new();
-    if known.is_empty() {
+    if known.is_empty() && !online {
         diags.push(Diagnostic::warn(
             VERIFIER_UNIPROT,
             Target::Database,
             "no_reference",
-            "no Swiss-Prot snapshot configured; UniProt checks skipped",
+            "no Swiss-Prot snapshot and --online-uniprot off; UniProt checks skipped",
         ));
     } else {
         for e in &p.enzymes {
@@ -283,8 +303,57 @@ fn run_uniprot(p: &Proposal, known: &HashSet<String>) -> VerifierRun {
                     VERIFIER_UNIPROT,
                     Target::Database,
                     "ok",
-                    format!("{} exists", e.uniprot),
+                    format!("{} exists (Swiss-Prot)", e.uniprot),
                 ));
+                continue;
+            }
+            // Local miss. Fall back to UniProt REST when online.
+            if online {
+                match classify_uniprot_online(&e.uniprot) {
+                    Ok(UniprotKind::SwissProt) => {
+                        diags.push(Diagnostic::info(
+                            VERIFIER_UNIPROT,
+                            Target::Database,
+                            "ok_online",
+                            format!("{} exists (Swiss-Prot; local snapshot stale)", e.uniprot),
+                        ));
+                    }
+                    Ok(UniprotKind::TrEmbl) => {
+                        diags.push(Diagnostic::warn(
+                            VERIFIER_UNIPROT,
+                            Target::Database,
+                            "trembl_unreviewed",
+                            format!(
+                                "{} is TrEMBL (unreviewed); consider a Swiss-Prot alternative",
+                                e.uniprot
+                            ),
+                        ));
+                    }
+                    Ok(UniprotKind::Inactive) => {
+                        diags.push(Diagnostic::error(
+                            VERIFIER_UNIPROT,
+                            Target::Database,
+                            "inactive_uniprot",
+                            format!("{} is inactive in UniProt (deleted/demerged)", e.uniprot),
+                        ));
+                    }
+                    Ok(UniprotKind::NotFound) => {
+                        diags.push(Diagnostic::error(
+                            VERIFIER_UNIPROT,
+                            Target::Database,
+                            "unknown_uniprot",
+                            format!("{} not found in UniProt (likely hallucinated)", e.uniprot),
+                        ));
+                    }
+                    Err(err) => {
+                        diags.push(Diagnostic::warn(
+                            VERIFIER_UNIPROT,
+                            Target::Database,
+                            "online_lookup_failed",
+                            format!("{}: {err}", e.uniprot),
+                        ));
+                    }
+                }
             } else {
                 diags.push(Diagnostic::error(
                     VERIFIER_UNIPROT,
@@ -303,6 +372,57 @@ fn run_uniprot(p: &Proposal, known: &HashSet<String>) -> VerifierRun {
         diagnostics: diags,
         run_error: None,
     }
+}
+
+#[derive(Debug, Clone, Copy)]
+enum UniprotKind {
+    SwissProt,
+    TrEmbl,
+    Inactive,
+    NotFound,
+}
+
+fn classify_uniprot_online(acc: &str) -> anyhow::Result<UniprotKind> {
+    let url = format!("https://rest.uniprot.org/uniprotkb/{acc}");
+    let client = reqwest::blocking::Client::builder()
+        .timeout(std::time::Duration::from_secs(15))
+        .build()?;
+    let resp = client
+        .get(&url)
+        .header("User-Agent", "gapsmith-db verify-proposals")
+        .send()?;
+    if resp.status().as_u16() == 404 {
+        return Ok(UniprotKind::NotFound);
+    }
+    if !resp.status().is_success() {
+        bail!("HTTP {} for {acc}", resp.status());
+    }
+    // UniProt sometimes returns gzip-encoded bodies without a
+    // Content-Encoding header, so reqwest won't auto-decompress.
+    // Detect the magic bytes and decompress manually.
+    let raw = resp.bytes()?;
+    let decoded: Vec<u8> = if raw.starts_with(&[0x1f, 0x8b]) {
+        use std::io::Read as _;
+        let mut out = Vec::new();
+        flate2::read::GzDecoder::new(&raw[..]).read_to_end(&mut out)?;
+        out
+    } else {
+        raw.to_vec()
+    };
+    let body: serde_json::Value = serde_json::from_slice(&decoded)?;
+    let entry_type = body.get("entryType").and_then(|v| v.as_str()).unwrap_or("");
+    Ok(
+        if entry_type.contains("reviewed (Swiss-Prot)") && !entry_type.contains("unreviewed") {
+            UniprotKind::SwissProt
+        } else if entry_type.contains("unreviewed") || entry_type.contains("TrEMBL") {
+            UniprotKind::TrEmbl
+        } else if entry_type.eq_ignore_ascii_case("Inactive") {
+            UniprotKind::Inactive
+        } else {
+            // Unknown string → be conservative, treat as not-found.
+            UniprotKind::NotFound
+        },
+    )
 }
 
 fn run_pmid_existence(p: &Proposal, cache: &mut HashSet<String>, online: bool) -> VerifierRun {
