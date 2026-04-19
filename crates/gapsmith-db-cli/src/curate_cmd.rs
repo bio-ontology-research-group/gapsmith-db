@@ -7,8 +7,10 @@
 use std::path::{Path, PathBuf};
 
 use anyhow::Context;
-use gapsmith_db_propose::{ChainIssue, Decision, DecisionAction, DecisionLog, Proposal};
-use tracing::info;
+use gapsmith_db_propose::{
+    ChainIssue, Decision, DecisionAction, DecisionLog, MergeReport, Proposal, merge_proposal,
+};
+use tracing::{info, warn};
 
 use crate::CurateArgs;
 
@@ -193,6 +195,16 @@ fn record(args: crate::CurateDecideArgs, action: DecisionAction) -> anyhow::Resu
     .finalised();
     log.append(&d)?;
 
+    // Merge into the canonical DB when accepting and --merge-into is set.
+    // Runs *after* the decision log append so the chain head already
+    // references this decision; if the merge itself fails we still have
+    // a durable record of the accept.
+    let merge_report = if matches!(action, DecisionAction::Accept) {
+        merge_into_db(&args, &p)?
+    } else {
+        None
+    };
+
     // Move the proposal file to `decisions/<id>.json` so its state is stable.
     let decisions_dir = args.proposals_dir.join("decisions");
     std::fs::create_dir_all(&decisions_dir)?;
@@ -211,7 +223,63 @@ fn record(args: crate::CurateDecideArgs, action: DecisionAction) -> anyhow::Resu
         "decision recorded"
     );
     println!("recorded: {} ({:?})", d.decision_id, action);
+    if let Some(r) = merge_report {
+        print_merge_report(&r);
+    }
     Ok(())
+}
+
+fn merge_into_db(
+    args: &crate::CurateDecideArgs,
+    p: &Proposal,
+) -> anyhow::Result<Option<MergeReport>> {
+    let Some(db_path) = &args.merge_into else {
+        return Ok(None);
+    };
+    let mut db = gapsmith_db_core::serde_io::read_binary(db_path)
+        .with_context(|| format!("loading DB from {}", db_path.display()))?;
+    let report = merge_proposal(&mut db, p, &args.curator)?;
+    db.validate()
+        .with_context(|| "post-merge DB failed invariant check")?;
+    gapsmith_db_core::serde_io::write_binary(&db, db_path)
+        .with_context(|| format!("writing DB to {}", db_path.display()))?;
+    if let Some(tsv_out) = &args.tsv_out {
+        gapsmith_db_core::serde_io::write_tsv_dir(&db, tsv_out)
+            .with_context(|| format!("writing TSV to {}", tsv_out.display()))?;
+    }
+    for w in &report.warnings {
+        warn!(warning = %w, "merge warning");
+    }
+    Ok(Some(report))
+}
+
+fn print_merge_report(r: &MergeReport) {
+    println!("merged     : pathway {}", r.pathway_id);
+    if !r.reactions_linked.is_empty() {
+        println!("  linked   : {} reaction(s)", r.reactions_linked.len());
+        for (label, id) in &r.reactions_linked {
+            println!("    = {label} -> {id}");
+        }
+    }
+    if !r.reactions_created.is_empty() {
+        println!("  created  : {} reaction(s)", r.reactions_created.len());
+        for (label, id) in &r.reactions_created {
+            println!("    + {label} -> {id}");
+        }
+    }
+    if !r.compounds_created.is_empty() {
+        println!("  compounds: {} minted", r.compounds_created.len());
+    }
+    println!(
+        "  enzymes  : {} attachment(s), citations: {}",
+        r.enzymes_attached, r.citations_attached
+    );
+    if !r.warnings.is_empty() {
+        println!("  warnings : {}", r.warnings.len());
+        for w in &r.warnings {
+            println!("    ! {w}");
+        }
+    }
 }
 
 // --- log / verify ----------------------------------------------------------

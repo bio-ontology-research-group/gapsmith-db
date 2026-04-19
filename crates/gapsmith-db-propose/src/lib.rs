@@ -18,6 +18,7 @@
 pub mod decision;
 pub mod domain_filter;
 pub mod llm;
+pub mod merge;
 pub mod prompt;
 pub mod proposer;
 pub mod retrieval;
@@ -29,6 +30,7 @@ pub use decision::{
 };
 pub use domain_filter::DomainFilter;
 pub use llm::{FixtureBackend, LlmBackend, OpenRouterBackend};
+pub use merge::{MergeReport, merge_proposal};
 pub use prompt::{PROMPT_VERSION, PromptContext, PromptTemplate};
 pub use proposer::{Proposer, ProposerOptions};
 pub use retrieval::qdrant::{EmbedderConfig, QdrantConfig};

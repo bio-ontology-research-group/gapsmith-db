@@ -28,10 +28,19 @@ pub enum OrganismScope {
 pub struct Pathway {
     pub id: PathwayId,
     pub name: String,
-    /// Ordered list; order is the preferred canonical presentation. The
-    /// DAG structure is implicit in the reactions' stoichiometry.
+    /// Ordered list; order is the preferred canonical presentation.
+    /// For upstream-ingested pathways the DAG is implicit in the
+    /// reactions' stoichiometry; for LLM-proposed pathways it is made
+    /// explicit via [`Pathway::dag`].
     #[serde(default)]
     pub reactions: Vec<ReactionId>,
+    /// Directed edges between reactions in [`Pathway::reactions`].
+    /// Populated when a proposal carries DAG structure that is not
+    /// recoverable from stoichiometry alone (common for LLM proposals
+    /// where the model asserts reaction ordering separately from the
+    /// reaction definitions).
+    #[serde(default)]
+    pub dag: Vec<(ReactionId, ReactionId)>,
     /// Parent pathway if this is a variant / alternative route.
     #[serde(default)]
     pub variant_of: Option<PathwayId>,
@@ -52,6 +61,7 @@ impl Pathway {
             id,
             name: name.into(),
             reactions: Vec::new(),
+            dag: Vec::new(),
             variant_of: None,
             organism_scope: OrganismScope::Universal,
             evidence: Vec::new(),

@@ -94,11 +94,11 @@ Licence-clean by construction: no MetaCyc, no BioCyc
 
 ## (c) Requires human-curator throughput
 
-- **Acceptance of LLM proposals into the canonical DB**. The pipeline
-  routes to `for_curation/` on pass and `rejected/` on fail; an actual
-  merge of accepted proposals back into the ingested DB needs a
-  per-claim reviewer. Throughput is gated by curator availability, not
-  code.
+- **Acceptance of LLM proposals into the canonical DB** (2026-04-19: the
+  merge path is now implemented — see ADR 0008. `gapsmith-db curate
+  accept --merge-into db.gapsmith` attaches reactions, enzymes, DAG
+  edges, and citations to the canonical DB with `Source::LlmProposal`
+  evidence). Throughput is gated by curator availability, not code.
 - **Resolving `<PIN_TBD>` markers** in `data/*/SOURCE.toml` to concrete
   versions and committing the `sha256` outputs from the first real fetch.
   A judgement call per source (which release? which commit?).
