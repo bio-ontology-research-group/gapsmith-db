@@ -455,21 +455,42 @@ fn run_pmid_existence(p: &Proposal, cache: &mut HashSet<String>, online: bool) -
             }
         }
     }
-    for pm in &pmids {
-        if cache.contains(pm.as_str()) {
-            diags.push(Diagnostic::info(
-                VERIFIER_PMID,
-                Target::Database,
-                "ok",
-                format!("PMID {pm} resolves"),
-            ));
-        } else {
-            diags.push(Diagnostic::error(
-                VERIFIER_PMID,
-                Target::Database,
-                "unknown_pmid",
-                format!("PMID {pm} not in cache and --online not used"),
-            ));
+    // When online checking is off AND the cache is empty, we have no
+    // ground truth to reject against — emit a single per-proposal warning
+    // and skip per-PMID judgments. Mirrors how run_uniprot handles an
+    // empty snapshot. Without this, every proposal gets rejected for the
+    // trivial reason that we never looked.
+    if !online && cache.is_empty() {
+        diags.push(Diagnostic::warn(
+            VERIFIER_PMID,
+            Target::Database,
+            "no_reference",
+            "no PMID cache and --online-pmid off; PMID checks skipped",
+        ));
+    } else {
+        for pm in &pmids {
+            if cache.contains(pm.as_str()) {
+                diags.push(Diagnostic::info(
+                    VERIFIER_PMID,
+                    Target::Database,
+                    "ok",
+                    format!("PMID {pm} resolves"),
+                ));
+            } else if online {
+                diags.push(Diagnostic::error(
+                    VERIFIER_PMID,
+                    Target::Database,
+                    "unknown_pmid",
+                    format!("PMID {pm} not found via E-utils (likely fabricated)"),
+                ));
+            } else {
+                diags.push(Diagnostic::warn(
+                    VERIFIER_PMID,
+                    Target::Database,
+                    "unknown_pmid",
+                    format!("PMID {pm} not in cache and --online not used"),
+                ));
+            }
         }
     }
     let end = Utc::now();

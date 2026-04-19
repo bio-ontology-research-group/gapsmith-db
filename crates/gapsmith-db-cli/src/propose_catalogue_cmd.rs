@@ -14,6 +14,9 @@ use std::collections::HashSet;
 use std::fs::File;
 use std::io::{BufRead, BufReader, Write};
 use std::path::{Path, PathBuf};
+use std::sync::Arc;
+use std::sync::mpsc;
+use std::thread;
 use std::time::{Duration, Instant};
 
 use anyhow::Context;
@@ -24,7 +27,14 @@ use gapsmith_db_propose::{
 };
 use tracing::{info, warn};
 
-use crate::retrieval_factory::{self, RetrievalArgs};
+use crate::retrieval_factory::{self, Retrieval, RetrievalArgs};
+
+/// Per-pathway wall-clock timeout. We've observed the OpenRouter path
+/// occasionally wedging in a pure CPU spin (no I/O, no retry backoff;
+/// cause unresolved). Detached-thread watchdog caps the blast radius —
+/// the stuck thread keeps burning CPU until process exit, but the
+/// catalogue loop carries on.
+const PROPOSAL_TIMEOUT: Duration = Duration::from_secs(120);
 
 #[derive(clap::Args, Debug)]
 #[allow(clippy::struct_excessive_bools)]
@@ -121,8 +131,10 @@ pub fn run(args: ProposeCatalogueArgs) -> anyhow::Result<()> {
     info!(log = %log_path.display(), "per-run log");
 
     let cfg = OpenRouterConfig::new(args.model.clone());
-    let llm = OpenRouterBackend::new(cfg);
-    let proposer = Proposer::new(&llm, &retrieval, &template, opts);
+    let llm = Arc::new(OpenRouterBackend::new(cfg));
+    let retrieval = Arc::new(retrieval);
+    let template = Arc::new(template);
+    let opts = Arc::new(opts);
 
     let mut ok = 0_usize;
     let mut skipped = 0_usize;
@@ -173,9 +185,17 @@ pub fn run(args: ProposeCatalogueArgs) -> anyhow::Result<()> {
             notes: row.notes.clone(),
         };
         let start = Instant::now();
-        match proposer.propose(&target) {
-            Ok((p, path)) => {
+        match propose_with_watchdog(
+            llm.clone(),
+            retrieval.clone(),
+            template.clone(),
+            opts.clone(),
+            target,
+            PROPOSAL_TIMEOUT,
+        ) {
+            ProposeOutcome::Ok(p, path) => {
                 ok += 1;
+                let p = *p;
                 writeln!(
                     log,
                     "{}\t{}\tok\t{} ({}ms, {})",
@@ -186,7 +206,7 @@ pub fn run(args: ProposeCatalogueArgs) -> anyhow::Result<()> {
                     path.display(),
                 )?;
             }
-            Err(e) => {
+            ProposeOutcome::Err(e) => {
                 failed += 1;
                 warn!(pathway = %row.pathway_name, err = %e, "proposal failed");
                 writeln!(
@@ -194,6 +214,21 @@ pub fn run(args: ProposeCatalogueArgs) -> anyhow::Result<()> {
                     "{}\t{}\tfailed\t{e}",
                     Utc::now().to_rfc3339(),
                     row.pathway_name,
+                )?;
+            }
+            ProposeOutcome::Timeout => {
+                failed += 1;
+                warn!(
+                    pathway = %row.pathway_name,
+                    timeout_s = PROPOSAL_TIMEOUT.as_secs(),
+                    "proposal watchdog timeout; detaching thread and moving on"
+                );
+                writeln!(
+                    log,
+                    "{}\t{}\ttimeout\t{}s",
+                    Utc::now().to_rfc3339(),
+                    row.pathway_name,
+                    PROPOSAL_TIMEOUT.as_secs(),
                 )?;
             }
         }
@@ -209,6 +244,36 @@ pub fn run(args: ProposeCatalogueArgs) -> anyhow::Result<()> {
         log_path.display()
     );
     Ok(())
+}
+
+enum ProposeOutcome {
+    Ok(Box<gapsmith_db_propose::schema::Proposal>, PathBuf),
+    Err(gapsmith_db_propose::ProposeError),
+    Timeout,
+}
+
+/// Runs `proposer.propose` on a worker thread with a wall-clock watchdog.
+/// On timeout we detach the worker: the stuck thread keeps spinning until
+/// process exit, but the catalogue loop recovers. Over a 743-row run that
+/// means at most a handful of leaked threads — acceptable cost.
+fn propose_with_watchdog(
+    llm: Arc<OpenRouterBackend>,
+    retrieval: Arc<Retrieval>,
+    template: Arc<PromptTemplate>,
+    opts: Arc<ProposerOptions>,
+    target: ProposalTarget,
+    timeout: Duration,
+) -> ProposeOutcome {
+    let (tx, rx) = mpsc::channel();
+    thread::spawn(move || {
+        let proposer = Proposer::new(&*llm, &*retrieval, &template, (*opts).clone());
+        let _ = tx.send(proposer.propose(&target));
+    });
+    match rx.recv_timeout(timeout) {
+        Ok(Ok((p, path))) => ProposeOutcome::Ok(Box::new(p), path),
+        Ok(Err(e)) => ProposeOutcome::Err(e),
+        Err(_) => ProposeOutcome::Timeout,
+    }
 }
 
 #[derive(Debug, Clone)]
