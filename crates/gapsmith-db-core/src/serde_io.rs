@@ -117,6 +117,8 @@ struct ReactionRow {
     delta_g: String,
     names: String,
     xrefs: String,
+    #[serde(default)]
+    enzymes: String, // ;-joined Swiss-Prot accessions
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -126,6 +128,8 @@ struct PathwayRow {
     reactions: String, // ;-joined
     variant_of: String,
     organism_scope: String, // JSON
+    #[serde(default)]
+    dag: String, // "from->to;from->to;..."
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -203,16 +207,24 @@ fn reaction_to_row(r: &Reaction) -> ReactionRow {
             .map_or_else(String::new, |(v, u)| format!("{v};{u}")),
         names: join_semi(r.names.iter()),
         xrefs,
+        enzymes: join_semi(r.enzymes.iter()),
     }
 }
 
 fn pathway_to_row(p: &Pathway) -> Result<PathwayRow> {
+    let dag = p
+        .dag
+        .iter()
+        .map(|(a, b)| format!("{a}->{b}"))
+        .collect::<Vec<_>>()
+        .join(";");
     Ok(PathwayRow {
         id: p.id.to_string(),
         name: p.name.clone(),
         reactions: join_semi(p.reactions.iter().map(ToString::to_string)),
         variant_of: opt_string(p.variant_of.as_ref()),
         organism_scope: serde_json::to_string(&p.organism_scope)?,
+        dag,
     })
 }
 
@@ -253,6 +265,7 @@ fn source_code(s: crate::source::Source) -> &'static str {
         Source::Kegg => "kegg",
         Source::Inchikey => "inchikey",
         Source::Pubchem => "pubchem",
+        Source::LlmProposal => "llm_proposal",
         Source::Other => "other",
     }
 }

@@ -108,6 +108,14 @@ pub struct Reaction {
     #[serde(default)]
     pub names: Vec<String>,
 
+    /// Swiss-Prot accessions that catalyse this reaction. Populated when
+    /// the reaction is merged in from an accepted LLM proposal, or from
+    /// upstream annotation sources. An accession appearing here is a
+    /// *claim* about catalysis; the verifier layer (not this field)
+    /// decides whether the accession exists.
+    #[serde(default)]
+    pub enzymes: Vec<String>,
+
     #[serde(default)]
     pub evidence: Vec<Evidence>,
 }
@@ -127,6 +135,7 @@ impl Reaction {
             status: MassBalanceStatus::Unknown,
             xrefs: BTreeMap::new(),
             names: Vec::new(),
+            enzymes: Vec::new(),
             evidence: Vec::new(),
         }
     }

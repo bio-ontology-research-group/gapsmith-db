@@ -91,6 +91,16 @@ pub struct CurateDecideArgs {
     pub curator: String,
     #[arg(long)]
     pub comment: Option<String>,
+    /// Path to a `db.gapsmith` binary. On `accept`, the proposal's
+    /// reactions, enzymes, DAG, and citations are merged into the
+    /// loaded DB and written back to this path. Ignored for reject.
+    #[arg(long)]
+    pub merge_into: Option<PathBuf>,
+    /// Optional TSV export directory. When set together with
+    /// `--merge-into`, the post-merge DB is also dumped to TSV
+    /// (useful for diffing). Ignored without `--merge-into`.
+    #[arg(long)]
+    pub tsv_out: Option<PathBuf>,
 }
 
 #[derive(clap::Args, Debug)]

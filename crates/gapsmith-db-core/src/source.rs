@@ -27,6 +27,11 @@ pub enum Source {
     Inchikey,
     /// Pubchem CID / SID.
     Pubchem,
+    /// Claim originated from an LLM-generated [`Proposal`](gapsmith_db_propose::Proposal)
+    /// that has been accepted into the canonical DB. The supporting
+    /// `Evidence` entry carries the proposal's content hash so the
+    /// decision log entry can be cross-referenced.
+    LlmProposal,
     /// Generic fallback; the identifier string carries its own namespace.
     #[default]
     Other,
